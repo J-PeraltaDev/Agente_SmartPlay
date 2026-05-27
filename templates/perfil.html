@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+{% block title %}SmartPlay — {{ perfil.nombre }}{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Inicio</a></li>
+    <li class="breadcrumb-item active">{{ perfil.nombre }}</li>
+  </ol>
+</nav>
+
+<div class="row g-4">
+
+  <!-- ── Columna izquierda: perfil + calificar ────────────────── -->
+  <div class="col-lg-4">
+
+    <!-- Tarjeta de perfil -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-user-circle me-2" style="color:#a78bfa"></i>
+        <strong>Perfil del usuario</strong>
+      </div>
+      <div class="card-body">
+        <h4 class="fw-bold mb-1">{{ perfil.nombre }}</h4>
+        <p class="text-muted small mb-3">ID: <code>{{ perfil.id }}</code></p>
+
+        <ul class="list-unstyled mb-3">
+          <li class="mb-1">
+            <i class="fas fa-birthday-cake me-2 text-muted"></i>
+            {{ perfil.edad }} años
+          </li>
+          <li class="mb-1">
+            <i class="fas fa-map-marker-alt me-2 text-muted"></i>
+            {{ perfil.region }}
+          </li>
+          <li class="mb-1">
+            <i class="fas fa-desktop me-2 text-muted"></i>
+            {{ perfil.plataforma }}
+          </li>
+        </ul>
+
+        <div class="mb-2"><small class="text-muted">Géneros de interés:</small></div>
+        {% for g in perfil.generos %}
+          <span class="tag">{{ g }}</span>
+        {% endfor %}
+
+        <hr style="border-color:#2d2d4e">
+        <small class="text-muted">
+          <i class="fas fa-info-circle me-1"></i>
+          Los géneros se actualizan automáticamente cuando el
+          <strong>Agente de Perfil</strong> detecta calificaciones ≥ 8.0.
+        </small>
+      </div>
+    </div>
+
+    <!-- Formulario: calificar un juego -->
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fas fa-star me-2" style="color:#d97706"></i>
+        <strong>Registrar calificación</strong>
+      </div>
+      <div class="card-body">
+        <p class="text-muted small">
+          El <strong>Agente de Perfil</strong> actualizará el historial
+          e inferirá nuevos intereses automáticamente.
+        </p>
+        <form action="{{ url_for('calificar') }}" method="POST">
+          <input type="hidden" name="usuario_id" value="{{ perfil.id }}">
+
+          <div class="mb-3">
+            <label class="form-label small">Videojuego</label>
+            <select name="juego_id" class="form-select form-select-sm" required>
+              <option value="" disabled selected>— Selecciona un juego —</option>
+              {% for j in juegos_nuevos %}
+                <option value="{{ j.id }}">{{ j.titulo }} ({{ j.anio }})</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">
+              Calificación: <span id="cal-val">5.0</span>/10
+            </label>
+            <input type="range" class="form-range" name="calificacion"
+                   min="1" max="10" step="0.5" value="5"
+                   oninput="document.getElementById('cal-val').textContent = this.value">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Horas jugadas</label>
+            <input type="number" class="form-control form-control-sm"
+                   name="tiempo_jugado" min="1" max="999" value="5" required>
+          </div>
+
+          <button type="submit" class="btn btn-warning btn-sm w-100">
+            <i class="fas fa-save me-1"></i> Guardar calificación
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Formulario: generar recomendaciones -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-robot me-2" style="color:#059669"></i>
+        <strong>Generar recomendaciones</strong>
+      </div>
+      <div class="card-body">
+        <p class="text-muted small">
+          El <strong>Agente de Recomendación</strong> consultará el grafo
+          RDF via SPARQL y calculará los scores para cada juego candidato.
+        </p>
+        <form action="{{ url_for('recomendar', usuario_id=perfil.id) }}" method="POST">
+          <div class="mb-3">
+            <label class="form-label small">Estrategia</label>
+            <select name="estrategia" class="form-select form-select-sm">
+              <option value="">Automática (recomendada)</option>
+              <option value="contenido">Basada en Contenido</option>
+              <option value="colaborativa">Colaborativa</option>
+              <option value="hibrida">Híbrida</option>
+            </select>
+            <div class="form-text" style="font-size:.7rem">
+              <strong>Automática:</strong> híbrida si tiene historial, contenido si no.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Cantidad (n)</label>
+            <input type="number" class="form-control form-control-sm"
+                   name="n" min="1" max="10" value="5">
+          </div>
+
+          <button type="submit" class="btn btn-success btn-sm w-100">
+            <i class="fas fa-magic me-1"></i> Ejecutar agente
+          </button>
+        </form>
+
+        <hr style="border-color:#2d2d4e">
+        <small class="text-muted">También puedes consultar via API:</small>
+        <code style="font-size:.7rem;color:#a78bfa;display:block;margin-top:4px">
+          GET /api/recomendar/{{ perfil.id }}?estrategia=hibrida&n=5
+        </code>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Columna derecha: historial + recomendaciones ─────────── -->
+  <div class="col-lg-8">
+
+    <!-- Historial de juegos -->
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>
+          <i class="fas fa-history me-2" style="color:#a78bfa"></i>
+          <strong>Historial de juegos</strong>
+        </span>
+        <span class="badge" style="background:#2d2d4e">{{ perfil.historial|length }} juegos</span>
+      </div>
+      <div class="card-body p-0">
+        {% if perfil.historial %}
+          <div class="table-responsive">
+            <table class="table table-sm mb-0">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Género</th>
+                  <th>Calificación</th>
+                  <th>Horas</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for h in perfil.historial %}
+                <tr>
+                  <td class="fw-semibold">{{ h.titulo }}</td>
+                  <td><span class="tag">{{ h.genero }}</span></td>
+                  <td>
+                    <span class="fw-bold"
+                      style="color:{% if h.calificacion >= 9 %}#6ee7b7{% elif h.calificacion >= 7 %}#fcd34d{% else %}#fca5a5{% endif %}">
+                      {{ h.calificacion }}/10
+                    </span>
+                  </td>
+                  <td>{{ h.tiempo_jugado }}h</td>
+                  <td><small class="text-muted">{{ h.fecha[:10] }}</small></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="p-4 text-center text-muted">
+            <i class="fas fa-inbox fa-2x mb-2"></i><br>
+            Sin historial. ¡Califica tu primer juego!
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Recomendaciones generadas -->
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span>
+          <i class="fas fa-star me-2" style="color:#d97706"></i>
+          <strong>Recomendaciones generadas por el agente</strong>
+        </span>
+        <span class="badge" style="background:#2d2d4e">{{ recomendaciones|length }}</span>
+      </div>
+      <div class="card-body">
+        {% if recomendaciones %}
+          <div class="row g-3">
+            {% for rec in recomendaciones %}
+            <div class="col-md-6">
+              <div class="card h-100" style="border-color:#3d2d6e">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h6 class="fw-bold mb-0" style="color:#e0e0e0">{{ rec.titulo }}</h6>
+                    <span class="badge badge-{{ rec.estrategia|lower }}"
+                          style="font-size:.65rem;{% if rec.estrategia == 'BasadaEnContenido' %}background:#1d4ed8{% elif rec.estrategia == 'Hibrida' %}background:#7c3aed{% else %}background:#059669{% endif %}">
+                      {{ rec.estrategia }}
+                    </span>
+                  </div>
+
+                  <div class="d-flex gap-3 mb-2">
+                    <small class="text-muted"><i class="fas fa-tag me-1"></i>{{ rec.genero }}</small>
+                    <small class="text-muted"><i class="fas fa-dollar-sign me-1"></i>${{ rec.precio }}</small>
+                    <small class="text-muted"><i class="fas fa-calendar me-1"></i>{{ rec.anio }}</small>
+                  </div>
+
+                  <div class="mb-1 d-flex justify-content-between">
+                    <small class="text-muted">Relevancia</small>
+                    <small class="fw-bold" style="color:#a78bfa">
+                      {{ (rec.score * 100)|int }}%
+                    </small>
+                  </div>
+                  <div class="score-bar">
+                    <div class="score-fill" style="width:{{ (rec.score * 100)|int }}%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="mt-3 p-3 rounded" style="background:#0f0f1a;font-size:.8rem;color:#6b7280">
+            <i class="fas fa-info-circle me-1"></i>
+            Las recomendaciones son generadas consultando el grafo RDF vía SPARQL
+            y persistidas como nuevas tripletas RDF en el archivo Turtle.
+          </div>
+
+        {% else %}
+          <div class="text-center text-muted py-4">
+            <i class="fas fa-robot fa-3x mb-3" style="color:#2d2d4e"></i>
+            <p class="mb-2">El agente aún no ha generado recomendaciones para este usuario.</p>
+            <p class="small">Usa el formulario de la izquierda para ejecutar el agente.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

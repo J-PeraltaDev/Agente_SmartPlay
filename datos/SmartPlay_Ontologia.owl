@@ -1,0 +1,501 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.smartplay.com/ontology#"
+     xml:base="http://www.smartplay.com/ontology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.smartplay.com/ontology"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.smartplay.com/ontology#desarrolladoPor -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#desarrolladoPor">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Desarrollador"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#disponibleEn -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#disponibleEn">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Plataforma"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#interesadoEn -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#interesadoEn">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Genero"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#perteneceAGenero -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#perteneceAGenero">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Genero"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#plataformaPreferida -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#plataformaPreferida">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Plataforma"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#recibeRecomendacion -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#recibeRecomendacion">
+        <owl:inverseOf rdf:resource="http://www.smartplay.com/ontology#recomendadoPara"/>
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Recomendacion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#recomendadoPara -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#recomendadoPara">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Recomendacion"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#recomiendaJuego -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#recomiendaJuego">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Recomendacion"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#similarA -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#similarA">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#sobreJuego -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#sobreJuego">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#EntradaHistorial"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#tieneHistorial -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#tieneHistorial">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#EntradaHistorial"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#usaMecanica -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#usaMecanica">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#Mecanica"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#usoEstrategia -->
+
+    <owl:ObjectProperty rdf:about="http://www.smartplay.com/ontology#usoEstrategia">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Recomendacion"/>
+        <rdfs:range rdf:resource="http://www.smartplay.com/ontology#EstrategiaRecomendacion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.smartplay.com/ontology#anioLanzamiento -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#anioLanzamiento">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#calificacion -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#calificacion">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#EntradaHistorial"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#edad -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#edad">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#fechaRegistro -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#fechaRegistro">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#EntradaHistorial"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#nombreUsuario -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#nombreUsuario">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#precio -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#precio">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#puntuacionRelevancia -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#puntuacionRelevancia">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Recomendacion"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#region -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#region">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#tiempoJugado -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#tiempoJugado">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#EntradaHistorial"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#titulo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.smartplay.com/ontology#titulo">
+        <rdfs:domain rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Desarrollador -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#Desarrollador"/>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#EntradaHistorial -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#EntradaHistorial">
+        <rdfs:subClassOf rdf:resource="http://www.smartplay.com/ontology#EstrategiaRecomendacion"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#EstrategiaRecomendacion -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#EstrategiaRecomendacion"/>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Genero -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#Genero"/>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Mecanica -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#Mecanica"/>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Plataforma -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#Plataforma"/>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Recomendacion -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#Recomendacion"/>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Usuario -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#Usuario"/>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Videojuego -->
+
+    <owl:Class rdf:about="http://www.smartplay.com/ontology#Videojuego"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Accion -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Accion">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Genero"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#BasadaEnContenido -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#BasadaEnContenido">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#EstrategiaRecomendacion"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#CDProjektRed -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#CDProjektRed">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Desarrollador"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Camilo -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Camilo">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <interesadoEn rdf:resource="http://www.smartplay.com/ontology#Accion"/>
+        <plataformaPreferida rdf:resource="http://www.smartplay.com/ontology#PlayStation5"/>
+        <edad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">21</edad>
+        <nombreUsuario>Juan Camilo</nombreUsuario>
+        <region>Colombia</region>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Colaborativa -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Colaborativa">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#EstrategiaRecomendacion"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Cyberpunk2077 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Cyberpunk2077">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <desarrolladoPor rdf:resource="http://www.smartplay.com/ontology#CDProjektRed"/>
+        <disponibleEn rdf:resource="http://www.smartplay.com/ontology#PC"/>
+        <perteneceAGenero rdf:resource="http://www.smartplay.com/ontology#Accion"/>
+        <usaMecanica rdf:resource="http://www.smartplay.com/ontology#MundoAbierto"/>
+        <anioLanzamiento rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2020</anioLanzamiento>
+        <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">49.99</precio>
+        <titulo>Cyberpunk 2077</titulo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Difícil -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Difícil">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Mecanica"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#EldenRing -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#EldenRing">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Videojuego"/>
+        <desarrolladoPor rdf:resource="http://www.smartplay.com/ontology#FromSoftware"/>
+        <disponibleEn rdf:resource="http://www.smartplay.com/ontology#PC"/>
+        <perteneceAGenero rdf:resource="http://www.smartplay.com/ontology#RPG"/>
+        <usaMecanica rdf:resource="http://www.smartplay.com/ontology#Difícil"/>
+        <usaMecanica rdf:resource="http://www.smartplay.com/ontology#MundoAbierto"/>
+        <anioLanzamiento rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2022</anioLanzamiento>
+        <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">59.99</precio>
+        <titulo>Elden Ring</titulo>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#FromSoftware -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#FromSoftware">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Desarrollador"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Hibrida -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Hibrida">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#EstrategiaRecomendacion"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#HistorialJuan1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#HistorialJuan1">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#EntradaHistorial"/>
+        <sobreJuego rdf:resource="http://www.smartplay.com/ontology#EldenRing"/>
+        <calificacion rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.5</calificacion>
+        <fechaRegistro rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2026-05-01T10:00:00</fechaRegistro>
+        <tiempoJugado rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">120</tiempoJugado>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Juan -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Juan">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Usuario"/>
+        <interesadoEn rdf:resource="http://www.smartplay.com/ontology#RPG"/>
+        <plataformaPreferida rdf:resource="http://www.smartplay.com/ontology#PC"/>
+        <tieneHistorial rdf:resource="http://www.smartplay.com/ontology#HistorialJuan1"/>
+        <edad rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</edad>
+        <nombreUsuario>Juan Manuel</nombreUsuario>
+        <region>Colombia</region>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#MundoAbierto -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#MundoAbierto">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Mecanica"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#PC -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#PC">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Plataforma"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#PlayStation5 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#PlayStation5">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Plataforma"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#RPG -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#RPG">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Genero"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Recomendacion1 -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Recomendacion1">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Recomendacion"/>
+        <recomendadoPara rdf:resource="http://www.smartplay.com/ontology#Juan"/>
+        <recomiendaJuego rdf:resource="http://www.smartplay.com/ontology#Cyberpunk2077"/>
+        <usoEstrategia rdf:resource="http://www.smartplay.com/ontology#Hibrida"/>
+        <puntuacionRelevancia rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.91</puntuacionRelevancia>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.smartplay.com/ontology#Terror -->
+
+    <owl:NamedIndividual rdf:about="http://www.smartplay.com/ontology#Terror">
+        <rdf:type rdf:resource="http://www.smartplay.com/ontology#Genero"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

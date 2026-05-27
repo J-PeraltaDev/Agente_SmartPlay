@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SmartPlay{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { background: #0f0f1a; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
+    .navbar-brand { font-weight: 800; font-size: 1.5rem; color: #a78bfa !important; }
+    .navbar { background: #1a1a2e !important; border-bottom: 1px solid #2d2d4e; }
+    .card { background: #1a1a2e; border: 1px solid #2d2d4e; border-radius: 12px; }
+    .card-header { background: #16213e; border-bottom: 1px solid #2d2d4e; }
+    .btn-primary { background: #7c3aed; border-color: #7c3aed; }
+    .btn-primary:hover { background: #6d28d9; border-color: #6d28d9; }
+    .btn-success { background: #059669; border-color: #059669; }
+    .btn-outline-light { border-color: #4b5563; color: #9ca3af; }
+    .badge-contenido  { background: #1d4ed8; }
+    .badge-hibrida    { background: #7c3aed; }
+    .badge-colaborativa { background: #059669; }
+    .score-bar { height: 8px; border-radius: 4px; background: #2d2d4e; }
+    .score-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+    .tag { display: inline-block; padding: 2px 8px; border-radius: 99px;
+           font-size: .75rem; margin: 2px; background: #2d2d4e; color: #a78bfa; }
+    a { color: #a78bfa; text-decoration: none; }
+    a:hover { color: #c4b5fd; }
+    .form-control, .form-select {
+      background: #0f0f1a; border-color: #2d2d4e; color: #e0e0e0;
+    }
+    .form-control:focus, .form-select:focus {
+      background: #0f0f1a; border-color: #7c3aed; color: #e0e0e0;
+      box-shadow: 0 0 0 .2rem rgba(124,58,237,.25);
+    }
+    .alert-success { background: #064e3b; border-color: #059669; color: #6ee7b7; }
+    .alert-danger  { background: #7f1d1d; border-color: #dc2626; color: #fca5a5; }
+    .alert-warning { background: #78350f; border-color: #d97706; color: #fcd34d; }
+    .table { color: #e0e0e0; }
+    .table td, .table th { border-color: #2d2d4e; }
+    .table thead th { background: #16213e; }
+    .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">
+      <i class="fas fa-gamepad me-2"></i>SmartPlay
+    </a>
+    <span class="text-muted small ms-auto">
+      <i class="fas fa-brain me-1"></i> Agentes Inteligentes + Web Semántico
+    </span>
+  </div>
+</nav>
+
+<div class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</div>
+
+<footer class="text-center text-muted py-4 mt-5" style="font-size:.8rem; border-top:1px solid #2d2d4e;">
+  SmartPlay &mdash; Sistema de Recomendación con Agentes Inteligentes y Web Semántico &mdash;
+  Web Semántica y Agentes Inteligentes · Politécnico Colombiano Jaime Isaza Cadavid
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

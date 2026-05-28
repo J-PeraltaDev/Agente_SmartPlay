@@ -10,9 +10,31 @@
   </ol>
 </nav>
 
+<!-- Banner: perfil propio vs ajeno -->
+{% if es_propio %}
+  <div class="alert alert-success d-flex align-items-center gap-2 mb-4 py-2">
+    <i class="fas fa-user-check"></i>
+    <span>Estás viendo <strong>tu propio perfil</strong>. Podés calificar juegos y generar recomendaciones.</span>
+  </div>
+{% else %}
+  <div class="p-3 mb-4 rounded d-flex align-items-center gap-3"
+       style="background:#16213e; border:1px solid #2d2d4e;">
+    <i class="fas fa-eye" style="color:#a78bfa; font-size:1.2rem;"></i>
+    <div>
+      <strong style="color:#a78bfa;">Perfil de {{ perfil.nombre }}</strong>
+      <br>
+      <small class="text-muted">
+        Estás explorando el perfil de otro usuario.
+        Las calificaciones solo están disponibles en
+        <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">tu propio perfil</a>.
+      </small>
+    </div>
+  </div>
+{% endif %}
+
 <div class="row g-4">
 
-  <!-- ── Columna izquierda: perfil + calificar ────────────────── -->
+  <!-- ── Columna izquierda: perfil + acciones ──────────────────── -->
   <div class="col-lg-4">
 
     <!-- Tarjeta de perfil -->
@@ -20,6 +42,9 @@
       <div class="card-header">
         <i class="fas fa-user-circle me-2" style="color:#a78bfa"></i>
         <strong>Perfil del usuario</strong>
+        {% if es_propio %}
+          <span class="badge ms-2" style="background:#7c3aed; font-size:.65rem;">Tu cuenta</span>
+        {% endif %}
       </div>
       <div class="card-body">
         <h4 class="fw-bold mb-1">{{ perfil.nombre }}</h4>
@@ -43,6 +68,8 @@
         <div class="mb-2"><small class="text-muted">Géneros de interés:</small></div>
         {% for g in perfil.generos %}
           <span class="tag">{{ g }}</span>
+        {% else %}
+          <small class="text-muted">Sin géneros registrados aún.</small>
         {% endfor %}
 
         <hr style="border-color:#2d2d4e">
@@ -54,7 +81,8 @@
       </div>
     </div>
 
-    <!-- Formulario: calificar un juego -->
+    <!-- ══ CALIFICAR: solo visible para el dueño del perfil ══ -->
+    {% if es_propio %}
     <div class="card mb-3">
       <div class="card-header">
         <i class="fas fa-star me-2" style="color:#d97706"></i>
@@ -99,12 +127,30 @@
         </form>
       </div>
     </div>
+    {% else %}
+    <!-- Bloque informativo para perfiles ajenos -->
+    <div class="card mb-3" style="border-color:#2d2d4e; opacity:.8;">
+      <div class="card-body text-center py-4">
+        <i class="fas fa-lock fa-2x mb-2 text-muted"></i>
+        <p class="text-muted small mb-2">
+          Las calificaciones solo están disponibles desde tu propio perfil.
+        </p>
+        <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}"
+           class="btn btn-outline-light btn-sm">
+          <i class="fas fa-user me-1"></i>Ir a mi perfil
+        </a>
+      </div>
+    </div>
+    {% endif %}
 
-    <!-- Formulario: generar recomendaciones -->
+    <!-- Generar recomendaciones (visible para todos, pero ejecuta el agente del perfil visto) -->
     <div class="card">
       <div class="card-header">
         <i class="fas fa-robot me-2" style="color:#059669"></i>
         <strong>Generar recomendaciones</strong>
+        {% if not es_propio %}
+          <small class="text-muted ms-1">(para {{ perfil.nombre }})</small>
+        {% endif %}
       </div>
       <div class="card-body">
         <p class="text-muted small">
@@ -155,6 +201,9 @@
         <span>
           <i class="fas fa-history me-2" style="color:#a78bfa"></i>
           <strong>Historial de juegos</strong>
+          {% if not es_propio %}
+            <small class="text-muted ms-1">de {{ perfil.nombre }}</small>
+          {% endif %}
         </span>
         <span class="badge" style="background:#2d2d4e">{{ perfil.historial|length }} juegos</span>
       </div>
@@ -192,7 +241,11 @@
         {% else %}
           <div class="p-4 text-center text-muted">
             <i class="fas fa-inbox fa-2x mb-2"></i><br>
-            Sin historial. ¡Califica tu primer juego!
+            {% if es_propio %}
+              Sin historial. ¡Califica tu primer juego!
+            {% else %}
+              {{ perfil.nombre }} aún no tiene historial de juegos.
+            {% endif %}
           </div>
         {% endif %}
       </div>
@@ -216,7 +269,7 @@
                 <div class="card-body">
                   <div class="d-flex justify-content-between align-items-start mb-2">
                     <h6 class="fw-bold mb-0" style="color:#e0e0e0">{{ rec.titulo }}</h6>
-                    <span class="badge badge-{{ rec.estrategia|lower }}"
+                    <span class="badge"
                           style="font-size:.65rem;{% if rec.estrategia == 'BasadaEnContenido' %}background:#1d4ed8{% elif rec.estrategia == 'Hibrida' %}background:#7c3aed{% else %}background:#059669{% endif %}">
                       {{ rec.estrategia }}
                     </span>
@@ -252,7 +305,13 @@
         {% else %}
           <div class="text-center text-muted py-4">
             <i class="fas fa-robot fa-3x mb-3" style="color:#2d2d4e"></i>
-            <p class="mb-2">El agente aún no ha generado recomendaciones para este usuario.</p>
+            <p class="mb-2">
+              {% if es_propio %}
+                El agente aún no ha generado recomendaciones para ti.
+              {% else %}
+                El agente aún no ha generado recomendaciones para {{ perfil.nombre }}.
+              {% endif %}
+            </p>
             <p class="small">Usa el formulario de la izquierda para ejecutar el agente.</p>
           </div>
         {% endif %}

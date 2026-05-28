@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}SmartPlay — Iniciar sesión{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+  <div class="card">
+    <div class="card-body">
+
+      <!-- Logo / título -->
+      <div class="text-center mb-4">
+        <div style="font-size:3rem; color:#7c3aed;">
+          <i class="fas fa-gamepad"></i>
+        </div>
+        <h3 class="fw-bold mt-2" style="color:#a78bfa;">SmartPlay</h3>
+        <p class="text-muted small mb-0">Inicia sesión para acceder a tu perfil y calificaciones</p>
+      </div>
+
+      <!-- Formulario -->
+      <form method="POST" action="{{ url_for('login') }}">
+
+        <div class="mb-3">
+          <label class="form-label text-muted small">
+            <i class="fas fa-user me-1"></i>ID de usuario
+          </label>
+          <input
+            list="usuarios-list"
+            name="usuario_id"
+            class="form-control"
+            placeholder="ej. Juan, Maria, Andres…"
+            required
+            autocomplete="username"
+          >
+          <datalist id="usuarios-list">
+            {% for u in usuarios %}
+              <option value="{{ u.id }}">{{ u.nombre }}</option>
+            {% endfor %}
+          </datalist>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label text-muted small">
+            <i class="fas fa-lock me-1"></i>Contraseña
+          </label>
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            placeholder="••••••••"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="fas fa-sign-in-alt me-2"></i>Entrar
+        </button>
+      </form>
+
+      <div class="auth-divider mt-4"><span>¿No tienes cuenta?</span></div>
+
+      <a href="{{ url_for('register') }}" class="btn btn-outline-light w-100">
+        <i class="fas fa-user-plus me-2"></i>Registrarse
+      </a>
+
+      <!-- Usuarios de prueba -->
+      <div class="mt-4 p-3" style="background:#0f0f1a; border-radius:8px; border:1px solid #2d2d4e;">
+        <p class="text-muted small mb-2 fw-bold">
+          <i class="fas fa-info-circle me-1" style="color:#7c3aed;"></i>
+          Usuarios de prueba disponibles:
+        </p>
+        <div class="d-flex flex-wrap gap-1">
+          {% for u in usuarios %}
+            <span class="tag" style="cursor:pointer;" onclick="
+              document.querySelector('[name=usuario_id]').value='{{ u.id }}';
+            ">{{ u.id }}</span>
+          {% endfor %}
+        </div>
+        <p class="text-muted small mt-2 mb-0">
+          Contraseña: <code style="color:#a78bfa;">NombreID123*</code>
+          &nbsp;(ej. <code style="color:#a78bfa;">Juan123*</code>)
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -16,10 +16,12 @@
     .btn-primary:hover { background: #6d28d9; border-color: #6d28d9; }
     .btn-success { background: #059669; border-color: #059669; }
     .btn-outline-light { border-color: #4b5563; color: #9ca3af; }
-    .badge-contenido  { background: #1d4ed8; }
-    .badge-hibrida    { background: #7c3aed; }
+    .btn-outline-danger { border-color: #dc2626; color: #f87171; }
+    .btn-outline-danger:hover { background: #7f1d1d; color: #fca5a5; }
+    .badge-contenido    { background: #1d4ed8; }
+    .badge-hibrida      { background: #7c3aed; }
     .badge-colaborativa { background: #059669; }
-    .score-bar { height: 8px; border-radius: 4px; background: #2d2d4e; }
+    .score-bar  { height: 8px; border-radius: 4px; background: #2d2d4e; }
     .score-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #7c3aed, #a78bfa); }
     .tag { display: inline-block; padding: 2px 8px; border-radius: 99px;
            font-size: .75rem; margin: 2px; background: #2d2d4e; color: #a78bfa; }
@@ -32,14 +34,36 @@
       background: #0f0f1a; border-color: #7c3aed; color: #e0e0e0;
       box-shadow: 0 0 0 .2rem rgba(124,58,237,.25);
     }
+    .form-control::placeholder { color: #4b5563; }
     .alert-success { background: #064e3b; border-color: #059669; color: #6ee7b7; }
     .alert-danger  { background: #7f1d1d; border-color: #dc2626; color: #fca5a5; }
     .alert-warning { background: #78350f; border-color: #d97706; color: #fcd34d; }
+    .alert-info    { background: #1e3a5f; border-color: #3b82f6; color: #93c5fd; }
     .table { color: #e0e0e0; }
     .table td, .table th { border-color: #2d2d4e; }
     .table thead th { background: #16213e; }
     .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
+    /* Sesión badge */
+    .session-badge {
+      background: #2d2d4e; border-radius: 99px; padding: 4px 14px;
+      font-size: .82rem; color: #a78bfa; display: flex; align-items: center; gap: 8px;
+    }
+    .session-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #10b981; flex-shrink: 0;
+    }
+    /* Auth card */
+    .auth-card { max-width: 440px; margin: 4rem auto; }
+    .auth-card .card-body { padding: 2.5rem; }
+    .auth-divider { position: relative; text-align: center; margin: 1.2rem 0; }
+    .auth-divider::before {
+      content: ''; position: absolute; top: 50%; left: 0; right: 0;
+      height: 1px; background: #2d2d4e;
+    }
+    .auth-divider span {
+      position: relative; background: #1a1a2e; padding: 0 .75rem;
+      color: #4b5563; font-size: .8rem;
+    }
   </style>
 </head>
 <body>
@@ -49,9 +73,29 @@
     <a class="navbar-brand" href="{{ url_for('index') }}">
       <i class="fas fa-gamepad me-2"></i>SmartPlay
     </a>
-    <span class="text-muted small ms-auto">
-      <i class="fas fa-brain me-1"></i> Agentes Inteligentes + Web Semántico
-    </span>
+
+    <div class="ms-auto d-flex align-items-center gap-3">
+      {% if session.get('usuario_id') %}
+        <div class="session-badge">
+          <span class="dot"></span>
+          <span>
+            <i class="fas fa-user me-1"></i>
+            <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}"
+               style="color:#a78bfa">{{ session['usuario_nombre'] }}</a>
+          </span>
+        </div>
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">
+          <i class="fas fa-sign-out-alt me-1"></i>Salir
+        </a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm">
+          <i class="fas fa-sign-in-alt me-1"></i>Iniciar sesión
+        </a>
+        <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">
+          <i class="fas fa-user-plus me-1"></i>Registrarse
+        </a>
+      {% endif %}
+    </div>
   </div>
 </nav>
 

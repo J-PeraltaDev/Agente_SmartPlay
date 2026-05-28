@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}SmartPlay — Registro{% endblock %}
+
+{% block content %}
+<div class="auth-card" style="max-width:520px;">
+  <div class="card">
+    <div class="card-body">
+
+      <div class="text-center mb-4">
+        <div style="font-size:2.5rem; color:#7c3aed;">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h3 class="fw-bold mt-2" style="color:#a78bfa;">Crear cuenta</h3>
+        <p class="text-muted small mb-0">Regístrate para calificar juegos y recibir recomendaciones</p>
+      </div>
+
+      <form method="POST" action="{{ url_for('register') }}">
+
+        <div class="row g-3 mb-3">
+          <div class="col-12">
+            <label class="form-label text-muted small">
+              <i class="fas fa-id-card me-1"></i>Nombre completo
+            </label>
+            <input type="text" name="nombre" class="form-control"
+                   placeholder="ej. Laura Milena" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">
+              <i class="fas fa-at me-1"></i>ID de usuario
+              <span class="text-muted" style="font-size:.7rem;">(letras/números, sin espacios)</span>
+            </label>
+            <input type="text" name="usuario_id" class="form-control"
+                   placeholder="ej. Laura2" pattern="[A-Za-z][A-Za-z0-9_]{2,19}"
+                   title="Empieza con letra, 3-20 caracteres" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">
+              <i class="fas fa-birthday-cake me-1"></i>Edad
+            </label>
+            <input type="number" name="edad" class="form-control"
+                   placeholder="ej. 22" min="10" max="99" required>
+          </div>
+
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">
+              <i class="fas fa-globe-americas me-1"></i>Región
+            </label>
+            <select name="region" class="form-select">
+              <option value="Colombia">Colombia</option>
+              <option value="Mexico">México</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Chile">Chile</option>
+              <option value="España">España</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">
+              <i class="fas fa-desktop me-1"></i>Plataforma favorita
+            </label>
+            <select name="plataforma" class="form-select">
+              <option value="PC">PC</option>
+              <option value="PlayStation5">PlayStation 5</option>
+              <option value="XboxSeriesX">Xbox Series X</option>
+              <option value="NintendoSwitch">Nintendo Switch</option>
+              <option value="Mobile">Mobile</option>
+            </select>
+          </div>
+
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">
+              <i class="fas fa-lock me-1"></i>Contraseña
+            </label>
+            <input type="password" name="password" class="form-control"
+                   placeholder="Mínimo 6 caracteres" minlength="6" required autocomplete="new-password">
+          </div>
+
+          <div class="col-sm-6">
+            <label class="form-label text-muted small">
+              <i class="fas fa-lock me-1"></i>Confirmar contraseña
+            </label>
+            <input type="password" name="password2" class="form-control"
+                   placeholder="Repite la contraseña" minlength="6" required autocomplete="new-password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="fas fa-rocket me-2"></i>Crear cuenta
+        </button>
+      </form>
+
+      <div class="auth-divider mt-4"><span>¿Ya tienes cuenta?</span></div>
+
+      <a href="{{ url_for('login') }}" class="btn btn-outline-light w-100">
+        <i class="fas fa-sign-in-alt me-2"></i>Iniciar sesión
+      </a>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

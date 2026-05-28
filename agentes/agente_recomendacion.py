@@ -22,10 +22,12 @@ Tecnologías Web Semántico usadas:
 =============================================================================
 """
 
+from collections import Counter
 from datetime import datetime
-from rdflib import Graph, Namespace, Literal, XSD
+from math import log1p
+from rdflib import Namespace, Literal, XSD
 from rdflib.namespace import RDF
-from .agente_perfil_usuario import AgentePerfilUsuario
+from .agente_perfil_usuario import AgentePerfilUsuario, recurso_sp
 
 SP = Namespace("http://www.smartplay.com/ontology#")
 
@@ -82,22 +84,25 @@ class AgenteRecomendacion:
         }
         """
         catalogo = {}
-        for r in self.graph.query(query):
-            jid = str(r["juegoUri"]).split("#")[-1]
+        for fila in self.graph.query(query):
+            if not isinstance(fila, (tuple, list)) or len(fila) != 6:
+                continue
+            juego_uri, titulo, precio, anio, genero_uri, plataforma_uri = fila
+            jid = str(juego_uri).split("#")[-1]
             if jid not in catalogo:
                 catalogo[jid] = {
                     "id":         jid,
-                    "uri":        str(r["juegoUri"]),
-                    "titulo":     str(r["titulo"]),
-                    "precio":     float(r["precio"]),
-                    "anio":       int(r["anio"]),
+                    "uri":        str(juego_uri),
+                    "titulo":     str(titulo),
+                    "precio":     float(precio),
+                    "anio":       int(anio),
                     "generos":    set(),
                     "plataformas": set(),
                     "mecanicas":  set(),
                     "similares":  set(),
                 }
-            catalogo[jid]["generos"].add(str(r["generoUri"]).split("#")[-1])
-            catalogo[jid]["plataformas"].add(str(r["plataformaUri"]).split("#")[-1])
+            catalogo[jid]["generos"].add(str(genero_uri).split("#")[-1])
+            catalogo[jid]["plataformas"].add(str(plataforma_uri).split("#")[-1])
 
         # Añadir mecánicas y similares por separado
         for jid, datos in catalogo.items():
@@ -114,18 +119,31 @@ class AgenteRecomendacion:
         Consulta SPARQL: retorna IDs de juegos que el usuario calificó >= 8.0.
         Usado para detectar similitudes en filtrado por contenido.
         """
-        query = f"""
+        usuario_uri = self.agente_perfil.obtener_recurso_usuario(usuario_id)
+        if usuario_uri is None:
+            return set()
+
+        query = """
         PREFIX sp: <http://www.smartplay.com/ontology#>
         SELECT ?juegoUri
-        WHERE {{
-            sp:{usuario_id} sp:tieneHistorial ?entrada .
+        WHERE {
+            ?usuario sp:tieneHistorial ?entrada .
             ?entrada sp:sobreJuego  ?juegoUri ;
                      sp:calificacion ?cal .
-            FILTER(?cal >= {self.CALIFICACION_ALTA})
-        }}
+            FILTER(?cal >= ?minCal)
+        }
         """
-        return {str(r["juegoUri"]).split("#")[-1]
-                for r in self.graph.query(query)}
+        juegos = set()
+        for fila in self.graph.query(
+            query,
+            initBindings={
+                "usuario": usuario_uri,
+                "minCal": Literal(self.CALIFICACION_ALTA, datatype=XSD.decimal),
+            },
+        ):
+            if isinstance(fila, tuple) and len(fila) == 1:
+                juegos.add(str(fila[0]).split("#")[-1])
+        return juegos
 
     def _obtener_usuarios_similares(self, usuario_id: str) -> list[str]:
         """
@@ -135,43 +153,102 @@ class AgenteRecomendacion:
         Returns:
             Lista de usuario_ids similares (excluyendo al usuario objetivo).
         """
-        query = f"""
+        usuario_uri = self.agente_perfil.obtener_recurso_usuario(usuario_id)
+        if usuario_uri is None:
+            return []
+
+        query = """
         PREFIX sp: <http://www.smartplay.com/ontology#>
         SELECT DISTINCT ?otroUri
-        WHERE {{
-            sp:{usuario_id} sp:interesadoEn ?genero .
+        WHERE {
+            ?usuario sp:interesadoEn ?genero .
             ?otroUri a sp:Usuario ;
                      sp:interesadoEn ?genero .
-            FILTER(?otroUri != sp:{usuario_id})
-        }}
+            FILTER(?otroUri != ?usuario)
+        }
         """
-        return [str(r["otroUri"]).split("#")[-1]
-                for r in self.graph.query(query)]
+        usuarios = []
+        for fila in self.graph.query(query, initBindings={"usuario": usuario_uri}):
+            if isinstance(fila, tuple) and len(fila) == 1:
+                usuarios.append(str(fila[0]).split("#")[-1])
+        return usuarios
 
     def _obtener_calificacion_de_usuario(self, usuario_id: str, juego_id: str) -> float | None:
         """
         Consulta SPARQL: devuelve la calificación que un usuario le dio a un juego,
         o None si no lo ha jugado.
         """
-        query = f"""
+        usuario_uri = self.agente_perfil.obtener_recurso_usuario(usuario_id)
+        if usuario_uri is None:
+            return None
+        try:
+            juego_uri = recurso_sp(juego_id)
+        except ValueError:
+            return None
+
+        query = """
         PREFIX sp: <http://www.smartplay.com/ontology#>
         SELECT ?cal
-        WHERE {{
-            sp:{usuario_id} sp:tieneHistorial ?entrada .
-            ?entrada sp:sobreJuego  sp:{juego_id} ;
+        WHERE {
+            ?usuario sp:tieneHistorial ?entrada .
+            ?entrada sp:sobreJuego  ?juego ;
                      sp:calificacion ?cal .
-        }}
+        }
         LIMIT 1
         """
-        resultados = list(self.graph.query(query))
-        return float(resultados[0]["cal"]) if resultados else None
+        resultados = list(self.graph.query(
+            query,
+            initBindings={"usuario": usuario_uri, "juego": juego_uri},
+        ))
+        return float(str(resultados[0][0])) if resultados else None
+
+    def _obtener_senales_usuario(self, perfil: dict, catalogo: dict) -> dict:
+        """Resume señales de comportamiento para explicar y ajustar el scoring."""
+        generos = Counter(perfil.get("generos") or [])
+        mecanicas = Counter()
+        juegos_favoritos = set()
+        juegos_rechazados = set()
+        precios_favoritos = []
+
+        for entrada in perfil.get("historial", []):
+            juego = catalogo.get(entrada.get("juego_id"))
+            if not juego:
+                continue
+            calificacion = float(entrada.get("calificacion") or 0)
+            horas = int(entrada.get("tiempo_jugado") or 0)
+            peso = max(calificacion / 10.0, 0.1) * max(log1p(horas), 1.0)
+
+            if calificacion >= 7.5:
+                for genero in juego.get("generos", []):
+                    generos[genero] += peso
+                for mecanica in juego.get("mecanicas", []):
+                    mecanicas[mecanica] += peso
+
+            if calificacion >= self.CALIFICACION_ALTA:
+                juegos_favoritos.add(juego["id"])
+                precios_favoritos.append(juego.get("precio", 0))
+            elif calificacion <= 5.0:
+                juegos_rechazados.add(juego["id"])
+
+        precio_promedio = (
+            sum(precios_favoritos) / len(precios_favoritos)
+            if precios_favoritos else None
+        )
+        return {
+            "generos": generos,
+            "mecanicas": mecanicas,
+            "juegos_favoritos": juegos_favoritos,
+            "juegos_rechazados": juegos_rechazados,
+            "precio_promedio": precio_promedio,
+        }
 
     # ─────────────────────────────────────────────────────────────
     #  RAZONAMIENTO: cálculo de scores por estrategia
     # ─────────────────────────────────────────────────────────────
 
     def _score_contenido(self, perfil: dict, juego: dict,
-                         bien_calificados: set[str], catalogo: dict) -> float:
+                         bien_calificados: set[str], catalogo: dict,
+                         senales: dict | None = None) -> tuple[float, list[str]]:
         """
         Estrategia BasadaEnContenido.
         Pondera tres dimensiones:
@@ -186,32 +263,70 @@ class AgenteRecomendacion:
             catalogo:        Catálogo completo (para buscar similares).
 
         Returns:
-            Score en [0.0, 1.0].
+            Tupla (score en [0.0, 1.0], explicaciones).
         """
-        score = 0.0
+        if not isinstance(perfil, dict) or not isinstance(juego, dict):
+            return 0.0, []
 
-        # 1. Coincidencia de géneros
-        generos_usuario = set(perfil["generos"])
-        generos_juego   = juego["generos"]
+        score = 0.0
+        explicaciones = []
+        senales = senales or {}
+
+        # 1. Coincidencia de géneros declarados y aprendidos por historial
+        generos_usuario = set(perfil.get("generos") or [])
+        generos_juego   = set(juego.get("generos") or [])
         if generos_usuario:
             coincidencia = len(generos_usuario & generos_juego) / len(generos_usuario)
-            score += coincidencia * 0.40
+            if coincidencia:
+                score += coincidencia * 0.30
+                comunes = ", ".join(sorted(generos_usuario & generos_juego)[:3])
+                explicaciones.append(f"Coincide con tus géneros de interés: {comunes}.")
 
         # 2. Compatibilidad de plataforma
-        if perfil["plataforma"] in juego["plataformas"]:
-            score += 0.30
+        plataforma_usuario = perfil.get("plataforma")
+        plataformas_juego = juego.get("plataformas") or []
+        if plataforma_usuario and plataforma_usuario in plataformas_juego:
+            score += 0.20
+            explicaciones.append(f"Está disponible en tu plataforma preferida: {plataforma_usuario}.")
 
-        # 3. Similitud con juegos bien calificados del historial
-        # Un juego gana puntos si algún juego que el usuario ama lo marca como similar
+        # 3. Mecánicas aprendidas desde juegos con buenas calificaciones y muchas horas
+        mecanicas_usuario = senales.get("mecanicas") or Counter()
+        if mecanicas_usuario and juego.get("mecanicas"):
+            mecanicas_juego = set(juego["mecanicas"])
+            coincidencias = mecanicas_juego & set(mecanicas_usuario.keys())
+            if coincidencias:
+                total = sum(mecanicas_usuario.values()) or 1
+                peso = min(sum(mecanicas_usuario[m] for m in coincidencias) / total, 1.0)
+                score += peso * 0.15
+                explicaciones.append(
+                    "Comparte mecánicas que sueles valorar: "
+                    + ", ".join(sorted(coincidencias)[:3])
+                    + "."
+                )
+
+        # 4. Similitud explícita con juegos bien calificados del historial
         for buen_juego_id in bien_calificados:
             buen_juego = catalogo.get(buen_juego_id)
-            if buen_juego and juego["id"] in buen_juego.get("similares", set()):
-                score += 0.30
+            if buen_juego and juego.get("id") in buen_juego.get("similares", set()):
+                score += 0.20
+                explicaciones.append(
+                    f"Es similar a {buen_juego.get('titulo', buen_juego_id)}, que calificaste alto."
+                )
                 break  # Solo se contabiliza una vez
 
-        return min(score, 1.0)
+        # 5. Afinidad por precio y actualidad, como señales suaves de desempate
+        precio_promedio = senales.get("precio_promedio")
+        if precio_promedio is not None and juego.get("precio", 0) <= precio_promedio + 15:
+            score += 0.05
+            explicaciones.append("Su precio está cerca del rango de juegos que te han gustado.")
 
-    def _score_colaborativo(self, usuario_id: str, juego_id: str) -> float:
+        if int(juego.get("anio") or 0) >= 2020:
+            score += 0.05
+            explicaciones.append("Es un lanzamiento relativamente reciente dentro del catálogo.")
+
+        return min(score, 1.0), explicaciones[:5]
+
+    def _score_colaborativo(self, usuario_id: str, juego_id: str) -> tuple[float, list[str]]:
         """
         Estrategia Colaborativa.
         Busca la calificación promedio del juego entre usuarios similares
@@ -223,25 +338,63 @@ class AgenteRecomendacion:
             juego_id:   ID del juego candidato.
 
         Returns:
-            Score en [0.0, 1.0], o 0.0 si nadie similar jugó el juego.
+            Tupla (score en [0.0, 1.0], explicaciones).
         """
         perfil = self.agente_perfil.obtener_perfil(usuario_id)
+        if not perfil:
+            return 0.0, []
         usuarios_similares = self._obtener_usuarios_similares(usuario_id)
 
         scores_ponderados = []
+        usuarios_utiles = []
         for otro_id in usuarios_similares:
             cal = self._obtener_calificacion_de_usuario(otro_id, juego_id)
             if cal is None or cal < self.UMBRAL_COLABORATIVO:
                 continue
             # Peso extra si comparten plataforma preferida
             perfil_otro = self.agente_perfil.obtener_perfil(otro_id)
-            peso = 1.3 if (perfil_otro and
-                           perfil_otro["plataforma"] == perfil["plataforma"]) else 1.0
+            peso = 1.3 if (isinstance(perfil_otro, dict) and
+                           perfil_otro.get("plataforma") == perfil.get("plataforma")) else 1.0
             scores_ponderados.append((cal / 10.0) * peso)
+            usuarios_utiles.append((otro_id, cal))
 
         if not scores_ponderados:
-            return 0.0
-        return min(sum(scores_ponderados) / len(scores_ponderados), 1.0)
+            return 0.0, []
+        promedio = min(sum(scores_ponderados) / len(scores_ponderados), 1.0)
+        mejores = sorted(usuarios_utiles, key=lambda x: x[1], reverse=True)[:3]
+        detalle = ", ".join(f"{uid} ({cal:.1f}/10)" for uid, cal in mejores)
+        return promedio, [f"Usuarios con gustos similares lo calificaron alto: {detalle}."]
+
+    def _diversificar_top_n(self, candidatos: list[dict], n: int) -> list[dict]:
+        """Selecciona recomendaciones fuertes evitando un top dominado por un solo género."""
+        seleccionados = []
+        restantes = list(candidatos)
+        conteo_generos = Counter()
+
+        while restantes and len(seleccionados) < n:
+            mejor = None
+            mejor_valor = -1.0
+            for candidato in restantes:
+                generos = set(candidato.get("generos") or [])
+                penalizacion = sum(max(conteo_generos[g] - 1, 0) for g in generos) * 0.04
+                valor = candidato["score"] - penalizacion
+                if valor > mejor_valor:
+                    mejor = candidato
+                    mejor_valor = valor
+
+            restantes.remove(mejor)
+            for genero in mejor.get("generos", []):
+                conteo_generos[genero] += 1
+            if mejor_valor < mejor["score"]:
+                mejor = {
+                    **mejor,
+                    "explicaciones": mejor.get("explicaciones", []) + [
+                        "Se mantuvo en el top cuidando variedad frente a otros géneros."
+                    ],
+                }
+            seleccionados.append(mejor)
+
+        return seleccionados
 
     # ─────────────────────────────────────────────────────────────
     #  ACCIÓN PRINCIPAL: generar y persistir recomendaciones
@@ -267,12 +420,13 @@ class AgenteRecomendacion:
         # ── Percepción ────────────────────────────────────────────────────────
         perfil = self.agente_perfil.obtener_perfil(usuario_id)
         if not perfil:
-            print(f"[AgenteRecomendacion] ✗ Usuario '{usuario_id}' no encontrado.")
+            print(f"[AgenteRecomendacion] ERROR: Usuario '{usuario_id}' no encontrado.")
             return []
 
         jugados_uris  = self.agente_perfil.obtener_juegos_jugados_uris(usuario_id)
         catalogo      = self._obtener_catalogo()
         bien_calificados = self._obtener_juegos_bien_calificados(usuario_id)
+        senales = self._obtener_senales_usuario(perfil, catalogo)
 
         # Filtrar candidatos: excluir juegos ya jugados
         candidatos = [j for j in catalogo.values() if j["uri"] not in jugados_uris]
@@ -281,7 +435,7 @@ class AgenteRecomendacion:
             return []
 
         # ── Razonamiento: selección y aplicación de estrategia ────────────────
-        if estrategia is None:
+        if not estrategia:
             estrategia = "hibrida" if perfil["historial"] else "contenido"
 
         mapa_estrategia = {
@@ -295,19 +449,40 @@ class AgenteRecomendacion:
         candidatos_puntuados = []
         for juego in candidatos:
             if estrategia == "contenido":
-                score = self._score_contenido(perfil, juego, bien_calificados, catalogo)
+                score, explicaciones = self._score_contenido(
+                    perfil, juego, bien_calificados, catalogo, senales
+                )
+                score_contenido = score
+                score_colaborativo = 0.0
 
             elif estrategia == "colaborativa":
-                sc = self._score_colaborativo(usuario_id, juego["id"])
+                sc, razones_colab = self._score_colaborativo(usuario_id, juego["id"])
                 # Fallback a contenido si no hay datos colaborativos
-                score = sc if sc > 0 else (
-                    self._score_contenido(perfil, juego, bien_calificados, catalogo) * 0.5
-                )
+                if sc > 0:
+                    score = sc
+                    explicaciones = razones_colab
+                else:
+                    score_base, razones_contenido = self._score_contenido(
+                        perfil, juego, bien_calificados, catalogo, senales
+                    )
+                    score = score_base * 0.5
+                    explicaciones = razones_contenido + [
+                        "No hubo suficiente señal colaborativa; se usó contenido como respaldo."
+                    ]
+                    score_contenido = score_base
+                if sc > 0:
+                    score_contenido = 0.0
+                score_colaborativo = sc
 
             else:  # hibrida
-                sc = self._score_contenido(perfil, juego, bien_calificados, catalogo)
-                sl = self._score_colaborativo(usuario_id, juego["id"])
-                score = (sc * 0.60 + sl * 0.40) if sl > 0 else sc
+                sc, razones_contenido = self._score_contenido(
+                    perfil, juego, bien_calificados, catalogo, senales
+                )
+                sl, razones_colab = self._score_colaborativo(usuario_id, juego["id"])
+                score = (sc * 0.65 + sl * 0.35) if sl > 0 else sc
+                explicaciones = razones_contenido + razones_colab
+                score_contenido = sc
+                score_colaborativo = sl
 
             if score > 0:
                 candidatos_puntuados.append({
@@ -317,17 +492,20 @@ class AgenteRecomendacion:
                     "mecanicas":  list(juego["mecanicas"]),
                     "similares":  list(juego["similares"]),
                     "score":       round(score, 4),
+                    "score_contenido": round(score_contenido, 4),
+                    "score_colaborativo": round(score_colaborativo, 4),
                     "estrategia":  estrategia_uri,
                     "estrategia_label": estrategia,
+                    "explicaciones": explicaciones[:5],
                 })
 
         # Ordenar por score descendente y tomar top-N
         candidatos_puntuados.sort(key=lambda x: x["score"], reverse=True)
-        top_n = candidatos_puntuados[:n]
+        top_n = self._diversificar_top_n(candidatos_puntuados, n)
 
         # ── Acción: persistir recomendaciones en el grafo ─────────────────────
         self._guardar_recomendaciones(usuario_id, top_n)
-        print(f"[AgenteRecomendacion] ✓ {len(top_n)} recomendaciones generadas.")
+        print(f"[AgenteRecomendacion] OK: {len(top_n)} recomendaciones generadas.")
         return top_n
 
     def _guardar_recomendaciones(self, usuario_id: str, recomendaciones: list[dict]):
@@ -340,7 +518,9 @@ class AgenteRecomendacion:
             usuario_id:        ID del usuario.
             recomendaciones:   Lista ordenada de dicts con score y estrategia.
         """
-        usuario_uri = SP[usuario_id]
+        usuario_uri = self.agente_perfil.obtener_recurso_usuario(usuario_id)
+        if usuario_uri is None:
+            return
 
         # Eliminar recomendaciones previas del usuario
         recs_anteriores = list(self.graph.subjects(SP.recomendadoPara, usuario_uri))
@@ -353,21 +533,26 @@ class AgenteRecomendacion:
         for i, rec in enumerate(recomendaciones, start=1):
             rec_id  = f"Rec_{usuario_id}_{i:03d}"
             rec_uri = SP[rec_id]
+            juego_uri = self.agente_perfil.obtener_recurso_juego(rec["id"])
+            if juego_uri is None:
+                continue
 
             self.graph.add((rec_uri, RDF.type,                SP.Recomendacion))
             self.graph.add((rec_uri, SP.recomendadoPara,      usuario_uri))
-            self.graph.add((rec_uri, SP.recomiendaJuego,      SP[rec["id"]]))
-            self.graph.add((rec_uri, SP.usoEstrategia,        SP[rec["estrategia"]]))
+            self.graph.add((rec_uri, SP.recomiendaJuego,      juego_uri))
+            self.graph.add((rec_uri, SP.usoEstrategia,        recurso_sp(rec["estrategia"])))
             self.graph.add((rec_uri, SP.puntuacionRelevancia,
                             Literal(rec["score"], datatype=XSD.decimal)))
             self.graph.add((rec_uri, SP.fechaRecomendacion,
                             Literal(now, datatype=XSD.dateTime)))
+            for explicacion in rec.get("explicaciones", []):
+                self.graph.add((rec_uri, SP.explicacion, Literal(explicacion)))
 
-        self.graph.serialize(self.agente_perfil.ruta_datos, format="turtle")
+        self.agente_perfil.guardar()
 
     def obtener_recomendaciones_guardadas(self, usuario_id: str) -> list[dict]:
         """
-        Consulta SPARQL: recupera las recomendaciones ya almacenadas para
+        Recupera las recomendaciones ya almacenadas para
         un usuario, ordenadas por puntuación de relevancia descendente.
 
         Args:
@@ -376,37 +561,37 @@ class AgenteRecomendacion:
         Returns:
             Lista de dicts con título, score, estrategia y metadatos del juego.
         """
-        query = f"""
-        PREFIX sp: <http://www.smartplay.com/ontology#>
-        SELECT ?titulo ?score ?estrategiaUri ?fecha ?precio ?anio ?generoUri
-        WHERE {{
-            ?rec a sp:Recomendacion ;
-                 sp:recomendadoPara    sp:{usuario_id} ;
-                 sp:recomiendaJuego    ?juegoUri ;
-                 sp:puntuacionRelevancia ?score ;
-                 sp:usoEstrategia      ?estrategiaUri .
-            ?juegoUri sp:titulo           ?titulo ;
-                      sp:precio           ?precio ;
-                      sp:anioLanzamiento  ?anio ;
-                      sp:perteneceAGenero ?generoUri .
-            OPTIONAL {{ ?rec sp:fechaRecomendacion ?fecha }}
-        }}
-        ORDER BY DESC(?score)
-        """
-        vistas = set()
+        usuario_uri = self.agente_perfil.obtener_recurso_usuario(usuario_id)
+        if usuario_uri is None:
+            return []
+
         recomendaciones = []
-        for r in self.graph.query(query):
-            titulo = str(r["titulo"])
-            if titulo in vistas:
+        for rec_uri in self.graph.subjects(SP.recomendadoPara, usuario_uri):
+            if (rec_uri, RDF.type, SP.Recomendacion) not in self.graph:
                 continue
-            vistas.add(titulo)
+            juego_uri = self.graph.value(rec_uri, SP.recomiendaJuego)
+            score = self.graph.value(rec_uri, SP.puntuacionRelevancia)
+            estrategia_uri = self.graph.value(rec_uri, SP.usoEstrategia)
+            if not juego_uri or score is None or not estrategia_uri:
+                continue
+
+            titulo = self.graph.value(juego_uri, SP.titulo)
+            precio = self.graph.value(juego_uri, SP.precio)
+            anio = self.graph.value(juego_uri, SP.anioLanzamiento)
+            genero_uri = next(self.graph.objects(juego_uri, SP.perteneceAGenero), None)
+            if not titulo:
+                continue
+
+            explicaciones = [str(e) for e in self.graph.objects(rec_uri, SP.explicacion)]
+            fecha = self.graph.value(rec_uri, SP.fechaRecomendacion)
             recomendaciones.append({
-                "titulo":    titulo,
-                "score":     float(r["score"]),
-                "estrategia": str(r["estrategiaUri"]).split("#")[-1],
-                "fecha":     str(r["fecha"]) if r["fecha"] else "—",
-                "precio":    float(r["precio"]),
-                "anio":      int(r["anio"]),
-                "genero":    str(r["generoUri"]).split("#")[-1],
+                "titulo":    str(titulo),
+                "score":     float(str(score)),
+                "estrategia": str(estrategia_uri).split("#")[-1],
+                "fecha":     str(fecha) if fecha else "—",
+                "precio":    float(str(precio)) if precio is not None else 0.0,
+                "anio":      int(str(anio)) if anio is not None else 0,
+                "genero":    str(genero_uri).split("#")[-1] if genero_uri else "SinGenero",
+                "explicaciones": explicaciones,
             })
-        return recomendaciones
+        return sorted(recomendaciones, key=lambda r: r["score"], reverse=True)

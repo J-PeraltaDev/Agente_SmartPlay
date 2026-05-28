@@ -1,661 +1,872 @@
-@prefix sp:   <http://www.smartplay.com/ontology#> .
-@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix sp: <http://www.smartplay.com/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-# =============================================================
-#  SmartPlay — Dataset de muestra realista
-#  Namespace: http://www.smartplay.com/ontology#
-#  Individuos: 10 usuarios | 20 juegos | 30 historiales | 8 recomendaciones
-#  Compatible con SmartPlay_Ontologia.owl
-# =============================================================
+<http://www.smartplay.com/ontology> a owl:Ontology .
 
+sp:Andres a sp:Usuario ;
+    sp:edad 25 ;
+    sp:interesadoEn sp:Estrategia,
+        sp:Simulacion ;
+    sp:nombreUsuario "Andres Felipe" ;
+    sp:password "scrypt:32768:8:1$lQtW7Ufew37zcv6e$29f4b983e121b9ec6184ac6c91fcb42d595d629271957fa5416281cd09ad700cb4b0ff8e5353fe443aca85f1cbdfaf56dc79f286b54a98eb5580614de70bb540" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Mexico" ;
+    sp:tieneHistorial sp:HAndres1,
+        sp:HAndres2,
+        sp:HAndres3 .
 
-# ─────────────────────────────────────────────────────────────
-#  1. VOCABULARIO CONTROLADO — Géneros
-# ─────────────────────────────────────────────────────────────
-
-sp:RPG          a sp:Genero .
-sp:Accion       a sp:Genero .
-sp:Estrategia   a sp:Genero .
-sp:Terror       a sp:Genero .
-sp:Deportes     a sp:Genero .
-sp:Aventura     a sp:Genero .
-sp:Simulacion   a sp:Genero .
-sp:Plataformas  a sp:Genero .
-sp:Puzzle       a sp:Genero .
-sp:Peleas       a sp:Genero .
-sp:Carreras     a sp:Genero .
-
-
-# ─────────────────────────────────────────────────────────────
-#  2. VOCABULARIO CONTROLADO — Mecánicas
-# ─────────────────────────────────────────────────────────────
-
-sp:MundoAbierto     a sp:Mecanica .
-sp:TurnoPorTurno    a sp:Mecanica .
-sp:TiempoReal       a sp:Mecanica .
-sp:Cooperativo      a sp:Mecanica .
-sp:CombateExigente  a sp:Mecanica .
-sp:Sigilo           a sp:Mecanica .
-sp:Construccion     a sp:Mecanica .
-sp:Roguelike        a sp:Mecanica .
-sp:Multijugador     a sp:Mecanica .
-sp:Narrativa        a sp:Mecanica .
-sp:Sandbox          a sp:Mecanica .
-sp:GestionRecursos  a sp:Mecanica .
-
-
-# ─────────────────────────────────────────────────────────────
-#  3. VOCABULARIO CONTROLADO — Plataformas
-# ─────────────────────────────────────────────────────────────
-
-sp:PC             a sp:Plataforma .
-sp:PlayStation5   a sp:Plataforma .
-sp:XboxSeriesX    a sp:Plataforma .
-sp:NintendoSwitch a sp:Plataforma .
-sp:Mobile         a sp:Plataforma .
-
-
-# ─────────────────────────────────────────────────────────────
-#  4. VOCABULARIO CONTROLADO — Desarrolladores
-# ─────────────────────────────────────────────────────────────
-
-sp:FromSoftware      a sp:Desarrollador .
-sp:Valve             a sp:Desarrollador .
-sp:CDProjektRed      a sp:Desarrollador .
-sp:Nintendo          a sp:Desarrollador .
-sp:Rockstar          a sp:Desarrollador .
-sp:NaughtyDog        a sp:Desarrollador .
-sp:Supergiant        a sp:Desarrollador .
-sp:Ubisoft           a sp:Desarrollador .
-sp:LarianStudios     a sp:Desarrollador .
-sp:InsomniacGames    a sp:Desarrollador .
-sp:ArkhaneStudios    a sp:Desarrollador .
-sp:FiraxisGames      a sp:Desarrollador .
-sp:ElectronicArts    a sp:Desarrollador .
-sp:ConcernedApe      a sp:Desarrollador .
-sp:GuerrillaGames    a sp:Desarrollador .
-sp:SantaMonicaStudio a sp:Desarrollador .
-sp:Capcom            a sp:Desarrollador .
-sp:Mojang            a sp:Desarrollador .
-sp:TeamCherry        a sp:Desarrollador .
-
-
-# ─────────────────────────────────────────────────────────────
-#  5. VOCABULARIO CONTROLADO — Estrategias de recomendación
-# ─────────────────────────────────────────────────────────────
-
-sp:BasadaEnContenido a sp:EstrategiaRecomendacion .
-sp:Colaborativa      a sp:EstrategiaRecomendacion .
-sp:Hibrida           a sp:EstrategiaRecomendacion .
-
-
-# ─────────────────────────────────────────────────────────────
-#  6. VIDEOJUEGOS  (20 títulos con metadatos completos)
-# ─────────────────────────────────────────────────────────────
-
-sp:EldenRing a sp:Videojuego ;
-  sp:titulo              "Elden Ring" ;
-  sp:anioLanzamiento     "2022"^^xsd:integer ;
-  sp:precio              "59.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:RPG ;
-  sp:usaMecanica         sp:MundoAbierto, sp:CombateExigente ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5, sp:XboxSeriesX ;
-  sp:desarrolladoPor     sp:FromSoftware ;
-  sp:similarA            sp:Sekiro, sp:DarkSoulsRemastered .
-
-sp:Sekiro a sp:Videojuego ;
-  sp:titulo              "Sekiro: Shadows Die Twice" ;
-  sp:anioLanzamiento     "2019"^^xsd:integer ;
-  sp:precio              "39.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Accion ;
-  sp:usaMecanica         sp:CombateExigente, sp:Narrativa ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:FromSoftware ;
-  sp:similarA            sp:EldenRing .
-
-sp:DarkSoulsRemastered a sp:Videojuego ;
-  sp:titulo              "Dark Souls Remastered" ;
-  sp:anioLanzamiento     "2018"^^xsd:integer ;
-  sp:precio              "24.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:RPG ;
-  sp:usaMecanica         sp:CombateExigente ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:FromSoftware ;
-  sp:similarA            sp:EldenRing .
-
-sp:Cyberpunk2077 a sp:Videojuego ;
-  sp:titulo              "Cyberpunk 2077" ;
-  sp:anioLanzamiento     "2020"^^xsd:integer ;
-  sp:precio              "49.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:RPG ;
-  sp:usaMecanica         sp:MundoAbierto, sp:Narrativa ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5, sp:XboxSeriesX ;
-  sp:desarrolladoPor     sp:CDProjektRed ;
-  sp:similarA            sp:TheWitcher3 .
-
-sp:TheWitcher3 a sp:Videojuego ;
-  sp:titulo              "The Witcher 3: Wild Hunt" ;
-  sp:anioLanzamiento     "2015"^^xsd:integer ;
-  sp:precio              "29.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:RPG ;
-  sp:usaMecanica         sp:MundoAbierto, sp:Narrativa ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5, sp:NintendoSwitch ;
-  sp:desarrolladoPor     sp:CDProjektRed ;
-  sp:similarA            sp:Cyberpunk2077, sp:BaldursGate3 .
-
-sp:BaldursGate3 a sp:Videojuego ;
-  sp:titulo              "Baldur's Gate 3" ;
-  sp:anioLanzamiento     "2023"^^xsd:integer ;
-  sp:precio              "59.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:RPG ;
-  sp:usaMecanica         sp:TurnoPorTurno, sp:Cooperativo, sp:Narrativa ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:LarianStudios ;
-  sp:similarA            sp:TheWitcher3 .
-
-sp:Hades a sp:Videojuego ;
-  sp:titulo              "Hades" ;
-  sp:anioLanzamiento     "2020"^^xsd:integer ;
-  sp:precio              "24.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Accion ;
-  sp:usaMecanica         sp:Roguelike, sp:CombateExigente, sp:Narrativa ;
-  sp:disponibleEn        sp:PC, sp:NintendoSwitch, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:Supergiant ;
-  sp:similarA            sp:CelesteMountain .
-
-sp:GodOfWarRagnarok a sp:Videojuego ;
-  sp:titulo              "God of War: Ragnarök" ;
-  sp:anioLanzamiento     "2022"^^xsd:integer ;
-  sp:precio              "49.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Accion ;
-  sp:usaMecanica         sp:Narrativa, sp:CombateExigente ;
-  sp:disponibleEn        sp:PlayStation5, sp:PC ;
-  sp:desarrolladoPor     sp:SantaMonicaStudio ;
-  sp:similarA            sp:TheLastOfUs2 .
-
-sp:TheLastOfUs2 a sp:Videojuego ;
-  sp:titulo              "The Last of Us Parte II" ;
-  sp:anioLanzamiento     "2020"^^xsd:integer ;
-  sp:precio              "39.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Accion ;
-  sp:usaMecanica         sp:Narrativa, sp:Sigilo ;
-  sp:disponibleEn        sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:NaughtyDog ;
-  sp:similarA            sp:GodOfWarRagnarok, sp:Dishonored2 .
-
-sp:ResidentEvil4 a sp:Videojuego ;
-  sp:titulo              "Resident Evil 4 Remake" ;
-  sp:anioLanzamiento     "2023"^^xsd:integer ;
-  sp:precio              "49.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Terror ;
-  sp:usaMecanica         sp:Narrativa, sp:Sigilo ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:Capcom .
-
-sp:Minecraft a sp:Videojuego ;
-  sp:titulo              "Minecraft" ;
-  sp:anioLanzamiento     "2011"^^xsd:integer ;
-  sp:precio              "26.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Simulacion ;
-  sp:usaMecanica         sp:Sandbox, sp:Construccion, sp:Multijugador ;
-  sp:disponibleEn        sp:PC, sp:NintendoSwitch, sp:Mobile ;
-  sp:desarrolladoPor     sp:Mojang .
-
-sp:StardewValley a sp:Videojuego ;
-  sp:titulo              "Stardew Valley" ;
-  sp:anioLanzamiento     "2016"^^xsd:integer ;
-  sp:precio              "13.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Simulacion ;
-  sp:usaMecanica         sp:Construccion, sp:GestionRecursos ;
-  sp:disponibleEn        sp:PC, sp:NintendoSwitch, sp:Mobile ;
-  sp:desarrolladoPor     sp:ConcernedApe ;
-  sp:similarA            sp:Minecraft .
-
-sp:CelesteMountain a sp:Videojuego ;
-  sp:titulo              "Celeste" ;
-  sp:anioLanzamiento     "2018"^^xsd:integer ;
-  sp:precio              "19.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Plataformas ;
-  sp:usaMecanica         sp:CombateExigente, sp:Narrativa ;
-  sp:disponibleEn        sp:PC, sp:NintendoSwitch, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:TeamCherry ;
-  sp:similarA            sp:Hades .
-
-sp:HollowKnight a sp:Videojuego ;
-  sp:titulo              "Hollow Knight" ;
-  sp:anioLanzamiento     "2017"^^xsd:integer ;
-  sp:precio              "14.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Plataformas ;
-  sp:usaMecanica         sp:CombateExigente, sp:MundoAbierto ;
-  sp:disponibleEn        sp:PC, sp:NintendoSwitch, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:TeamCherry ;
-  sp:similarA            sp:CelesteMountain, sp:EldenRing .
-
-sp:Portal2 a sp:Videojuego ;
-  sp:titulo              "Portal 2" ;
-  sp:anioLanzamiento     "2011"^^xsd:integer ;
-  sp:precio              "9.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Puzzle ;
-  sp:usaMecanica         sp:Cooperativo, sp:Narrativa ;
-  sp:disponibleEn        sp:PC ;
-  sp:desarrolladoPor     sp:Valve .
-
-sp:Civilization6 a sp:Videojuego ;
-  sp:titulo              "Civilization VI" ;
-  sp:anioLanzamiento     "2016"^^xsd:integer ;
-  sp:precio              "29.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Estrategia ;
-  sp:usaMecanica         sp:TurnoPorTurno, sp:GestionRecursos ;
-  sp:disponibleEn        sp:PC, sp:NintendoSwitch ;
-  sp:desarrolladoPor     sp:FiraxisGames .
-
-sp:HorizonForbiddenWest a sp:Videojuego ;
-  sp:titulo              "Horizon Forbidden West" ;
-  sp:anioLanzamiento     "2022"^^xsd:integer ;
-  sp:precio              "49.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Accion ;
-  sp:usaMecanica         sp:MundoAbierto, sp:Narrativa ;
-  sp:disponibleEn        sp:PlayStation5, sp:PC ;
-  sp:desarrolladoPor     sp:GuerrillaGames ;
-  sp:similarA            sp:TheWitcher3 .
-
-sp:Dishonored2 a sp:Videojuego ;
-  sp:titulo              "Dishonored 2" ;
-  sp:anioLanzamiento     "2016"^^xsd:integer ;
-  sp:precio              "19.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Accion ;
-  sp:usaMecanica         sp:Sigilo, sp:Narrativa ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5 ;
-  sp:desarrolladoPor     sp:ArkhaneStudios ;
-  sp:similarA            sp:TheLastOfUs2 .
-
-sp:SpiderManMiles a sp:Videojuego ;
-  sp:titulo              "Spider-Man: Miles Morales" ;
-  sp:anioLanzamiento     "2020"^^xsd:integer ;
-  sp:precio              "39.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Accion ;
-  sp:usaMecanica         sp:Narrativa, sp:MundoAbierto ;
-  sp:disponibleEn        sp:PlayStation5, sp:PC ;
-  sp:desarrolladoPor     sp:InsomniacGames ;
-  sp:similarA            sp:GodOfWarRagnarok .
+sp:Carreras a sp:Genero .
 
 sp:FIFA25 a sp:Videojuego ;
-  sp:titulo              "EA Sports FC 25" ;
-  sp:anioLanzamiento     "2024"^^xsd:integer ;
-  sp:precio              "59.99"^^xsd:decimal ;
-  sp:perteneceAGenero    sp:Deportes ;
-  sp:usaMecanica         sp:Multijugador ;
-  sp:disponibleEn        sp:PC, sp:PlayStation5, sp:XboxSeriesX ;
-  sp:desarrolladoPor     sp:ElectronicArts .
+    sp:anioLanzamiento 2024 ;
+    sp:desarrolladoPor sp:ElectronicArts ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Deportes ;
+    sp:precio 59.99 ;
+    sp:titulo "EA Sports FC 25" ;
+    sp:usaMecanica sp:Multijugador .
 
+sp:Nintendo a sp:Desarrollador .
 
-# ─────────────────────────────────────────────────────────────
-#  7. USUARIOS  (10 perfiles con historial y preferencias)
-# ─────────────────────────────────────────────────────────────
+sp:Peleas a sp:Genero .
 
-# — Juan Manuel — amante de RPG, jugador de PC, historial profundo
-sp:Juan a sp:Usuario ;
-  sp:nombreUsuario       "Juan Manuel" ;
-  sp:edad                "20"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$gYo0lkUb6qrNeJFf$3bd5faceb4f7156ae4a9793095dd67f22128edc97f2aadb63db2cf5daea116f5e021e8907d1dfd580e1b186ad31dc56bc3b4cadc2b8877a6b89e60f08696776f" ;
-  sp:region              "Colombia" ;
-  sp:interesadoEn        sp:RPG, sp:Accion ;
-  sp:plataformaPreferida sp:PC ;
-  sp:tieneHistorial      sp:HJuan1, sp:HJuan2, sp:HJuan3 .
+sp:Rec002 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:05:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.88 ;
+    sp:recomendadoPara sp:Camilo ;
+    sp:recomiendaJuego sp:BaldursGate3 ;
+    sp:usoEstrategia sp:Colaborativa .
 
-sp:HJuan1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:EldenRing ;
-  sp:calificacion  "9.5"^^xsd:decimal ;
-  sp:tiempoJugado  "120"^^xsd:integer ;
-  sp:fechaRegistro "2026-01-15T18:00:00"^^xsd:dateTime .
+sp:Rec003 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:10:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.91 ;
+    sp:recomendadoPara sp:Maria ;
+    sp:recomiendaJuego sp:Cyberpunk2077 ;
+    sp:usoEstrategia sp:BasadaEnContenido .
 
-sp:HJuan2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:BaldursGate3 ;
-  sp:calificacion  "9.8"^^xsd:decimal ;
-  sp:tiempoJugado  "160"^^xsd:integer ;
-  sp:fechaRegistro "2026-02-20T20:00:00"^^xsd:dateTime .
+sp:Rec004 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:15:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.96 ;
+    sp:recomendadoPara sp:Sofia ;
+    sp:recomiendaJuego sp:Hades ;
+    sp:usoEstrategia sp:Hibrida .
 
-sp:HJuan3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:TheWitcher3 ;
-  sp:calificacion  "9.0"^^xsd:decimal ;
-  sp:tiempoJugado  "100"^^xsd:integer ;
-  sp:fechaRegistro "2025-11-10T16:00:00"^^xsd:dateTime .
+sp:Rec005 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:20:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.79 ;
+    sp:recomendadoPara sp:Carlos ;
+    sp:recomiendaJuego sp:Sekiro ;
+    sp:usoEstrategia sp:Hibrida .
 
+sp:Rec006 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:25:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.85 ;
+    sp:recomendadoPara sp:Laura ;
+    sp:recomiendaJuego sp:Civilization6 ;
+    sp:usoEstrategia sp:Colaborativa .
 
-# — Camilo — fanático de acción, PS5, multijugador
-sp:Camilo a sp:Usuario ;
-  sp:nombreUsuario       "Juan Camilo" ;
-  sp:edad                "21"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$w1blVQkcgYrhdZsN$b9df872f248b415eb139b174559c2b972e4cf07de64e641c190d465ef85c71b2952e8ab18840e4e4ac8265f4bd58b0628d0180fb08b3e29c23e42c6454025de2" ;
-  sp:region              "Colombia" ;
-  sp:interesadoEn        sp:Accion, sp:RPG ;
-  sp:plataformaPreferida sp:PlayStation5 ;
-  sp:tieneHistorial      sp:HCamilo1, sp:HCamilo2, sp:HCamilo3 .
+sp:Rec007 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:30:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.93 ;
+    sp:recomendadoPara sp:Diego ;
+    sp:recomiendaJuego sp:TheLastOfUs2 ;
+    sp:usoEstrategia sp:BasadaEnContenido .
 
-sp:HCamilo1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Cyberpunk2077 ;
-  sp:calificacion  "8.5"^^xsd:decimal ;
-  sp:tiempoJugado  "40"^^xsd:integer ;
-  sp:fechaRegistro "2026-03-20T20:00:00"^^xsd:dateTime .
+sp:Rec008 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:35:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.92 ;
+    sp:recomendadoPara sp:Valentina ;
+    sp:recomiendaJuego sp:EldenRing ;
+    sp:usoEstrategia sp:Hibrida .
 
-sp:HCamilo2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:GodOfWarRagnarok ;
-  sp:calificacion  "9.2"^^xsd:decimal ;
-  sp:tiempoJugado  "30"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-05T21:00:00"^^xsd:dateTime .
+sp:Rec_Juan_001 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-28T01:12:09.138027"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.911 ;
+    sp:recomendadoPara sp:Juan ;
+    sp:recomiendaJuego sp:Cyberpunk2077 ;
+    sp:usoEstrategia sp:Hibrida .
 
-sp:HCamilo3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:SpiderManMiles ;
-  sp:calificacion  "8.8"^^xsd:decimal ;
-  sp:tiempoJugado  "15"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-28T19:00:00"^^xsd:dateTime .
+sp:Rec_Juan_002 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-28T01:12:09.138027"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.7333 ;
+    sp:recomendadoPara sp:Juan ;
+    sp:recomiendaJuego sp:DarkSoulsRemastered ;
+    sp:usoEstrategia sp:Hibrida .
 
+sp:Rockstar a sp:Desarrollador .
 
-# — Maria — RPG narrativos, PS5 y PC
-sp:Maria a sp:Usuario ;
-  sp:nombreUsuario       "Maria Fernanda" ;
-  sp:edad                "22"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$TNT56aPAhLHXHwgF$a7b5cb702572e76d84bce38c4a2a197b3fac9f15b67f8a9dc934a3be46e476c5ad98aa5e76c580e27a158287e218da4d999563bc3b3ae1a5f0946370a064eda2" ;
-  sp:region              "Colombia" ;
-  sp:interesadoEn        sp:RPG, sp:Aventura ;
-  sp:plataformaPreferida sp:PlayStation5 ;
-  sp:tieneHistorial      sp:HMaria1, sp:HMaria2, sp:HMaria3 .
+sp:Sebastian a sp:Usuario ;
+    sp:edad 27 ;
+    sp:interesadoEn sp:Puzzle,
+        sp:Simulacion ;
+    sp:nombreUsuario "Sebastian Torres" ;
+    sp:password "scrypt:32768:8:1$TAIwfM2lQqnceO1C$cbe4549fd8611a9f570adb7ec423d61e4b7775168e55c8bd5ae8a29ce14699c499103969c3a0fd0df2441cc4a9cfeeee1c4064aecb4edc3b2961d1d2e10a14a8" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HSebastian1,
+        sp:HSebastian2,
+        sp:HSebastian3 .
 
-sp:HMaria1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:TheWitcher3 ;
-  sp:calificacion  "9.7"^^xsd:decimal ;
-  sp:tiempoJugado  "140"^^xsd:integer ;
-  sp:fechaRegistro "2025-12-01T17:00:00"^^xsd:dateTime .
+sp:TiempoReal a sp:Mecanica .
 
-sp:HMaria2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:HorizonForbiddenWest ;
-  sp:calificacion  "9.0"^^xsd:decimal ;
-  sp:tiempoJugado  "50"^^xsd:integer ;
-  sp:fechaRegistro "2026-02-14T15:00:00"^^xsd:dateTime .
+sp:Ubisoft a sp:Desarrollador .
 
-sp:HMaria3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:BaldursGate3 ;
-  sp:calificacion  "9.5"^^xsd:decimal ;
-  sp:tiempoJugado  "90"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-20T20:00:00"^^xsd:dateTime .
+sp:anioLanzamiento a owl:DatatypeProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range xsd:integer .
 
+sp:calificacion a owl:DatatypeProperty ;
+    rdfs:domain sp:EntradaHistorial ;
+    rdfs:range xsd:decimal .
 
-# — Andres — estrategia y construcción, PC
-sp:Andres a sp:Usuario ;
-  sp:nombreUsuario       "Andres Felipe" ;
-  sp:edad                "25"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$lQtW7Ufew37zcv6e$29f4b983e121b9ec6184ac6c91fcb42d595d629271957fa5416281cd09ad700cb4b0ff8e5353fe443aca85f1cbdfaf56dc79f286b54a98eb5580614de70bb540" ;
-  sp:region              "Mexico" ;
-  sp:interesadoEn        sp:Estrategia, sp:Simulacion ;
-  sp:plataformaPreferida sp:PC ;
-  sp:tieneHistorial      sp:HAndres1, sp:HAndres2, sp:HAndres3 .
+sp:desarrolladoPor a owl:ObjectProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range sp:Desarrollador .
+
+sp:disponibleEn a owl:ObjectProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range sp:Plataforma .
+
+sp:edad a owl:DatatypeProperty ;
+    rdfs:domain sp:Usuario ;
+    rdfs:range xsd:integer .
+
+sp:fechaRegistro a owl:DatatypeProperty ;
+    rdfs:domain sp:EntradaHistorial ;
+    rdfs:range xsd:dateTime .
+
+sp:interesadoEn a owl:ObjectProperty ;
+    rdfs:domain sp:Usuario ;
+    rdfs:range sp:Genero .
+
+sp:nombreUsuario a owl:DatatypeProperty ;
+    rdfs:domain sp:Usuario ;
+    rdfs:range xsd:string .
+
+sp:perteneceAGenero a owl:ObjectProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range sp:Genero .
+
+sp:plataformaPreferida a owl:ObjectProperty ;
+    rdfs:domain sp:Usuario ;
+    rdfs:range sp:Plataforma .
+
+sp:precio a owl:DatatypeProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range xsd:decimal .
+
+sp:puntuacionRelevancia a owl:DatatypeProperty ;
+    rdfs:domain sp:Recomendacion ;
+    rdfs:range xsd:decimal .
+
+sp:recibeRecomendacion a owl:ObjectProperty ;
+    rdfs:domain sp:Usuario ;
+    rdfs:range sp:Recomendacion ;
+    owl:inverseOf sp:recomendadoPara .
+
+sp:recomiendaJuego a owl:ObjectProperty ;
+    rdfs:domain sp:Recomendacion ;
+    rdfs:range sp:Videojuego .
+
+sp:region a owl:DatatypeProperty ;
+    rdfs:domain sp:Usuario ;
+    rdfs:range xsd:string .
+
+sp:similarA a owl:ObjectProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range sp:Videojuego .
+
+sp:sobreJuego a owl:ObjectProperty ;
+    rdfs:domain sp:EntradaHistorial ;
+    rdfs:range sp:Videojuego .
+
+sp:tiempoJugado a owl:DatatypeProperty ;
+    rdfs:domain sp:EntradaHistorial ;
+    rdfs:range xsd:integer .
+
+sp:tieneHistorial a owl:ObjectProperty ;
+    rdfs:domain sp:Usuario ;
+    rdfs:range sp:EntradaHistorial .
+
+sp:titulo a owl:DatatypeProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range xsd:string .
+
+sp:usaMecanica a owl:ObjectProperty ;
+    rdfs:domain sp:Videojuego ;
+    rdfs:range sp:Mecanica .
+
+sp:usoEstrategia a owl:ObjectProperty ;
+    rdfs:domain sp:Recomendacion ;
+    rdfs:range sp:EstrategiaRecomendacion .
+
+sp:ArkhaneStudios a sp:Desarrollador .
+
+sp:Aventura a sp:Genero .
+
+sp:Camilo a sp:Usuario,
+        owl:NamedIndividual ;
+    sp:edad 21 ;
+    sp:interesadoEn sp:Accion,
+        sp:RPG ;
+    sp:nombreUsuario "Juan Camilo" ;
+    sp:password "scrypt:32768:8:1$w1blVQkcgYrhdZsN$b9df872f248b415eb139b174559c2b972e4cf07de64e641c190d465ef85c71b2952e8ab18840e4e4ac8265f4bd58b0628d0180fb08b3e29c23e42c6454025de2" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HCamilo1,
+        sp:HCamilo2,
+        sp:HCamilo3 .
+
+sp:Capcom a sp:Desarrollador .
+
+sp:Carlos a sp:Usuario ;
+    sp:edad 28 ;
+    sp:interesadoEn sp:Accion,
+        sp:Terror ;
+    sp:nombreUsuario "Carlos Andres" ;
+    sp:password "scrypt:32768:8:1$LbeaDJfS5CmFVTMs$bf032ab10100b93c21ee0ad66689a24b7d544226272392de59dfc69b7e00691be443a1e9aa7626421da097ffefce7faa4aa84dd0ffff4897a06574d9da435a0a" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HCarlos1,
+        sp:HCarlos2,
+        sp:HCarlos3 .
+
+sp:ConcernedApe a sp:Desarrollador .
+
+sp:Deportes a sp:Genero .
+
+sp:Diego a sp:Usuario ;
+    sp:edad 26 ;
+    sp:interesadoEn sp:Accion,
+        sp:RPG ;
+    sp:nombreUsuario "Diego Hernan" ;
+    sp:password "scrypt:32768:8:1$2IpACqLWzFi9xOg4$bb6d00f8602e37c918721d39626b2cff6810376790211961bfea0cb8fb09597396346b08152dff800d08f9a9fe1e27502a643551ff1fd9edddd356aa5f12190b" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Chile" ;
+    sp:tieneHistorial sp:HDiego1,
+        sp:HDiego2,
+        sp:HDiego3 .
+
+sp:Difícil a sp:Mecanica,
+        owl:NamedIndividual .
+
+sp:ElectronicArts a sp:Desarrollador .
+
+sp:FiraxisGames a sp:Desarrollador .
+
+sp:GuerrillaGames a sp:Desarrollador .
 
 sp:HAndres1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Civilization6 ;
-  sp:calificacion  "9.4"^^xsd:decimal ;
-  sp:tiempoJugado  "200"^^xsd:integer ;
-  sp:fechaRegistro "2025-10-05T14:00:00"^^xsd:dateTime .
+    sp:calificacion 9.4 ;
+    sp:fechaRegistro "2025-10-05T14:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Civilization6 ;
+    sp:tiempoJugado 200 .
 
 sp:HAndres2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Minecraft ;
-  sp:calificacion  "8.0"^^xsd:decimal ;
-  sp:tiempoJugado  "83"^^xsd:integer ;
-  sp:fechaRegistro "2025-11-20T16:00:00"^^xsd:dateTime .
+    sp:calificacion 8.0 ;
+    sp:fechaRegistro "2025-11-20T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Minecraft ;
+    sp:tiempoJugado 83 .
 
 sp:HAndres3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:StardewValley ;
-  sp:calificacion  "8.7"^^xsd:decimal ;
-  sp:tiempoJugado  "80"^^xsd:integer ;
-  sp:fechaRegistro "2026-01-08T11:00:00"^^xsd:dateTime .
+    sp:calificacion 8.7 ;
+    sp:fechaRegistro "2026-01-08T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 80 .
 
+sp:HCamilo1 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-03-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Cyberpunk2077 ;
+    sp:tiempoJugado 40 .
 
-# — Sofia — plataformas y juegos portátiles, Nintendo Switch
-sp:Sofia a sp:Usuario ;
-  sp:nombreUsuario       "Sofia Alejandra" ;
-  sp:edad                "19"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$AwxV72YalGWl8DJb$2e0ded8bef2a534d0441958332ecde72ccc6c66858084abb0f7601b0f9b693d93bd030e831e224b22bcf92b525d34e4eefecbc4d90ef2013a7faffc23b5116d5" ;
-  sp:region              "Argentina" ;
-  sp:interesadoEn        sp:Plataformas, sp:Accion ;
-  sp:plataformaPreferida sp:NintendoSwitch ;
-  sp:tieneHistorial      sp:HSofia1, sp:HSofia2, sp:HSofia3, sp:HSofia4 .
+sp:HCamilo2 a sp:EntradaHistorial ;
+    sp:calificacion 9.2 ;
+    sp:fechaRegistro "2026-04-05T21:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:GodOfWarRagnarok ;
+    sp:tiempoJugado 30 .
 
-sp:HSofia1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:HollowKnight ;
-  sp:calificacion  "9.6"^^xsd:decimal ;
-  sp:tiempoJugado  "60"^^xsd:integer ;
-  sp:fechaRegistro "2026-01-25T20:00:00"^^xsd:dateTime .
-
-sp:HSofia2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:CelesteMountain ;
-  sp:calificacion  "9.3"^^xsd:decimal ;
-  sp:tiempoJugado  "25"^^xsd:integer ;
-  sp:fechaRegistro "2026-02-10T19:00:00"^^xsd:dateTime .
-
-sp:HSofia3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Hades ;
-  sp:calificacion  "9.1"^^xsd:decimal ;
-  sp:tiempoJugado  "47"^^xsd:integer ;
-  sp:fechaRegistro "2026-03-15T21:00:00"^^xsd:dateTime .
-
-sp:HSofia4 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:StardewValley ;
-  sp:calificacion  "8.5"^^xsd:decimal ;
-  sp:tiempoJugado  "33"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-01T18:00:00"^^xsd:dateTime .
-
-
-# — Carlos — terror y sigilo, PS5
-sp:Carlos a sp:Usuario ;
-  sp:nombreUsuario       "Carlos Andres" ;
-  sp:edad                "28"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$LbeaDJfS5CmFVTMs$bf032ab10100b93c21ee0ad66689a24b7d544226272392de59dfc69b7e00691be443a1e9aa7626421da097ffefce7faa4aa84dd0ffff4897a06574d9da435a0a" ;
-  sp:region              "Colombia" ;
-  sp:interesadoEn        sp:Terror, sp:Accion ;
-  sp:plataformaPreferida sp:PlayStation5 ;
-  sp:tieneHistorial      sp:HCarlos1, sp:HCarlos2, sp:HCarlos3 .
+sp:HCamilo3 a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-04-28T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:SpiderManMiles ;
+    sp:tiempoJugado 15 .
 
 sp:HCarlos1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:ResidentEvil4 ;
-  sp:calificacion  "9.8"^^xsd:decimal ;
-  sp:tiempoJugado  "16"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-02T22:00:00"^^xsd:dateTime .
+    sp:calificacion 9.8 ;
+    sp:fechaRegistro "2026-04-02T22:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:ResidentEvil4 ;
+    sp:tiempoJugado 16 .
 
 sp:HCarlos2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:TheLastOfUs2 ;
-  sp:calificacion  "9.5"^^xsd:decimal ;
-  sp:tiempoJugado  "25"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-15T21:00:00"^^xsd:dateTime .
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-04-15T21:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:TheLastOfUs2 ;
+    sp:tiempoJugado 25 .
 
 sp:HCarlos3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Dishonored2 ;
-  sp:calificacion  "8.2"^^xsd:decimal ;
-  sp:tiempoJugado  "13"^^xsd:integer ;
-  sp:fechaRegistro "2026-05-01T20:00:00"^^xsd:dateTime .
-
-
-# — Laura — simulación y gestión, PC
-sp:Laura a sp:Usuario ;
-  sp:nombreUsuario       "Laura Milena" ;
-  sp:edad                "23"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$5KTQ3nR76OOKRV8m$56272d02373a3cc063541d517b5a740992e19b42afe0b237a81d0e4a90897c6c7e476fa40b4f0bee2edafa5597616c7885682acceaddfe449b8eb7eab9fc5b94" ;
-  sp:region              "Colombia" ;
-  sp:interesadoEn        sp:Simulacion, sp:Puzzle ;
-  sp:plataformaPreferida sp:PC ;
-  sp:tieneHistorial      sp:HLaura1, sp:HLaura2, sp:HLaura3 .
-
-sp:HLaura1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:StardewValley ;
-  sp:calificacion  "9.9"^^xsd:decimal ;
-  sp:tiempoJugado  "150"^^xsd:integer ;
-  sp:fechaRegistro "2025-09-01T15:00:00"^^xsd:dateTime .
-
-sp:HLaura2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Portal2 ;
-  sp:calificacion  "9.2"^^xsd:decimal ;
-  sp:tiempoJugado  "8"^^xsd:integer ;
-  sp:fechaRegistro "2026-01-20T17:00:00"^^xsd:dateTime .
-
-sp:HLaura3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Minecraft ;
-  sp:calificacion  "8.5"^^xsd:decimal ;
-  sp:tiempoJugado  "100"^^xsd:integer ;
-  sp:fechaRegistro "2026-03-10T16:00:00"^^xsd:dateTime .
-
-
-# — Diego — acción narrativa, PS5, Chile
-sp:Diego a sp:Usuario ;
-  sp:nombreUsuario       "Diego Hernan" ;
-  sp:edad                "26"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$2IpACqLWzFi9xOg4$bb6d00f8602e37c918721d39626b2cff6810376790211961bfea0cb8fb09597396346b08152dff800d08f9a9fe1e27502a643551ff1fd9edddd356aa5f12190b" ;
-  sp:region              "Chile" ;
-  sp:interesadoEn        sp:Accion, sp:RPG ;
-  sp:plataformaPreferida sp:PlayStation5 ;
-  sp:tieneHistorial      sp:HDiego1, sp:HDiego2, sp:HDiego3 .
+    sp:calificacion 8.2 ;
+    sp:fechaRegistro "2026-05-01T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Dishonored2 ;
+    sp:tiempoJugado 13 .
 
 sp:HDiego1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:GodOfWarRagnarok ;
-  sp:calificacion  "10.0"^^xsd:decimal ;
-  sp:tiempoJugado  "35"^^xsd:integer ;
-  sp:fechaRegistro "2026-03-01T19:00:00"^^xsd:dateTime .
+    sp:calificacion 10.0 ;
+    sp:fechaRegistro "2026-03-01T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:GodOfWarRagnarok ;
+    sp:tiempoJugado 35 .
 
 sp:HDiego2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:SpiderManMiles ;
-  sp:calificacion  "9.0"^^xsd:decimal ;
-  sp:tiempoJugado  "13"^^xsd:integer ;
-  sp:fechaRegistro "2026-03-20T20:00:00"^^xsd:dateTime .
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-03-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:SpiderManMiles ;
+    sp:tiempoJugado 13 .
 
 sp:HDiego3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:HorizonForbiddenWest ;
-  sp:calificacion  "8.7"^^xsd:decimal ;
-  sp:tiempoJugado  "40"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-10T18:00:00"^^xsd:dateTime .
+    sp:calificacion 8.7 ;
+    sp:fechaRegistro "2026-04-10T18:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:HorizonForbiddenWest ;
+    sp:tiempoJugado 40 .
 
+sp:HJuan1 a sp:EntradaHistorial ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-01-15T18:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:EldenRing ;
+    sp:tiempoJugado 120 .
 
-# — Valentina — RPG profundos, PC y PS5
-sp:Valentina a sp:Usuario ;
-  sp:nombreUsuario       "Valentina Rios" ;
-  sp:edad                "24"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$HAnpMikWGQ5qLVSV$9a43306d7ceaddd11f5f5094ccbe2040fb5159058be757ef3f03f721592487bec59f281b32d8e55f89efd691dd88600f2c4c8ca70546498f8683bf5d486d2826" ;
-  sp:region              "Colombia" ;
-  sp:interesadoEn        sp:RPG, sp:Estrategia ;
-  sp:plataformaPreferida sp:PC ;
-  sp:tieneHistorial      sp:HValentina1, sp:HValentina2, sp:HValentina3 .
+sp:HJuan2 a sp:EntradaHistorial ;
+    sp:calificacion 9.8 ;
+    sp:fechaRegistro "2026-02-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:BaldursGate3 ;
+    sp:tiempoJugado 160 .
 
-sp:HValentina1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:BaldursGate3 ;
-  sp:calificacion  "10.0"^^xsd:decimal ;
-  sp:tiempoJugado  "240"^^xsd:integer ;
-  sp:fechaRegistro "2025-08-15T14:00:00"^^xsd:dateTime .
+sp:HJuan3 a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2025-11-10T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:TheWitcher3 ;
+    sp:tiempoJugado 100 .
 
-sp:HValentina2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Cyberpunk2077 ;
-  sp:calificacion  "8.5"^^xsd:decimal ;
-  sp:tiempoJugado  "60"^^xsd:integer ;
-  sp:fechaRegistro "2026-01-05T19:00:00"^^xsd:dateTime .
+sp:HJuan_Portal2_307275 a sp:EntradaHistorial ;
+    sp:calificacion 8.0 ;
+    sp:fechaRegistro "2026-05-28T01:11:56.768486"^^xsd:dateTime ;
+    sp:sobreJuego sp:Portal2 ;
+    sp:tiempoJugado 50 .
 
-sp:HValentina3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Civilization6 ;
-  sp:calificacion  "8.8"^^xsd:decimal ;
-  sp:tiempoJugado  "120"^^xsd:integer ;
-  sp:fechaRegistro "2026-02-28T16:00:00"^^xsd:dateTime .
+sp:HLaura1 a sp:EntradaHistorial ;
+    sp:calificacion 9.9 ;
+    sp:fechaRegistro "2025-09-01T15:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 150 .
 
+sp:HLaura2 a sp:EntradaHistorial ;
+    sp:calificacion 9.2 ;
+    sp:fechaRegistro "2026-01-20T17:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Portal2 ;
+    sp:tiempoJugado 8 .
 
-# — Sebastian — puzzle y cooperativo, PC
-sp:Sebastian a sp:Usuario ;
-  sp:nombreUsuario       "Sebastian Torres" ;
-  sp:edad                "27"^^xsd:integer ;
-  sp:password           "scrypt:32768:8:1$TAIwfM2lQqnceO1C$cbe4549fd8611a9f570adb7ec423d61e4b7775168e55c8bd5ae8a29ce14699c499103969c3a0fd0df2441cc4a9cfeeee1c4064aecb4edc3b2961d1d2e10a14a8" ;
-  sp:region              "Colombia" ;
-  sp:interesadoEn        sp:Puzzle, sp:Simulacion ;
-  sp:plataformaPreferida sp:PC ;
-  sp:tieneHistorial      sp:HSebastian1, sp:HSebastian2, sp:HSebastian3 .
+sp:HLaura3 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-03-10T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Minecraft ;
+    sp:tiempoJugado 100 .
+
+sp:HMaria1 a sp:EntradaHistorial ;
+    sp:calificacion 9.7 ;
+    sp:fechaRegistro "2025-12-01T17:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:TheWitcher3 ;
+    sp:tiempoJugado 140 .
+
+sp:HMaria2 a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-02-14T15:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:HorizonForbiddenWest ;
+    sp:tiempoJugado 50 .
+
+sp:HMaria3 a sp:EntradaHistorial ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-04-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:BaldursGate3 ;
+    sp:tiempoJugado 90 .
 
 sp:HSebastian1 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Portal2 ;
-  sp:calificacion  "9.7"^^xsd:decimal ;
-  sp:tiempoJugado  "10"^^xsd:integer ;
-  sp:fechaRegistro "2026-02-05T17:00:00"^^xsd:dateTime .
+    sp:calificacion 9.7 ;
+    sp:fechaRegistro "2026-02-05T17:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Portal2 ;
+    sp:tiempoJugado 10 .
 
 sp:HSebastian2 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:Minecraft ;
-  sp:calificacion  "8.0"^^xsd:decimal ;
-  sp:tiempoJugado  "60"^^xsd:integer ;
-  sp:fechaRegistro "2026-03-01T15:00:00"^^xsd:dateTime .
+    sp:calificacion 8.0 ;
+    sp:fechaRegistro "2026-03-01T15:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Minecraft ;
+    sp:tiempoJugado 60 .
 
 sp:HSebastian3 a sp:EntradaHistorial ;
-  sp:sobreJuego    sp:StardewValley ;
-  sp:calificacion  "9.0"^^xsd:decimal ;
-  sp:tiempoJugado  "40"^^xsd:integer ;
-  sp:fechaRegistro "2026-04-12T14:00:00"^^xsd:dateTime .
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-04-12T14:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 40 .
 
+sp:HSofia1 a sp:EntradaHistorial ;
+    sp:calificacion 9.6 ;
+    sp:fechaRegistro "2026-01-25T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:HollowKnight ;
+    sp:tiempoJugado 60 .
 
-# ─────────────────────────────────────────────────────────────
-#  8. RECOMENDACIONES  (8 con estrategias y scores variados)
-# ─────────────────────────────────────────────────────────────
+sp:HSofia2 a sp:EntradaHistorial ;
+    sp:calificacion 9.3 ;
+    sp:fechaRegistro "2026-02-10T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:CelesteMountain ;
+    sp:tiempoJugado 25 .
 
-# Juan → Sekiro (misma mecánica CombateExigente que EldenRing) — contenido
-sp:Rec001 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Juan ;
-  sp:recomiendaJuego    sp:Sekiro ;
-  sp:usoEstrategia      sp:BasadaEnContenido ;
-  sp:puntuacionRelevancia "0.94"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:00:00"^^xsd:dateTime .
+sp:HSofia3 a sp:EntradaHistorial ;
+    sp:calificacion 9.1 ;
+    sp:fechaRegistro "2026-03-15T21:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Hades ;
+    sp:tiempoJugado 47 .
 
-# Camilo → BaldursGate3 (usuarios similares lo calificaron alto) — colaborativa
-sp:Rec002 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Camilo ;
-  sp:recomiendaJuego    sp:BaldursGate3 ;
-  sp:usoEstrategia      sp:Colaborativa ;
-  sp:puntuacionRelevancia "0.88"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:05:00"^^xsd:dateTime .
+sp:HSofia4 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-04-01T18:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 33 .
 
-# Maria → Cyberpunk2077 (mismo dev CDProjektRed, mismo género RPG) — contenido
-sp:Rec003 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Maria ;
-  sp:recomiendaJuego    sp:Cyberpunk2077 ;
-  sp:usoEstrategia      sp:BasadaEnContenido ;
-  sp:puntuacionRelevancia "0.91"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:10:00"^^xsd:dateTime .
+sp:HValentina1 a sp:EntradaHistorial ;
+    sp:calificacion 10.0 ;
+    sp:fechaRegistro "2025-08-15T14:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:BaldursGate3 ;
+    sp:tiempoJugado 240 .
 
-# Sofia → BaldursGate3 (usuarios con perfil similar lo aman) — híbrida
-sp:Rec004 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Sofia ;
-  sp:recomiendaJuego    sp:Hades ;
-  sp:usoEstrategia      sp:Hibrida ;
-  sp:puntuacionRelevancia "0.96"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:15:00"^^xsd:dateTime .
+sp:HValentina2 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-01-05T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Cyberpunk2077 ;
+    sp:tiempoJugado 60 .
 
-# Carlos → ResidentEvil4 ya jugado; sugerencia de Dishonored2 por Sigilo — contenido
-sp:Rec005 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Carlos ;
-  sp:recomiendaJuego    sp:Sekiro ;
-  sp:usoEstrategia      sp:Hibrida ;
-  sp:puntuacionRelevancia "0.79"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:20:00"^^xsd:dateTime .
+sp:HValentina3 a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-02-28T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Civilization6 ;
+    sp:tiempoJugado 120 .
 
-# Laura → Civilization6 (usuarios similares de simulación) — colaborativa
-sp:Rec006 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Laura ;
-  sp:recomiendaJuego    sp:Civilization6 ;
-  sp:usoEstrategia      sp:Colaborativa ;
-  sp:puntuacionRelevancia "0.85"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:25:00"^^xsd:dateTime .
+sp:HistorialJuan1 a sp:EntradaHistorial,
+        owl:NamedIndividual ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-05-01T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:EldenRing ;
+    sp:tiempoJugado 120 .
 
-# Diego → TheLastOfUs2 (mismo dev/género, PS5 exclusiva) — contenido
-sp:Rec007 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Diego ;
-  sp:recomiendaJuego    sp:TheLastOfUs2 ;
-  sp:usoEstrategia      sp:BasadaEnContenido ;
-  sp:puntuacionRelevancia "0.93"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:30:00"^^xsd:dateTime .
+sp:HollowKnight a sp:Videojuego ;
+    sp:anioLanzamiento 2017 ;
+    sp:desarrolladoPor sp:TeamCherry ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Plataformas ;
+    sp:precio 14.99 ;
+    sp:similarA sp:CelesteMountain,
+        sp:EldenRing ;
+    sp:titulo "Hollow Knight" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:MundoAbierto .
 
-# Valentina → EldenRing (RPG de alta exigencia, PC, amigos lo juegan) — híbrida
-sp:Rec008 a sp:Recomendacion ;
-  sp:recomendadoPara    sp:Valentina ;
-  sp:recomiendaJuego    sp:EldenRing ;
-  sp:usoEstrategia      sp:Hibrida ;
-  sp:puntuacionRelevancia "0.92"^^xsd:decimal ;
-  sp:fechaRecomendacion "2026-05-10T08:35:00"^^xsd:dateTime .
+sp:InsomniacGames a sp:Desarrollador .
+
+sp:LarianStudios a sp:Desarrollador .
+
+sp:Laura a sp:Usuario ;
+    sp:edad 23 ;
+    sp:interesadoEn sp:Puzzle,
+        sp:Simulacion ;
+    sp:nombreUsuario "Laura Milena" ;
+    sp:password "scrypt:32768:8:1$5KTQ3nR76OOKRV8m$56272d02373a3cc063541d517b5a740992e19b42afe0b237a81d0e4a90897c6c7e476fa40b4f0bee2edafa5597616c7885682acceaddfe449b8eb7eab9fc5b94" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HLaura1,
+        sp:HLaura2,
+        sp:HLaura3 .
+
+sp:Maria a sp:Usuario ;
+    sp:edad 22 ;
+    sp:interesadoEn sp:Aventura,
+        sp:RPG ;
+    sp:nombreUsuario "Maria Fernanda" ;
+    sp:password "scrypt:32768:8:1$TNT56aPAhLHXHwgF$a7b5cb702572e76d84bce38c4a2a197b3fac9f15b67f8a9dc934a3be46e476c5ad98aa5e76c580e27a158287e218da4d999563bc3b3ae1a5f0946370a064eda2" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HMaria1,
+        sp:HMaria2,
+        sp:HMaria3 .
+
+sp:Mojang a sp:Desarrollador .
+
+sp:NaughtyDog a sp:Desarrollador .
+
+sp:ResidentEvil4 a sp:Videojuego ;
+    sp:anioLanzamiento 2023 ;
+    sp:desarrolladoPor sp:Capcom ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Terror ;
+    sp:precio 49.99 ;
+    sp:titulo "Resident Evil 4 Remake" ;
+    sp:usaMecanica sp:Narrativa,
+        sp:Sigilo .
+
+sp:Roguelike a sp:Mecanica .
+
+sp:Sandbox a sp:Mecanica .
+
+sp:SantaMonicaStudio a sp:Desarrollador .
+
+sp:Sofia a sp:Usuario ;
+    sp:edad 19 ;
+    sp:interesadoEn sp:Accion,
+        sp:Plataformas ;
+    sp:nombreUsuario "Sofia Alejandra" ;
+    sp:password "scrypt:32768:8:1$AwxV72YalGWl8DJb$2e0ded8bef2a534d0441958332ecde72ccc6c66858084abb0f7601b0f9b693d93bd030e831e224b22bcf92b525d34e4eefecbc4d90ef2013a7faffc23b5116d5" ;
+    sp:plataformaPreferida sp:NintendoSwitch ;
+    sp:region "Argentina" ;
+    sp:tieneHistorial sp:HSofia1,
+        sp:HSofia2,
+        sp:HSofia3,
+        sp:HSofia4 .
+
+sp:Supergiant a sp:Desarrollador .
+
+sp:Valentina a sp:Usuario ;
+    sp:edad 24 ;
+    sp:interesadoEn sp:Estrategia,
+        sp:RPG ;
+    sp:nombreUsuario "Valentina Rios" ;
+    sp:password "scrypt:32768:8:1$HAnpMikWGQ5qLVSV$9a43306d7ceaddd11f5f5094ccbe2040fb5159058be757ef3f03f721592487bec59f281b32d8e55f89efd691dd88600f2c4c8ca70546498f8683bf5d486d2826" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HValentina1,
+        sp:HValentina2,
+        sp:HValentina3 .
+
+sp:Valve a sp:Desarrollador .
+
+sp:recomendadoPara a owl:ObjectProperty ;
+    rdfs:domain sp:Recomendacion ;
+    rdfs:range sp:Usuario .
+
+sp:BasadaEnContenido a sp:EstrategiaRecomendacion,
+        owl:NamedIndividual .
+
+sp:CDProjektRed a sp:Desarrollador,
+        owl:NamedIndividual .
+
+sp:Colaborativa a sp:EstrategiaRecomendacion,
+        owl:NamedIndividual .
+
+sp:Construccion a sp:Mecanica .
+
+sp:Cooperativo a sp:Mecanica .
+
+sp:DarkSoulsRemastered a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:FromSoftware ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 24.99 ;
+    sp:similarA sp:EldenRing ;
+    sp:titulo "Dark Souls Remastered" ;
+    sp:usaMecanica sp:CombateExigente .
+
+sp:Dishonored2 a sp:Videojuego ;
+    sp:anioLanzamiento 2016 ;
+    sp:desarrolladoPor sp:ArkhaneStudios ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 19.99 ;
+    sp:similarA sp:TheLastOfUs2 ;
+    sp:titulo "Dishonored 2" ;
+    sp:usaMecanica sp:Narrativa,
+        sp:Sigilo .
+
+sp:GestionRecursos a sp:Mecanica .
+
+sp:HorizonForbiddenWest a sp:Videojuego ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:GuerrillaGames ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 49.99 ;
+    sp:similarA sp:TheWitcher3 ;
+    sp:titulo "Horizon Forbidden West" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:Juan a sp:Usuario,
+        owl:NamedIndividual ;
+    sp:edad 20 ;
+    sp:interesadoEn sp:Accion,
+        sp:Puzzle,
+        sp:RPG ;
+    sp:nombreUsuario "Juan Manuel" ;
+    sp:password "scrypt:32768:8:1$gYo0lkUb6qrNeJFf$3bd5faceb4f7156ae4a9793095dd67f22128edc97f2aadb63db2cf5daea116f5e021e8907d1dfd580e1b186ad31dc56bc3b4cadc2b8877a6b89e60f08696776f" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HJuan1,
+        sp:HJuan2,
+        sp:HJuan3,
+        sp:HJuan_Portal2_307275,
+        sp:HistorialJuan1 .
+
+sp:Mobile a sp:Plataforma .
+
+sp:Multijugador a sp:Mecanica .
+
+sp:Sekiro a sp:Videojuego ;
+    sp:anioLanzamiento 2019 ;
+    sp:desarrolladoPor sp:FromSoftware ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 39.99 ;
+    sp:similarA sp:EldenRing ;
+    sp:titulo "Sekiro: Shadows Die Twice" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa .
+
+sp:SpiderManMiles a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:InsomniacGames ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 39.99 ;
+    sp:similarA sp:GodOfWarRagnarok ;
+    sp:titulo "Spider-Man: Miles Morales" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:TeamCherry a sp:Desarrollador .
+
+sp:Terror a sp:Genero,
+        owl:NamedIndividual .
+
+sp:TurnoPorTurno a sp:Mecanica .
+
+sp:CelesteMountain a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:TeamCherry ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Plataformas ;
+    sp:precio 19.99 ;
+    sp:similarA sp:Hades ;
+    sp:titulo "Celeste" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa .
+
+sp:Civilization6 a sp:Videojuego ;
+    sp:anioLanzamiento 2016 ;
+    sp:desarrolladoPor sp:FiraxisGames ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC ;
+    sp:perteneceAGenero sp:Estrategia ;
+    sp:precio 29.99 ;
+    sp:titulo "Civilization VI" ;
+    sp:usaMecanica sp:GestionRecursos,
+        sp:TurnoPorTurno .
+
+sp:Estrategia a sp:Genero .
+
+sp:FromSoftware a sp:Desarrollador,
+        owl:NamedIndividual .
+
+sp:Hades a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:Supergiant ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 24.99 ;
+    sp:similarA sp:CelesteMountain ;
+    sp:titulo "Hades" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa,
+        sp:Roguelike .
+
+sp:Plataformas a sp:Genero .
+
+sp:Portal2 a sp:Videojuego ;
+    sp:anioLanzamiento 2011 ;
+    sp:desarrolladoPor sp:Valve ;
+    sp:disponibleEn sp:PC ;
+    sp:perteneceAGenero sp:Puzzle ;
+    sp:precio 9.99 ;
+    sp:titulo "Portal 2" ;
+    sp:usaMecanica sp:Cooperativo,
+        sp:Narrativa .
+
+sp:Sigilo a sp:Mecanica .
+
+sp:XboxSeriesX a sp:Plataforma .
+
+sp:GodOfWarRagnarok a sp:Videojuego ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:SantaMonicaStudio ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 49.99 ;
+    sp:similarA sp:TheLastOfUs2 ;
+    sp:titulo "God of War: Ragnarök" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa .
+
+sp:Minecraft a sp:Videojuego ;
+    sp:anioLanzamiento 2011 ;
+    sp:desarrolladoPor sp:Mojang ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC ;
+    sp:perteneceAGenero sp:Simulacion ;
+    sp:precio 26.99 ;
+    sp:titulo "Minecraft" ;
+    sp:usaMecanica sp:Construccion,
+        sp:Multijugador,
+        sp:Sandbox .
+
+sp:Puzzle a sp:Genero .
+
+sp:StardewValley a sp:Videojuego ;
+    sp:anioLanzamiento 2016 ;
+    sp:desarrolladoPor sp:ConcernedApe ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC ;
+    sp:perteneceAGenero sp:Simulacion ;
+    sp:precio 13.99 ;
+    sp:similarA sp:Minecraft ;
+    sp:titulo "Stardew Valley" ;
+    sp:usaMecanica sp:Construccion,
+        sp:GestionRecursos .
+
+sp:TheLastOfUs2 a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:NaughtyDog ;
+    sp:disponibleEn sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 39.99 ;
+    sp:similarA sp:Dishonored2,
+        sp:GodOfWarRagnarok ;
+    sp:titulo "The Last of Us Parte II" ;
+    sp:usaMecanica sp:Narrativa,
+        sp:Sigilo .
+
+sp:BaldursGate3 a sp:Videojuego ;
+    sp:anioLanzamiento 2023 ;
+    sp:desarrolladoPor sp:LarianStudios ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 59.99 ;
+    sp:similarA sp:TheWitcher3 ;
+    sp:titulo "Baldur's Gate 3" ;
+    sp:usaMecanica sp:Cooperativo,
+        sp:Narrativa,
+        sp:TurnoPorTurno .
+
+sp:Cyberpunk2077 a sp:Videojuego,
+        owl:NamedIndividual ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:CDProjektRed ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:RPG ;
+    sp:precio 49.99 ;
+    sp:similarA sp:TheWitcher3 ;
+    sp:titulo "Cyberpunk 2077" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:EstrategiaRecomendacion a owl:Class .
+
+sp:Hibrida a sp:EstrategiaRecomendacion,
+        owl:NamedIndividual .
+
+sp:Simulacion a sp:Genero .
+
+sp:TheWitcher3 a sp:Videojuego ;
+    sp:anioLanzamiento 2015 ;
+    sp:desarrolladoPor sp:CDProjektRed ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 29.99 ;
+    sp:similarA sp:BaldursGate3,
+        sp:Cyberpunk2077 ;
+    sp:titulo "The Witcher 3: Wild Hunt" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:EldenRing a sp:Videojuego,
+        owl:NamedIndividual ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:FromSoftware ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 59.99 ;
+    sp:similarA sp:DarkSoulsRemastered,
+        sp:Sekiro ;
+    sp:titulo "Elden Ring" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Difícil,
+        sp:MundoAbierto .
+
+sp:MundoAbierto a sp:Mecanica,
+        owl:NamedIndividual .
+
+sp:CombateExigente a sp:Mecanica .
+
+sp:Plataforma a owl:Class .
+
+sp:NintendoSwitch a sp:Plataforma .
+
+sp:RPG a sp:Genero,
+        owl:NamedIndividual .
+
+sp:Accion a sp:Genero,
+        owl:NamedIndividual .
+
+sp:Genero a owl:Class .
+
+sp:Narrativa a sp:Mecanica .
+
+sp:Mecanica a owl:Class .
+
+sp:Recomendacion a owl:Class .
+
+sp:Usuario a owl:Class .
+
+sp:Desarrollador a owl:Class .
+
+sp:PlayStation5 a sp:Plataforma,
+        owl:NamedIndividual .
+
+sp:PC a sp:Plataforma,
+        owl:NamedIndividual .
+
+sp:Videojuego a owl:Class .
+
+sp:EntradaHistorial a owl:Class ;
+    rdfs:subClassOf sp:EstrategiaRecomendacion .
+

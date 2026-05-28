@@ -1,0 +1,578 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sp: <http://www.smartplay.com/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sp:HAndres1 a sp:EntradaHistorial ;
+    sp:calificacion 9.4 ;
+    sp:fechaRegistro "2025-10-05T14:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Civilization6 ;
+    sp:tiempoJugado 200 .
+
+sp:HAndres2 a sp:EntradaHistorial ;
+    sp:calificacion 8.0 ;
+    sp:fechaRegistro "2025-11-20T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Minecraft ;
+    sp:tiempoJugado 83 .
+
+sp:HAndres3 a sp:EntradaHistorial ;
+    sp:calificacion 8.7 ;
+    sp:fechaRegistro "2026-01-08T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 80 .
+
+sp:HCamilo1 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-03-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Cyberpunk2077 ;
+    sp:tiempoJugado 40 .
+
+sp:HCamilo2 a sp:EntradaHistorial ;
+    sp:calificacion 9.2 ;
+    sp:fechaRegistro "2026-04-05T21:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:GodOfWarRagnarok ;
+    sp:tiempoJugado 30 .
+
+sp:HCamilo3 a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-04-28T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:SpiderManMiles ;
+    sp:tiempoJugado 15 .
+
+sp:HCarlos1 a sp:EntradaHistorial ;
+    sp:calificacion 9.8 ;
+    sp:fechaRegistro "2026-04-02T22:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:ResidentEvil4 ;
+    sp:tiempoJugado 16 .
+
+sp:HCarlos2 a sp:EntradaHistorial ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-04-15T21:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:TheLastOfUs2 ;
+    sp:tiempoJugado 25 .
+
+sp:HCarlos3 a sp:EntradaHistorial ;
+    sp:calificacion 8.2 ;
+    sp:fechaRegistro "2026-05-01T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Dishonored2 ;
+    sp:tiempoJugado 13 .
+
+sp:HDaniela_AmongUs a sp:EntradaHistorial ;
+    sp:calificacion 8.0 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:AmongUs ;
+    sp:tiempoJugado 70 .
+
+sp:HDaniela_GenshinImpact a sp:EntradaHistorial ;
+    sp:calificacion 8.9 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:GenshinImpact ;
+    sp:tiempoJugado 190 .
+
+sp:HDaniela_Minecraft a sp:EntradaHistorial ;
+    sp:calificacion 9.1 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Minecraft ;
+    sp:tiempoJugado 210 .
+
+sp:HDaniela_Terraria a sp:EntradaHistorial ;
+    sp:calificacion 8.4 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Terraria ;
+    sp:tiempoJugado 95 .
+
+sp:HDiego1 a sp:EntradaHistorial ;
+    sp:calificacion 10.0 ;
+    sp:fechaRegistro "2026-03-01T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:GodOfWarRagnarok ;
+    sp:tiempoJugado 35 .
+
+sp:HDiego2 a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-03-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:SpiderManMiles ;
+    sp:tiempoJugado 13 .
+
+sp:HDiego3 a sp:EntradaHistorial ;
+    sp:calificacion 8.7 ;
+    sp:fechaRegistro "2026-04-10T18:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:HorizonForbiddenWest ;
+    sp:tiempoJugado 40 .
+
+sp:HEsteban_AssassinCreedMirage a sp:EntradaHistorial ;
+    sp:calificacion 8.1 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:AssassinCreedMirage ;
+    sp:tiempoJugado 45 .
+
+sp:HEsteban_GodOfWarRagnarok a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:GodOfWarRagnarok ;
+    sp:tiempoJugado 95 .
+
+sp:HEsteban_Helldivers2 a sp:EntradaHistorial ;
+    sp:calificacion 8.9 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Helldivers2 ;
+    sp:tiempoJugado 75 .
+
+sp:HEsteban_RedDeadRedemption2 a sp:EntradaHistorial ;
+    sp:calificacion 9.3 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:RedDeadRedemption2 ;
+    sp:tiempoJugado 160 .
+
+sp:HGabriela_AnimalCrossingNewHorizons a sp:EntradaHistorial ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:AnimalCrossingNewHorizons ;
+    sp:tiempoJugado 220 .
+
+sp:HGabriela_StardewValley a sp:EntradaHistorial ;
+    sp:calificacion 8.6 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 170 .
+
+sp:HGabriela_SuperMarioOdyssey a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:SuperMarioOdyssey ;
+    sp:tiempoJugado 60 .
+
+sp:HGabriela_ZeldaTearsKingdom a sp:EntradaHistorial ;
+    sp:calificacion 9.2 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:ZeldaTearsKingdom ;
+    sp:tiempoJugado 130 .
+
+sp:HIsabella_AlanWake2 a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:AlanWake2 ;
+    sp:tiempoJugado 42 .
+
+sp:HIsabella_BaldursGate3 a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:BaldursGate3 ;
+    sp:tiempoJugado 120 .
+
+sp:HIsabella_DiscoElysium a sp:EntradaHistorial ;
+    sp:calificacion 9.4 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:DiscoElysium ;
+    sp:tiempoJugado 70 .
+
+sp:HIsabella_SilentHill2Remake a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:SilentHill2Remake ;
+    sp:tiempoJugado 32 .
+
+sp:HJuan1 a sp:EntradaHistorial ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-01-15T18:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:EldenRing ;
+    sp:tiempoJugado 120 .
+
+sp:HJuan2 a sp:EntradaHistorial ;
+    sp:calificacion 9.8 ;
+    sp:fechaRegistro "2026-02-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:BaldursGate3 ;
+    sp:tiempoJugado 160 .
+
+sp:HJuan3 a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2025-11-10T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:TheWitcher3 ;
+    sp:tiempoJugado 100 .
+
+sp:HJuan_Portal2_307275 a sp:EntradaHistorial ;
+    sp:calificacion 8.0 ;
+    sp:fechaRegistro "2026-05-28T01:11:56.768486"^^xsd:dateTime ;
+    sp:sobreJuego sp:Portal2 ;
+    sp:tiempoJugado 50 .
+
+sp:HLaura1 a sp:EntradaHistorial ;
+    sp:calificacion 9.9 ;
+    sp:fechaRegistro "2025-09-01T15:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 150 .
+
+sp:HLaura2 a sp:EntradaHistorial ;
+    sp:calificacion 9.2 ;
+    sp:fechaRegistro "2026-01-20T17:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Portal2 ;
+    sp:tiempoJugado 8 .
+
+sp:HLaura3 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-03-10T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Minecraft ;
+    sp:tiempoJugado 100 .
+
+sp:HMaria1 a sp:EntradaHistorial ;
+    sp:calificacion 9.7 ;
+    sp:fechaRegistro "2025-12-01T17:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:TheWitcher3 ;
+    sp:tiempoJugado 140 .
+
+sp:HMaria2 a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-02-14T15:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:HorizonForbiddenWest ;
+    sp:tiempoJugado 50 .
+
+sp:HMaria3 a sp:EntradaHistorial ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-04-20T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:BaldursGate3 ;
+    sp:tiempoJugado 90 .
+
+sp:HMateo_FIFA25 a sp:EntradaHistorial ;
+    sp:calificacion 8.2 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:FIFA25 ;
+    sp:tiempoJugado 90 .
+
+sp:HMateo_ForzaHorizon5 a sp:EntradaHistorial ;
+    sp:calificacion 9.1 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:ForzaHorizon5 ;
+    sp:tiempoJugado 110 .
+
+sp:HMateo_NBA2K25 a sp:EntradaHistorial ;
+    sp:calificacion 7.9 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:NBA2K25 ;
+    sp:tiempoJugado 50 .
+
+sp:HMateo_RocketLeague a sp:EntradaHistorial ;
+    sp:calificacion 8.7 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:RocketLeague ;
+    sp:tiempoJugado 160 .
+
+sp:HNatalia_Cuphead a sp:EntradaHistorial ;
+    sp:calificacion 7.9 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Cuphead ;
+    sp:tiempoJugado 38 .
+
+sp:HNatalia_HollowKnight a sp:EntradaHistorial ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:HollowKnight ;
+    sp:tiempoJugado 120 .
+
+sp:HNatalia_MetroidDread a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:MetroidDread ;
+    sp:tiempoJugado 44 .
+
+sp:HNatalia_OriWillOfWisps a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:OriWillOfWisps ;
+    sp:tiempoJugado 55 .
+
+sp:HNicolas_ApexLegends a sp:EntradaHistorial ;
+    sp:calificacion 8.7 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:ApexLegends ;
+    sp:tiempoJugado 140 .
+
+sp:HNicolas_DoomEternal a sp:EntradaHistorial ;
+    sp:calificacion 8.4 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:DoomEternal ;
+    sp:tiempoJugado 35 .
+
+sp:HNicolas_Fortnite a sp:EntradaHistorial ;
+    sp:calificacion 7.8 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Fortnite ;
+    sp:tiempoJugado 95 .
+
+sp:HNicolas_Valorant a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Valorant ;
+    sp:tiempoJugado 180 .
+
+sp:HSamuel_Civilization6 a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-05-13T11:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Civilization6 ;
+    sp:tiempoJugado 210 .
+
+sp:HSamuel_LeagueOfLegends a sp:EntradaHistorial ;
+    sp:calificacion 8.9 ;
+    sp:fechaRegistro "2026-05-11T09:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:LeagueOfLegends ;
+    sp:tiempoJugado 300 .
+
+sp:HSamuel_Persona5Royal a sp:EntradaHistorial ;
+    sp:calificacion 8.1 ;
+    sp:fechaRegistro "2026-05-14T12:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Persona5Royal ;
+    sp:tiempoJugado 105 .
+
+sp:HSamuel_SlayTheSpire a sp:EntradaHistorial ;
+    sp:calificacion 9.2 ;
+    sp:fechaRegistro "2026-05-12T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:SlayTheSpire ;
+    sp:tiempoJugado 85 .
+
+sp:HSebastian1 a sp:EntradaHistorial ;
+    sp:calificacion 9.7 ;
+    sp:fechaRegistro "2026-02-05T17:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Portal2 ;
+    sp:tiempoJugado 10 .
+
+sp:HSebastian2 a sp:EntradaHistorial ;
+    sp:calificacion 8.0 ;
+    sp:fechaRegistro "2026-03-01T15:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Minecraft ;
+    sp:tiempoJugado 60 .
+
+sp:HSebastian3 a sp:EntradaHistorial ;
+    sp:calificacion 9.0 ;
+    sp:fechaRegistro "2026-04-12T14:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 40 .
+
+sp:HSofia1 a sp:EntradaHistorial ;
+    sp:calificacion 9.6 ;
+    sp:fechaRegistro "2026-01-25T20:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:HollowKnight ;
+    sp:tiempoJugado 60 .
+
+sp:HSofia2 a sp:EntradaHistorial ;
+    sp:calificacion 9.3 ;
+    sp:fechaRegistro "2026-02-10T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:CelesteMountain ;
+    sp:tiempoJugado 25 .
+
+sp:HSofia3 a sp:EntradaHistorial ;
+    sp:calificacion 9.1 ;
+    sp:fechaRegistro "2026-03-15T21:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Hades ;
+    sp:tiempoJugado 47 .
+
+sp:HSofia4 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-04-01T18:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:StardewValley ;
+    sp:tiempoJugado 33 .
+
+sp:HValentina1 a sp:EntradaHistorial ;
+    sp:calificacion 10.0 ;
+    sp:fechaRegistro "2025-08-15T14:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:BaldursGate3 ;
+    sp:tiempoJugado 240 .
+
+sp:HValentina2 a sp:EntradaHistorial ;
+    sp:calificacion 8.5 ;
+    sp:fechaRegistro "2026-01-05T19:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Cyberpunk2077 ;
+    sp:tiempoJugado 60 .
+
+sp:HValentina3 a sp:EntradaHistorial ;
+    sp:calificacion 8.8 ;
+    sp:fechaRegistro "2026-02-28T16:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:Civilization6 ;
+    sp:tiempoJugado 120 .
+
+sp:HistorialJuan1 a sp:EntradaHistorial,
+        owl:NamedIndividual ;
+    sp:calificacion 9.5 ;
+    sp:fechaRegistro "2026-05-01T10:00:00"^^xsd:dateTime ;
+    sp:sobreJuego sp:EldenRing ;
+    sp:tiempoJugado 120 .
+
+sp:Rec002 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:05:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.88 ;
+    sp:recomendadoPara sp:Camilo ;
+    sp:recomiendaJuego sp:BaldursGate3 ;
+    sp:usoEstrategia sp:Colaborativa .
+
+sp:Rec003 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:10:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.91 ;
+    sp:recomendadoPara sp:Maria ;
+    sp:recomiendaJuego sp:Cyberpunk2077 ;
+    sp:usoEstrategia sp:BasadaEnContenido .
+
+sp:Rec004 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:15:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.96 ;
+    sp:recomendadoPara sp:Sofia ;
+    sp:recomiendaJuego sp:Hades ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec005 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:20:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.79 ;
+    sp:recomendadoPara sp:Carlos ;
+    sp:recomiendaJuego sp:Sekiro ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec006 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:25:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.85 ;
+    sp:recomendadoPara sp:Laura ;
+    sp:recomiendaJuego sp:Civilization6 ;
+    sp:usoEstrategia sp:Colaborativa .
+
+sp:Rec007 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:30:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.93 ;
+    sp:recomendadoPara sp:Diego ;
+    sp:recomiendaJuego sp:TheLastOfUs2 ;
+    sp:usoEstrategia sp:BasadaEnContenido .
+
+sp:Rec008 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-10T08:35:00"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.92 ;
+    sp:recomendadoPara sp:Valentina ;
+    sp:recomiendaJuego sp:EldenRing ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Juan_001 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-28T01:12:09.138027"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.911 ;
+    sp:recomendadoPara sp:Juan ;
+    sp:recomiendaJuego sp:Cyberpunk2077 ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Juan_002 a sp:Recomendacion ;
+    sp:fechaRecomendacion "2026-05-28T01:12:09.138027"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.7333 ;
+    sp:recomendadoPara sp:Juan ;
+    sp:recomiendaJuego sp:DarkSoulsRemastered ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Mateo_001 a sp:Recomendacion ;
+    sp:explicacion "Coincide con tus géneros de interés: Shooter.",
+        "Comparte mecánicas que sueles valorar: GestionEquipo, Multijugador.",
+        "Está disponible en tu plataforma preferida: XboxSeriesX.",
+        "Su precio está cerca del rango de juegos que te han gustado.",
+        "Usuarios con gustos similares lo calificaron alto: Nicolas (8.7/10)." ;
+    sp:fechaRecomendacion "2026-05-28T17:04:53.205403"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.5824 ;
+    sp:recomendadoPara sp:Mateo ;
+    sp:recomiendaJuego sp:ApexLegends ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Mateo_002 a sp:Recomendacion ;
+    sp:explicacion "Coincide con tus géneros de interés: Shooter.",
+        "Es un lanzamiento relativamente reciente dentro del catálogo.",
+        "Está disponible en tu plataforma preferida: XboxSeriesX.",
+        "Su precio está cerca del rango de juegos que te han gustado.",
+        "Usuarios con gustos similares lo calificaron alto: Nicolas (8.4/10)." ;
+    sp:fechaRecomendacion "2026-05-28T17:04:53.205403"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.554 ;
+    sp:recomendadoPara sp:Mateo ;
+    sp:recomiendaJuego sp:DoomEternal ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Mateo_003 a sp:Recomendacion ;
+    sp:explicacion "Coincide con tus géneros de interés: Shooter.",
+        "Comparte mecánicas que sueles valorar: Multijugador.",
+        "Está disponible en tu plataforma preferida: XboxSeriesX.",
+        "Se mantuvo en el top cuidando variedad frente a otros géneros.",
+        "Su precio está cerca del rango de juegos que te han gustado.",
+        "Usuarios con gustos similares lo calificaron alto: Nicolas (7.8/10)." ;
+    sp:fechaRecomendacion "2026-05-28T17:04:53.205403"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.5425 ;
+    sp:recomendadoPara sp:Mateo ;
+    sp:recomiendaJuego sp:Fortnite ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Mateo_004 a sp:Recomendacion ;
+    sp:explicacion "Comparte mecánicas que sueles valorar: MundoAbierto.",
+        "Es un lanzamiento relativamente reciente dentro del catálogo.",
+        "Está disponible en tu plataforma preferida: XboxSeriesX.",
+        "Su precio está cerca del rango de juegos que te han gustado.",
+        "Usuarios con gustos similares lo calificaron alto: Esteban (8.1/10)." ;
+    sp:fechaRecomendacion "2026-05-28T17:04:53.205403"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.4901 ;
+    sp:recomendadoPara sp:Mateo ;
+    sp:recomiendaJuego sp:AssassinCreedMirage ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Mateo_005 a sp:Recomendacion ;
+    sp:explicacion "Comparte mecánicas que sueles valorar: MundoAbierto.",
+        "Está disponible en tu plataforma preferida: XboxSeriesX.",
+        "Se mantuvo en el top cuidando variedad frente a otros géneros.",
+        "Usuarios con gustos similares lo calificaron alto: Esteban (9.3/10)." ;
+    sp:fechaRecomendacion "2026-05-28T17:04:53.205403"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.4671 ;
+    sp:recomendadoPara sp:Mateo ;
+    sp:recomiendaJuego sp:RedDeadRedemption2 ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Samuel_001 a sp:Recomendacion ;
+    sp:explicacion "Coincide con tus géneros de interés: RPG.",
+        "Comparte mecánicas que sueles valorar: Narrativa, TurnoPorTurno.",
+        "Es similar a Persona 5 Royal, que calificaste alto.",
+        "Es un lanzamiento relativamente reciente dentro del catálogo.",
+        "Está disponible en tu plataforma preferida: PC." ;
+    sp:fechaRecomendacion "2026-05-28T17:00:49.798867"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.7405 ;
+    sp:recomendadoPara sp:Samuel ;
+    sp:recomiendaJuego sp:BaldursGate3 ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Samuel_002 a sp:Recomendacion ;
+    sp:explicacion "Coincide con tus géneros de interés: RPG.",
+        "Comparte mecánicas que sueles valorar: GestionEquipo.",
+        "Es un lanzamiento relativamente reciente dentro del catálogo.",
+        "Está disponible en tu plataforma preferida: PC.",
+        "Su precio está cerca del rango de juegos que te han gustado." ;
+    sp:fechaRecomendacion "2026-05-28T17:00:49.798867"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.5894 ;
+    sp:recomendadoPara sp:Samuel ;
+    sp:recomiendaJuego sp:GenshinImpact ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Samuel_003 a sp:Recomendacion ;
+    sp:explicacion "Coincide con tus géneros de interés: RPG.",
+        "Comparte mecánicas que sueles valorar: Narrativa.",
+        "Está disponible en tu plataforma preferida: PC.",
+        "Se mantuvo en el top cuidando variedad frente a otros géneros.",
+        "Su precio está cerca del rango de juegos que te han gustado.",
+        "Usuarios con gustos similares lo calificaron alto: Maria (9.7/10), Juan (9.0/10)." ;
+    sp:fechaRecomendacion "2026-05-28T17:00:49.798867"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.5851 ;
+    sp:recomendadoPara sp:Samuel ;
+    sp:recomiendaJuego sp:TheWitcher3 ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Samuel_004 a sp:Recomendacion ;
+    sp:explicacion "Comparte mecánicas que sueles valorar: Narrativa, Roguelike.",
+        "Es similar a Slay the Spire, que calificaste alto.",
+        "Es un lanzamiento relativamente reciente dentro del catálogo.",
+        "Está disponible en tu plataforma preferida: PC.",
+        "Su precio está cerca del rango de juegos que te han gustado." ;
+    sp:fechaRecomendacion "2026-05-28T17:00:49.798867"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.5245 ;
+    sp:recomendadoPara sp:Samuel ;
+    sp:recomiendaJuego sp:Hades ;
+    sp:usoEstrategia sp:Hibrida .
+
+sp:Rec_Samuel_005 a sp:Recomendacion ;
+    sp:explicacion "Comparte mecánicas que sueles valorar: GestionRecursos.",
+        "Está disponible en tu plataforma preferida: PC.",
+        "Su precio está cerca del rango de juegos que te han gustado.",
+        "Usuarios con gustos similares lo calificaron alto: Andres (8.7/10)." ;
+    sp:fechaRecomendacion "2026-05-28T17:00:49.798867"^^xsd:dateTime ;
+    sp:puntuacionRelevancia 0.522 ;
+    sp:recomendadoPara sp:Samuel ;
+    sp:recomiendaJuego sp:StardewValley ;
+    sp:usoEstrategia sp:Hibrida .
+

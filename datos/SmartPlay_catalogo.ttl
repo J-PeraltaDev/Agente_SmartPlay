@@ -1,0 +1,1001 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sp: <http://www.smartplay.com/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sp:AmongUs a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:Innersloth ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Estrategia ;
+    sp:precio 4.99 ;
+    sp:titulo "Among Us" ;
+    sp:usaMecanica sp:Investigacion,
+        sp:Multijugador .
+
+sp:AnimalCrossingNewHorizons a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:Nintendo ;
+    sp:disponibleEn sp:NintendoSwitch ;
+    sp:perteneceAGenero sp:Simulacion ;
+    sp:precio 59.99 ;
+    sp:similarA sp:StardewValley ;
+    sp:titulo "Animal Crossing: New Horizons" ;
+    sp:usaMecanica sp:Construccion,
+        sp:Exploracion,
+        sp:GestionRecursos .
+
+sp:AssassinCreedMirage a sp:Videojuego ;
+    sp:anioLanzamiento 2023 ;
+    sp:desarrolladoPor sp:Ubisoft ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Aventura ;
+    sp:precio 49.99 ;
+    sp:similarA sp:Dishonored2 ;
+    sp:titulo "Assassin's Creed Mirage" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa,
+        sp:Sigilo .
+
+sp:BasadaEnContenido a sp:EstrategiaRecomendacion,
+        owl:NamedIndividual .
+
+sp:Civilization6 a sp:Videojuego ;
+    sp:anioLanzamiento 2016 ;
+    sp:desarrolladoPor sp:FiraxisGames ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC ;
+    sp:perteneceAGenero sp:Estrategia ;
+    sp:precio 29.99 ;
+    sp:titulo "Civilization VI" ;
+    sp:usaMecanica sp:GestionRecursos,
+        sp:TurnoPorTurno .
+
+sp:Colaborativa a sp:EstrategiaRecomendacion,
+        owl:NamedIndividual .
+
+sp:Cuphead a sp:Videojuego ;
+    sp:anioLanzamiento 2017 ;
+    sp:desarrolladoPor sp:StudioMDHR ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Plataformas ;
+    sp:precio 19.99 ;
+    sp:similarA sp:CelesteMountain ;
+    sp:titulo "Cuphead" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Cooperativo .
+
+sp:DeadCells a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:MotionTwin ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Metroidvania ;
+    sp:precio 24.99 ;
+    sp:similarA sp:Hades,
+        sp:HollowKnight ;
+    sp:titulo "Dead Cells" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Roguelike .
+
+sp:DiscoElysium a sp:Videojuego ;
+    sp:anioLanzamiento 2019 ;
+    sp:desarrolladoPor sp:ZAUM ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Investigacion,
+        sp:RPG ;
+    sp:precio 39.99 ;
+    sp:similarA sp:BaldursGate3 ;
+    sp:titulo "Disco Elysium" ;
+    sp:usaMecanica sp:Investigacion,
+        sp:Narrativa .
+
+sp:FinalFantasyVIIRebirth a sp:Videojuego ;
+    sp:anioLanzamiento 2024 ;
+    sp:desarrolladoPor sp:SquareEnix ;
+    sp:disponibleEn sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion,
+        sp:RPG ;
+    sp:precio 69.99 ;
+    sp:similarA sp:Persona5Royal ;
+    sp:titulo "Final Fantasy VII Rebirth" ;
+    sp:usaMecanica sp:GestionEquipo,
+        sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:GenshinImpact a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:HoYoverse ;
+    sp:disponibleEn sp:Mobile,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Aventura,
+        sp:RPG ;
+    sp:precio 0.0 ;
+    sp:similarA sp:ZeldaTearsKingdom ;
+    sp:titulo "Genshin Impact" ;
+    sp:usaMecanica sp:Exploracion,
+        sp:GestionEquipo,
+        sp:MundoAbierto .
+
+sp:Helldivers2 a sp:Videojuego ;
+    sp:anioLanzamiento 2024 ;
+    sp:desarrolladoPor sp:ArrowheadGameStudios ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Shooter ;
+    sp:precio 39.99 ;
+    sp:similarA sp:DoomEternal ;
+    sp:titulo "Helldivers 2" ;
+    sp:usaMecanica sp:Cooperativo,
+        sp:Disparos,
+        sp:GestionEquipo .
+
+sp:Hibrida a sp:EstrategiaRecomendacion,
+        owl:NamedIndividual .
+
+sp:ItTakesTwo a sp:Videojuego ;
+    sp:anioLanzamiento 2021 ;
+    sp:desarrolladoPor sp:Hazelight ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Aventura,
+        sp:Plataformas ;
+    sp:precio 39.99 ;
+    sp:similarA sp:Portal2 ;
+    sp:titulo "It Takes Two" ;
+    sp:usaMecanica sp:Cooperativo,
+        sp:Narrativa,
+        sp:Plataformeo .
+
+sp:LeagueOfLegends a sp:Videojuego ;
+    sp:anioLanzamiento 2009 ;
+    sp:desarrolladoPor sp:RiotGames ;
+    sp:disponibleEn sp:PC ;
+    sp:perteneceAGenero sp:Estrategia,
+        sp:MOBA ;
+    sp:precio 0.0 ;
+    sp:titulo "League of Legends" ;
+    sp:usaMecanica sp:GestionEquipo,
+        sp:PvP,
+        sp:TiempoReal .
+
+sp:MassEffectLegendary a sp:Videojuego ;
+    sp:anioLanzamiento 2021 ;
+    sp:desarrolladoPor sp:BioWare ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:RPG ;
+    sp:precio 59.99 ;
+    sp:similarA sp:Cyberpunk2077 ;
+    sp:titulo "Mass Effect Legendary Edition" ;
+    sp:usaMecanica sp:Disparos,
+        sp:GestionEquipo,
+        sp:Narrativa .
+
+sp:MetroidDread a sp:Videojuego ;
+    sp:anioLanzamiento 2021 ;
+    sp:desarrolladoPor sp:Nintendo ;
+    sp:disponibleEn sp:NintendoSwitch ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Metroidvania ;
+    sp:precio 59.99 ;
+    sp:similarA sp:HollowKnight ;
+    sp:titulo "Metroid Dread" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Exploracion .
+
+sp:MonsterHunterWorld a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:Capcom ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:RPG ;
+    sp:precio 29.99 ;
+    sp:similarA sp:EldenRing ;
+    sp:titulo "Monster Hunter: World" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Cooperativo,
+        sp:Loot .
+
+sp:Musical a sp:Genero .
+
+sp:NBA2K25 a sp:Videojuego ;
+    sp:anioLanzamiento 2024 ;
+    sp:desarrolladoPor sp:VisualConcepts ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Deportes ;
+    sp:precio 69.99 ;
+    sp:similarA sp:FIFA25 ;
+    sp:titulo "NBA 2K25" ;
+    sp:usaMecanica sp:GestionEquipo,
+        sp:Multijugador .
+
+sp:OriWillOfWisps a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:MoonStudios ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Metroidvania,
+        sp:Plataformas ;
+    sp:precio 29.99 ;
+    sp:similarA sp:CelesteMountain,
+        sp:HollowKnight ;
+    sp:titulo "Ori and the Will of the Wisps" ;
+    sp:usaMecanica sp:Exploracion,
+        sp:Narrativa,
+        sp:Plataformeo .
+
+sp:Palworld a sp:Videojuego ;
+    sp:anioLanzamiento 2024 ;
+    sp:desarrolladoPor sp:Pocketpair ;
+    sp:disponibleEn sp:PC,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Aventura,
+        sp:Supervivencia ;
+    sp:precio 29.99 ;
+    sp:similarA sp:Minecraft ;
+    sp:titulo "Palworld" ;
+    sp:usaMecanica sp:Construccion,
+        sp:Exploracion,
+        sp:SupervivenciaMec .
+
+sp:Ritmo a sp:Mecanica .
+
+sp:RocketLeague a sp:Videojuego ;
+    sp:anioLanzamiento 2015 ;
+    sp:desarrolladoPor sp:Psyonix ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Carreras,
+        sp:Deportes ;
+    sp:precio 0.0 ;
+    sp:similarA sp:MarioKart8Deluxe ;
+    sp:titulo "Rocket League" ;
+    sp:usaMecanica sp:Fisicas,
+        sp:Multijugador,
+        sp:PvP .
+
+sp:SeaOfThieves a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:Rare ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Aventura ;
+    sp:precio 39.99 ;
+    sp:similarA sp:NoMansSky ;
+    sp:titulo "Sea of Thieves" ;
+    sp:usaMecanica sp:Cooperativo,
+        sp:Exploracion,
+        sp:MundoAbierto .
+
+sp:SilentHill2Remake a sp:Videojuego ;
+    sp:anioLanzamiento 2024 ;
+    sp:desarrolladoPor sp:BlooberTeam ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Terror ;
+    sp:precio 69.99 ;
+    sp:similarA sp:AlanWake2,
+        sp:ResidentEvil4 ;
+    sp:titulo "Silent Hill 2 Remake" ;
+    sp:usaMecanica sp:Investigacion,
+        sp:Narrativa,
+        sp:SupervivenciaMec .
+
+sp:SlayTheSpire a sp:Videojuego ;
+    sp:anioLanzamiento 2019 ;
+    sp:desarrolladoPor sp:MegaCrit ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Estrategia ;
+    sp:precio 24.99 ;
+    sp:similarA sp:Hades ;
+    sp:titulo "Slay the Spire" ;
+    sp:usaMecanica sp:Cartas,
+        sp:Roguelike,
+        sp:TurnoPorTurno .
+
+sp:SpiderManMiles a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:InsomniacGames ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 39.99 ;
+    sp:similarA sp:GodOfWarRagnarok ;
+    sp:titulo "Spider-Man: Miles Morales" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:SuperMarioOdyssey a sp:Videojuego ;
+    sp:anioLanzamiento 2017 ;
+    sp:desarrolladoPor sp:Nintendo ;
+    sp:disponibleEn sp:NintendoSwitch ;
+    sp:perteneceAGenero sp:Aventura,
+        sp:Plataformas ;
+    sp:precio 59.99 ;
+    sp:similarA sp:CelesteMountain ;
+    sp:titulo "Super Mario Odyssey" ;
+    sp:usaMecanica sp:Exploracion,
+        sp:Plataformeo .
+
+sp:SuperSmashBrosUltimate a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:Nintendo ;
+    sp:disponibleEn sp:NintendoSwitch ;
+    sp:perteneceAGenero sp:Peleas ;
+    sp:precio 59.99 ;
+    sp:titulo "Super Smash Bros. Ultimate" ;
+    sp:usaMecanica sp:Multijugador,
+        sp:PvP .
+
+sp:Terraria a sp:Videojuego ;
+    sp:anioLanzamiento 2011 ;
+    sp:desarrolladoPor sp:ReLogic ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Aventura,
+        sp:Supervivencia ;
+    sp:precio 9.99 ;
+    sp:similarA sp:Minecraft,
+        sp:StardewValley ;
+    sp:titulo "Terraria" ;
+    sp:usaMecanica sp:Construccion,
+        sp:Cooperativo,
+        sp:Exploracion .
+
+sp:AlanWake2 a sp:Videojuego ;
+    sp:anioLanzamiento 2023 ;
+    sp:desarrolladoPor sp:RemedyEntertainment ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Investigacion,
+        sp:Terror ;
+    sp:precio 59.99 ;
+    sp:similarA sp:ResidentEvil4 ;
+    sp:titulo "Alan Wake 2" ;
+    sp:usaMecanica sp:Investigacion,
+        sp:Narrativa,
+        sp:SupervivenciaMec .
+
+sp:ApexLegends a sp:Videojuego ;
+    sp:anioLanzamiento 2019 ;
+    sp:desarrolladoPor sp:RespawnEntertainment ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:BattleRoyale,
+        sp:Shooter ;
+    sp:precio 0.0 ;
+    sp:similarA sp:Fortnite ;
+    sp:titulo "Apex Legends" ;
+    sp:usaMecanica sp:Disparos,
+        sp:GestionEquipo,
+        sp:Multijugador .
+
+sp:ArkhaneStudios a sp:Desarrollador .
+
+sp:ArrowheadGameStudios a sp:Desarrollador .
+
+sp:Atlus a sp:Desarrollador .
+
+sp:BioWare a sp:Desarrollador .
+
+sp:Blizzard a sp:Desarrollador .
+
+sp:BlooberTeam a sp:Desarrollador .
+
+sp:Cartas a sp:Mecanica .
+
+sp:ConcernedApe a sp:Desarrollador .
+
+sp:DarkSoulsRemastered a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:FromSoftware ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 24.99 ;
+    sp:similarA sp:EldenRing ;
+    sp:titulo "Dark Souls Remastered" ;
+    sp:usaMecanica sp:CombateExigente .
+
+sp:Difícil a sp:Mecanica,
+        owl:NamedIndividual .
+
+sp:DoomEternal a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:IdSoftware ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Shooter ;
+    sp:precio 39.99 ;
+    sp:similarA sp:ResidentEvil4 ;
+    sp:titulo "DOOM Eternal" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Disparos .
+
+sp:ElectronicArts a sp:Desarrollador .
+
+sp:EpicGames a sp:Desarrollador .
+
+sp:FIFA25 a sp:Videojuego ;
+    sp:anioLanzamiento 2024 ;
+    sp:desarrolladoPor sp:ElectronicArts ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Deportes ;
+    sp:precio 59.99 ;
+    sp:titulo "EA Sports FC 25" ;
+    sp:usaMecanica sp:Multijugador .
+
+sp:FiraxisGames a sp:Desarrollador .
+
+sp:Fortnite a sp:Videojuego ;
+    sp:anioLanzamiento 2017 ;
+    sp:desarrolladoPor sp:EpicGames ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:BattleRoyale,
+        sp:Shooter ;
+    sp:precio 0.0 ;
+    sp:similarA sp:ApexLegends ;
+    sp:titulo "Fortnite" ;
+    sp:usaMecanica sp:Construccion,
+        sp:Disparos,
+        sp:Multijugador .
+
+sp:ForzaHorizon5 a sp:Videojuego ;
+    sp:anioLanzamiento 2021 ;
+    sp:desarrolladoPor sp:PlaygroundGames ;
+    sp:disponibleEn sp:PC,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Carreras ;
+    sp:precio 59.99 ;
+    sp:similarA sp:GranTurismo7 ;
+    sp:titulo "Forza Horizon 5" ;
+    sp:usaMecanica sp:CarrerasArcade,
+        sp:Multijugador,
+        sp:MundoAbierto .
+
+sp:GranTurismo7 a sp:Videojuego ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:PolyphonyDigital ;
+    sp:disponibleEn sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Carreras ;
+    sp:precio 69.99 ;
+    sp:similarA sp:ForzaHorizon5 ;
+    sp:titulo "Gran Turismo 7" ;
+    sp:usaMecanica sp:CarrerasArcade,
+        sp:GestionRecursos .
+
+sp:GrandTheftAutoV a sp:Videojuego ;
+    sp:anioLanzamiento 2013 ;
+    sp:desarrolladoPor sp:Rockstar ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Aventura ;
+    sp:precio 29.99 ;
+    sp:similarA sp:Cyberpunk2077,
+        sp:RedDeadRedemption2 ;
+    sp:titulo "Grand Theft Auto V" ;
+    sp:usaMecanica sp:Disparos,
+        sp:Multijugador,
+        sp:MundoAbierto .
+
+sp:GuerrillaGames a sp:Desarrollador .
+
+sp:Hazelight a sp:Desarrollador .
+
+sp:HelloGames a sp:Desarrollador .
+
+sp:HoYoverse a sp:Desarrollador .
+
+sp:HorizonForbiddenWest a sp:Videojuego ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:GuerrillaGames ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 49.99 ;
+    sp:similarA sp:TheWitcher3 ;
+    sp:titulo "Horizon Forbidden West" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:IdSoftware a sp:Desarrollador .
+
+sp:Innersloth a sp:Desarrollador .
+
+sp:InsomniacGames a sp:Desarrollador .
+
+sp:LarianStudios a sp:Desarrollador .
+
+sp:Loot a sp:Mecanica .
+
+sp:MOBA a sp:Genero .
+
+sp:MarioKart8Deluxe a sp:Videojuego ;
+    sp:anioLanzamiento 2017 ;
+    sp:desarrolladoPor sp:Nintendo ;
+    sp:disponibleEn sp:NintendoSwitch ;
+    sp:perteneceAGenero sp:Carreras ;
+    sp:precio 59.99 ;
+    sp:titulo "Mario Kart 8 Deluxe" ;
+    sp:usaMecanica sp:CarrerasArcade,
+        sp:Multijugador .
+
+sp:MegaCrit a sp:Desarrollador .
+
+sp:Mojang a sp:Desarrollador .
+
+sp:MoonStudios a sp:Desarrollador .
+
+sp:MotionTwin a sp:Desarrollador .
+
+sp:NaughtyDog a sp:Desarrollador .
+
+sp:NoMansSky a sp:Videojuego ;
+    sp:anioLanzamiento 2016 ;
+    sp:desarrolladoPor sp:HelloGames ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Aventura,
+        sp:Supervivencia ;
+    sp:precio 59.99 ;
+    sp:similarA sp:Minecraft ;
+    sp:titulo "No Man's Sky" ;
+    sp:usaMecanica sp:Construccion,
+        sp:Exploracion,
+        sp:SupervivenciaMec .
+
+sp:Overwatch2 a sp:Videojuego ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:Blizzard ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Shooter ;
+    sp:precio 0.0 ;
+    sp:similarA sp:Valorant ;
+    sp:titulo "Overwatch 2" ;
+    sp:usaMecanica sp:Disparos,
+        sp:GestionEquipo,
+        sp:PvP .
+
+sp:Peleas a sp:Genero .
+
+sp:Persona5Royal a sp:Videojuego ;
+    sp:anioLanzamiento 2019 ;
+    sp:desarrolladoPor sp:Atlus ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 59.99 ;
+    sp:similarA sp:BaldursGate3 ;
+    sp:titulo "Persona 5 Royal" ;
+    sp:usaMecanica sp:GestionEquipo,
+        sp:Narrativa,
+        sp:TurnoPorTurno .
+
+sp:PlaygroundGames a sp:Desarrollador .
+
+sp:Pocketpair a sp:Desarrollador .
+
+sp:PolyphonyDigital a sp:Desarrollador .
+
+sp:Portal2 a sp:Videojuego ;
+    sp:anioLanzamiento 2011 ;
+    sp:desarrolladoPor sp:Valve ;
+    sp:disponibleEn sp:PC ;
+    sp:perteneceAGenero sp:Puzzle ;
+    sp:precio 9.99 ;
+    sp:titulo "Portal 2" ;
+    sp:usaMecanica sp:Cooperativo,
+        sp:Narrativa .
+
+sp:Psyonix a sp:Desarrollador .
+
+sp:Puzzle a sp:Genero .
+
+sp:Rare a sp:Desarrollador .
+
+sp:ReLogic a sp:Desarrollador .
+
+sp:RedDeadRedemption2 a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:Rockstar ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:Aventura ;
+    sp:precio 59.99 ;
+    sp:similarA sp:GrandTheftAutoV,
+        sp:TheWitcher3 ;
+    sp:titulo "Red Dead Redemption 2" ;
+    sp:usaMecanica sp:Exploracion,
+        sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:RemedyEntertainment a sp:Desarrollador .
+
+sp:RespawnEntertainment a sp:Desarrollador .
+
+sp:Sandbox a sp:Mecanica .
+
+sp:SantaMonicaStudio a sp:Desarrollador .
+
+sp:Sekiro a sp:Videojuego ;
+    sp:anioLanzamiento 2019 ;
+    sp:desarrolladoPor sp:FromSoftware ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 39.99 ;
+    sp:similarA sp:EldenRing ;
+    sp:titulo "Sekiro: Shadows Die Twice" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa .
+
+sp:SquareEnix a sp:Desarrollador .
+
+sp:StudioMDHR a sp:Desarrollador .
+
+sp:Supergiant a sp:Desarrollador .
+
+sp:TiempoReal a sp:Mecanica .
+
+sp:Ubisoft a sp:Desarrollador .
+
+sp:Valorant a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:RiotGames ;
+    sp:disponibleEn sp:PC ;
+    sp:perteneceAGenero sp:Shooter ;
+    sp:precio 0.0 ;
+    sp:similarA sp:Overwatch2 ;
+    sp:titulo "Valorant" ;
+    sp:usaMecanica sp:Disparos,
+        sp:GestionEquipo,
+        sp:PvP .
+
+sp:Valve a sp:Desarrollador .
+
+sp:VisualConcepts a sp:Desarrollador .
+
+sp:ZAUM a sp:Desarrollador .
+
+sp:ZeldaTearsKingdom a sp:Videojuego ;
+    sp:anioLanzamiento 2023 ;
+    sp:desarrolladoPor sp:Nintendo ;
+    sp:disponibleEn sp:NintendoSwitch ;
+    sp:perteneceAGenero sp:Aventura ;
+    sp:precio 69.99 ;
+    sp:similarA sp:HorizonForbiddenWest,
+        sp:Minecraft ;
+    sp:titulo "The Legend of Zelda: Tears of the Kingdom" ;
+    sp:usaMecanica sp:Exploracion,
+        sp:Fisicas,
+        sp:MundoAbierto .
+
+sp:BattleRoyale a sp:Genero .
+
+sp:CDProjektRed a sp:Desarrollador,
+        owl:NamedIndividual .
+
+sp:Capcom a sp:Desarrollador .
+
+sp:Dishonored2 a sp:Videojuego ;
+    sp:anioLanzamiento 2016 ;
+    sp:desarrolladoPor sp:ArkhaneStudios ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 19.99 ;
+    sp:similarA sp:TheLastOfUs2 ;
+    sp:titulo "Dishonored 2" ;
+    sp:usaMecanica sp:Narrativa,
+        sp:Sigilo .
+
+sp:Fisicas a sp:Mecanica .
+
+sp:GodOfWarRagnarok a sp:Videojuego ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:SantaMonicaStudio ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 49.99 ;
+    sp:similarA sp:TheLastOfUs2 ;
+    sp:titulo "God of War: Ragnarök" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa .
+
+sp:RiotGames a sp:Desarrollador .
+
+sp:Rockstar a sp:Desarrollador .
+
+sp:StardewValley a sp:Videojuego ;
+    sp:anioLanzamiento 2016 ;
+    sp:desarrolladoPor sp:ConcernedApe ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC ;
+    sp:perteneceAGenero sp:Simulacion ;
+    sp:precio 13.99 ;
+    sp:similarA sp:Minecraft ;
+    sp:titulo "Stardew Valley" ;
+    sp:usaMecanica sp:Construccion,
+        sp:GestionRecursos .
+
+sp:TeamCherry a sp:Desarrollador .
+
+sp:TheLastOfUs2 a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:NaughtyDog ;
+    sp:disponibleEn sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 39.99 ;
+    sp:similarA sp:Dishonored2,
+        sp:GodOfWarRagnarok ;
+    sp:titulo "The Last of Us Parte II" ;
+    sp:usaMecanica sp:Narrativa,
+        sp:Sigilo .
+
+sp:BaldursGate3 a sp:Videojuego ;
+    sp:anioLanzamiento 2023 ;
+    sp:desarrolladoPor sp:LarianStudios ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 59.99 ;
+    sp:similarA sp:TheWitcher3 ;
+    sp:titulo "Baldur's Gate 3" ;
+    sp:usaMecanica sp:Cooperativo,
+        sp:Narrativa,
+        sp:TurnoPorTurno .
+
+sp:CarrerasArcade a sp:Mecanica .
+
+sp:Cyberpunk2077 a sp:Videojuego,
+        owl:NamedIndividual ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:CDProjektRed ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:Accion,
+        sp:RPG ;
+    sp:precio 49.99 ;
+    sp:similarA sp:TheWitcher3 ;
+    sp:titulo "Cyberpunk 2077" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:Deportes a sp:Genero .
+
+sp:FromSoftware a sp:Desarrollador,
+        owl:NamedIndividual .
+
+sp:Hades a sp:Videojuego ;
+    sp:anioLanzamiento 2020 ;
+    sp:desarrolladoPor sp:Supergiant ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Accion ;
+    sp:precio 24.99 ;
+    sp:similarA sp:CelesteMountain ;
+    sp:titulo "Hades" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa,
+        sp:Roguelike .
+
+sp:HollowKnight a sp:Videojuego ;
+    sp:anioLanzamiento 2017 ;
+    sp:desarrolladoPor sp:TeamCherry ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Plataformas ;
+    sp:precio 14.99 ;
+    sp:similarA sp:CelesteMountain,
+        sp:EldenRing ;
+    sp:titulo "Hollow Knight" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:MundoAbierto .
+
+sp:Metroidvania a sp:Genero .
+
+sp:Plataformeo a sp:Mecanica .
+
+sp:ResidentEvil4 a sp:Videojuego ;
+    sp:anioLanzamiento 2023 ;
+    sp:desarrolladoPor sp:Capcom ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Terror ;
+    sp:precio 49.99 ;
+    sp:titulo "Resident Evil 4 Remake" ;
+    sp:usaMecanica sp:Narrativa,
+        sp:Sigilo .
+
+sp:Roguelike a sp:Mecanica .
+
+sp:Simulacion a sp:Genero .
+
+sp:Supervivencia a sp:Genero .
+
+sp:Terror a sp:Genero,
+        owl:NamedIndividual .
+
+sp:Carreras a sp:Genero .
+
+sp:EldenRing a sp:Videojuego,
+        owl:NamedIndividual ;
+    sp:anioLanzamiento 2022 ;
+    sp:desarrolladoPor sp:FromSoftware ;
+    sp:disponibleEn sp:PC,
+        sp:PlayStation5,
+        sp:XboxSeriesX ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 59.99 ;
+    sp:similarA sp:DarkSoulsRemastered,
+        sp:Sekiro ;
+    sp:titulo "Elden Ring" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Difícil,
+        sp:MundoAbierto .
+
+sp:Estrategia a sp:Genero .
+
+sp:GestionRecursos a sp:Mecanica .
+
+sp:Sigilo a sp:Mecanica .
+
+sp:SupervivenciaMec a sp:Mecanica .
+
+sp:TheWitcher3 a sp:Videojuego ;
+    sp:anioLanzamiento 2015 ;
+    sp:desarrolladoPor sp:CDProjektRed ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:RPG ;
+    sp:precio 29.99 ;
+    sp:similarA sp:BaldursGate3,
+        sp:Cyberpunk2077 ;
+    sp:titulo "The Witcher 3: Wild Hunt" ;
+    sp:usaMecanica sp:MundoAbierto,
+        sp:Narrativa .
+
+sp:TurnoPorTurno a sp:Mecanica .
+
+sp:CelesteMountain a sp:Videojuego ;
+    sp:anioLanzamiento 2018 ;
+    sp:desarrolladoPor sp:TeamCherry ;
+    sp:disponibleEn sp:NintendoSwitch,
+        sp:PC,
+        sp:PlayStation5 ;
+    sp:perteneceAGenero sp:Plataformas ;
+    sp:precio 19.99 ;
+    sp:similarA sp:Hades ;
+    sp:titulo "Celeste" ;
+    sp:usaMecanica sp:CombateExigente,
+        sp:Narrativa .
+
+sp:Minecraft a sp:Videojuego ;
+    sp:anioLanzamiento 2011 ;
+    sp:desarrolladoPor sp:Mojang ;
+    sp:disponibleEn sp:Mobile,
+        sp:NintendoSwitch,
+        sp:PC ;
+    sp:perteneceAGenero sp:Simulacion ;
+    sp:precio 26.99 ;
+    sp:titulo "Minecraft" ;
+    sp:usaMecanica sp:Construccion,
+        sp:Multijugador,
+        sp:Sandbox .
+
+sp:PvP a sp:Mecanica .
+
+sp:Investigacion a sp:Genero,
+        sp:Mecanica .
+
+sp:Nintendo a sp:Desarrollador .
+
+sp:Plataformas a sp:Genero .
+
+sp:Shooter a sp:Genero .
+
+sp:Construccion a sp:Mecanica .
+
+sp:Cooperativo a sp:Mecanica .
+
+sp:Disparos a sp:Mecanica .
+
+sp:Mobile a sp:Plataforma .
+
+sp:GestionEquipo a sp:Mecanica .
+
+sp:Aventura a sp:Genero .
+
+sp:Exploracion a sp:Mecanica .
+
+sp:Multijugador a sp:Mecanica .
+
+sp:RPG a sp:Genero,
+        owl:NamedIndividual .
+
+sp:CombateExigente a sp:Mecanica .
+
+sp:MundoAbierto a sp:Mecanica,
+        owl:NamedIndividual .
+
+sp:Accion a sp:Genero,
+        owl:NamedIndividual .
+
+sp:Narrativa a sp:Mecanica .
+
+sp:XboxSeriesX a sp:Plataforma .
+
+sp:NintendoSwitch a sp:Plataforma .
+
+sp:PlayStation5 a sp:Plataforma,
+        owl:NamedIndividual .
+
+sp:PC a sp:Plataforma,
+        owl:NamedIndividual .
+

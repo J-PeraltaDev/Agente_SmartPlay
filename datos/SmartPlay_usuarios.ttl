@@ -1,0 +1,242 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix sp: <http://www.smartplay.com/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+sp:Andres a sp:Usuario ;
+    sp:edad 25 ;
+    sp:interesadoEn sp:Estrategia,
+        sp:Simulacion ;
+    sp:nombreUsuario "Andres Felipe" ;
+    sp:password "scrypt:32768:8:1$lQtW7Ufew37zcv6e$29f4b983e121b9ec6184ac6c91fcb42d595d629271957fa5416281cd09ad700cb4b0ff8e5353fe443aca85f1cbdfaf56dc79f286b54a98eb5580614de70bb540" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Mexico" ;
+    sp:tieneHistorial sp:HAndres1,
+        sp:HAndres2,
+        sp:HAndres3 .
+
+sp:Camilo a sp:Usuario,
+        owl:NamedIndividual ;
+    sp:edad 21 ;
+    sp:interesadoEn sp:Accion,
+        sp:RPG ;
+    sp:nombreUsuario "Juan Camilo" ;
+    sp:password "scrypt:32768:8:1$w1blVQkcgYrhdZsN$b9df872f248b415eb139b174559c2b972e4cf07de64e641c190d465ef85c71b2952e8ab18840e4e4ac8265f4bd58b0628d0180fb08b3e29c23e42c6454025de2" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HCamilo1,
+        sp:HCamilo2,
+        sp:HCamilo3 .
+
+sp:Carlos a sp:Usuario ;
+    sp:edad 28 ;
+    sp:interesadoEn sp:Accion,
+        sp:Terror ;
+    sp:nombreUsuario "Carlos Andres" ;
+    sp:password "scrypt:32768:8:1$LbeaDJfS5CmFVTMs$bf032ab10100b93c21ee0ad66689a24b7d544226272392de59dfc69b7e00691be443a1e9aa7626421da097ffefce7faa4aa84dd0ffff4897a06574d9da435a0a" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HCarlos1,
+        sp:HCarlos2,
+        sp:HCarlos3 .
+
+sp:Daniela a sp:Usuario ;
+    sp:edad 21 ;
+    sp:interesadoEn sp:Aventura,
+        sp:Estrategia,
+        sp:Simulacion ;
+    sp:nombreUsuario "Daniela Vargas" ;
+    sp:password "scrypt:32768:8:1$JPrHGYCv3P1Sl1tU$b616e76f727b4da7a0e7f221dc4843295d6926e92cfb64832de378d0a1e0cf5c275e081fe10763f2ebf536eeeffb8ec93dd44ff27207ae0559a081bae1b08cdf" ;
+    sp:plataformaPreferida sp:Mobile ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HDaniela_AmongUs,
+        sp:HDaniela_GenshinImpact,
+        sp:HDaniela_Minecraft,
+        sp:HDaniela_Terraria .
+
+sp:Diego a sp:Usuario ;
+    sp:edad 26 ;
+    sp:interesadoEn sp:Accion,
+        sp:RPG ;
+    sp:nombreUsuario "Diego Hernan" ;
+    sp:password "scrypt:32768:8:1$2IpACqLWzFi9xOg4$bb6d00f8602e37c918721d39626b2cff6810376790211961bfea0cb8fb09597396346b08152dff800d08f9a9fe1e27502a643551ff1fd9edddd356aa5f12190b" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Chile" ;
+    sp:tieneHistorial sp:HDiego1,
+        sp:HDiego2,
+        sp:HDiego3 .
+
+sp:Esteban a sp:Usuario ;
+    sp:edad 26 ;
+    sp:interesadoEn sp:Accion,
+        sp:Aventura,
+        sp:Shooter ;
+    sp:nombreUsuario "Esteban Molina" ;
+    sp:password "scrypt:32768:8:1$ylFCJ1vl8YVKf1zB$18ec4d767d5e70338c4cd1a755fc910dc7ed0b15c3907d566e92bf68f36ae9b77358f8a08bda6c51ea836d90c1c5d564efd64868486dcebc5328cd36c73348a1" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "España" ;
+    sp:tieneHistorial sp:HEsteban_AssassinCreedMirage,
+        sp:HEsteban_GodOfWarRagnarok,
+        sp:HEsteban_Helldivers2,
+        sp:HEsteban_RedDeadRedemption2 .
+
+sp:Gabriela a sp:Usuario ;
+    sp:edad 22 ;
+    sp:interesadoEn sp:Aventura,
+        sp:Plataformas,
+        sp:Simulacion ;
+    sp:nombreUsuario "Gabriela Ruiz" ;
+    sp:password "scrypt:32768:8:1$ciABVvTTQPbgQUfz$6b2240fb46d892699b64cd7be5b59d81391a7ee1c5fa8f21712b98d596ccb04a45cb5fcea4d51bc908231a594605908a2713a6240af59f929204e007f8574c33" ;
+    sp:plataformaPreferida sp:NintendoSwitch ;
+    sp:region "Mexico" ;
+    sp:tieneHistorial sp:HGabriela_AnimalCrossingNewHorizons,
+        sp:HGabriela_StardewValley,
+        sp:HGabriela_SuperMarioOdyssey,
+        sp:HGabriela_ZeldaTearsKingdom .
+
+sp:Isabella a sp:Usuario ;
+    sp:edad 27 ;
+    sp:interesadoEn sp:Investigacion,
+        sp:RPG,
+        sp:Terror ;
+    sp:nombreUsuario "Isabella Gomez" ;
+    sp:password "scrypt:32768:8:1$B5zChXxQTtrVOwGO$46a15da5088980fa6ebe2ee0cf0a5a2732abb82ea6b6f7cf78702641e150168a7f3d6be44b8c0c8dd690f9d97303c666e7648217cd47111cddb753bc1bb4d196" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Argentina" ;
+    sp:tieneHistorial sp:HIsabella_AlanWake2,
+        sp:HIsabella_BaldursGate3,
+        sp:HIsabella_DiscoElysium,
+        sp:HIsabella_SilentHill2Remake .
+
+sp:Juan a sp:Usuario,
+        owl:NamedIndividual ;
+    sp:edad 20 ;
+    sp:interesadoEn sp:Accion,
+        sp:Puzzle,
+        sp:RPG ;
+    sp:nombreUsuario "Juan Manuel" ;
+    sp:password "scrypt:32768:8:1$gYo0lkUb6qrNeJFf$3bd5faceb4f7156ae4a9793095dd67f22128edc97f2aadb63db2cf5daea116f5e021e8907d1dfd580e1b186ad31dc56bc3b4cadc2b8877a6b89e60f08696776f" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HJuan1,
+        sp:HJuan2,
+        sp:HJuan3,
+        sp:HJuan_Portal2_307275,
+        sp:HistorialJuan1 .
+
+sp:Laura a sp:Usuario ;
+    sp:edad 23 ;
+    sp:interesadoEn sp:Puzzle,
+        sp:Simulacion ;
+    sp:nombreUsuario "Laura Milena" ;
+    sp:password "scrypt:32768:8:1$5KTQ3nR76OOKRV8m$56272d02373a3cc063541d517b5a740992e19b42afe0b237a81d0e4a90897c6c7e476fa40b4f0bee2edafa5597616c7885682acceaddfe449b8eb7eab9fc5b94" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HLaura1,
+        sp:HLaura2,
+        sp:HLaura3 .
+
+sp:Maria a sp:Usuario ;
+    sp:edad 22 ;
+    sp:interesadoEn sp:Aventura,
+        sp:RPG ;
+    sp:nombreUsuario "Maria Fernanda" ;
+    sp:password "scrypt:32768:8:1$TNT56aPAhLHXHwgF$a7b5cb702572e76d84bce38c4a2a197b3fac9f15b67f8a9dc934a3be46e476c5ad98aa5e76c580e27a158287e218da4d999563bc3b3ae1a5f0946370a064eda2" ;
+    sp:plataformaPreferida sp:PlayStation5 ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HMaria1,
+        sp:HMaria2,
+        sp:HMaria3 .
+
+sp:Mateo a sp:Usuario ;
+    sp:edad 19 ;
+    sp:interesadoEn sp:Carreras,
+        sp:Deportes,
+        sp:Shooter ;
+    sp:nombreUsuario "Mateo Sanchez" ;
+    sp:password "scrypt:32768:8:1$u7EBllgr44SV0yeR$dd252b94daa8aef9e10487cf665b1e1271493998e492a7395cc32dcf0905d6bde622f6232d745c6f20d3354efd3feb1dd61a0963c3e9cd17207839d57224a9e0" ;
+    sp:plataformaPreferida sp:XboxSeriesX ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HMateo_FIFA25,
+        sp:HMateo_ForzaHorizon5,
+        sp:HMateo_NBA2K25,
+        sp:HMateo_RocketLeague .
+
+sp:Natalia a sp:Usuario ;
+    sp:edad 23 ;
+    sp:interesadoEn sp:Accion,
+        sp:Metroidvania,
+        sp:Plataformas ;
+    sp:nombreUsuario "Natalia Pardo" ;
+    sp:password "scrypt:32768:8:1$hqfTyrmI3EDDAUhK$bd3f385b5af39d3558f333c3a0f550dc553aa97c03a3434cb0e25357d4b7ba58022ab89bb45cfa5aba421b754f4badd40737b0156c1ac1ee3bb0cbc4be2c665e" ;
+    sp:plataformaPreferida sp:NintendoSwitch ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HNatalia_Cuphead,
+        sp:HNatalia_HollowKnight,
+        sp:HNatalia_MetroidDread,
+        sp:HNatalia_OriWillOfWisps .
+
+sp:Nicolas a sp:Usuario ;
+    sp:edad 24 ;
+    sp:interesadoEn sp:Accion,
+        sp:BattleRoyale,
+        sp:Shooter ;
+    sp:nombreUsuario "Nicolas Herrera" ;
+    sp:password "scrypt:32768:8:1$8UQsuZsgaclYZHy1$722e86281267e086f8bcce2d11d5bfba5fdc28879b21913f213f8bdf26dcce5435aa4b9577feaa16d9d885b641136b2c7177980925bc67c9d659678c6724bb01" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HNicolas_ApexLegends,
+        sp:HNicolas_DoomEternal,
+        sp:HNicolas_Fortnite,
+        sp:HNicolas_Valorant .
+
+sp:Samuel a sp:Usuario ;
+    sp:edad 31 ;
+    sp:interesadoEn sp:Estrategia,
+        sp:MOBA,
+        sp:RPG ;
+    sp:nombreUsuario "Samuel Ortega" ;
+    sp:password "scrypt:32768:8:1$Yosc6gEJlyXbti0x$60cf768c7c03fa58be02606b7d965265bccbdddf42a2804a9dfe19722897f1bef17fc079a15fe45ea0ae251c2a9167e352a4db827f7b2396eafe0153bb49aa5f" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Chile" ;
+    sp:tieneHistorial sp:HSamuel_Civilization6,
+        sp:HSamuel_LeagueOfLegends,
+        sp:HSamuel_Persona5Royal,
+        sp:HSamuel_SlayTheSpire .
+
+sp:Sebastian a sp:Usuario ;
+    sp:edad 27 ;
+    sp:interesadoEn sp:Puzzle,
+        sp:Simulacion ;
+    sp:nombreUsuario "Sebastian Torres" ;
+    sp:password "scrypt:32768:8:1$TAIwfM2lQqnceO1C$cbe4549fd8611a9f570adb7ec423d61e4b7775168e55c8bd5ae8a29ce14699c499103969c3a0fd0df2441cc4a9cfeeee1c4064aecb4edc3b2961d1d2e10a14a8" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HSebastian1,
+        sp:HSebastian2,
+        sp:HSebastian3 .
+
+sp:Sofia a sp:Usuario ;
+    sp:edad 19 ;
+    sp:interesadoEn sp:Accion,
+        sp:Plataformas ;
+    sp:nombreUsuario "Sofia Alejandra" ;
+    sp:password "scrypt:32768:8:1$AwxV72YalGWl8DJb$2e0ded8bef2a534d0441958332ecde72ccc6c66858084abb0f7601b0f9b693d93bd030e831e224b22bcf92b525d34e4eefecbc4d90ef2013a7faffc23b5116d5" ;
+    sp:plataformaPreferida sp:NintendoSwitch ;
+    sp:region "Argentina" ;
+    sp:tieneHistorial sp:HSofia1,
+        sp:HSofia2,
+        sp:HSofia3,
+        sp:HSofia4 .
+
+sp:Valentina a sp:Usuario ;
+    sp:edad 24 ;
+    sp:interesadoEn sp:Estrategia,
+        sp:RPG ;
+    sp:nombreUsuario "Valentina Rios" ;
+    sp:password "scrypt:32768:8:1$HAnpMikWGQ5qLVSV$9a43306d7ceaddd11f5f5094ccbe2040fb5159058be757ef3f03f721592487bec59f281b32d8e55f89efd691dd88600f2c4c8ca70546498f8683bf5d486d2826" ;
+    sp:plataformaPreferida sp:PC ;
+    sp:region "Colombia" ;
+    sp:tieneHistorial sp:HValentina1,
+        sp:HValentina2,
+        sp:HValentina3 .
+

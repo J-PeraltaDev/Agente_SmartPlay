@@ -2,322 +2,289 @@
 {% block title %}SmartPlay — {{ perfil.nombre }}{% endblock %}
 
 {% block content %}
-<!-- Breadcrumb -->
-<nav aria-label="breadcrumb" class="mb-3">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Inicio</a></li>
-    <li class="breadcrumb-item active">{{ perfil.nombre }}</li>
-  </ol>
-</nav>
+<div class="sp-page">
 
-<!-- Banner: perfil propio vs ajeno -->
-{% if es_propio %}
-  <div class="alert alert-success d-flex align-items-center gap-2 mb-4 py-2">
-    <i class="fas fa-user-check"></i>
-    <span>Estás viendo <strong>tu propio perfil</strong>. Podés calificar juegos y generar recomendaciones.</span>
+  <div class="sp-crumb">
+    <a href="{{ url_for('index') }}">Inicio</a>
+    <i data-lucide="chevron-right" style="width:13px;height:13px;"></i>
+    <span style="color:#94a3b8;">{{ perfil.nombre }}</span>
   </div>
-{% else %}
-  <div class="p-3 mb-4 rounded d-flex align-items-center gap-3"
-       style="background:#16213e; border:1px solid #2d2d4e;">
-    <i class="fas fa-eye" style="color:#a78bfa; font-size:1.2rem;"></i>
-    <div>
-      <strong style="color:#a78bfa;">Perfil de {{ perfil.nombre }}</strong>
-      <br>
-      <small class="text-muted">
-        Estás explorando el perfil de otro usuario.
-        Las calificaciones solo están disponibles en
-        <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}">tu propio perfil</a>.
-      </small>
-    </div>
-  </div>
-{% endif %}
 
-<div class="row g-4">
-
-  <!-- ── Columna izquierda: perfil + acciones ──────────────────── -->
-  <div class="col-lg-4">
-
-    <!-- Tarjeta de perfil -->
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fas fa-user-circle me-2" style="color:#a78bfa"></i>
-        <strong>Perfil del usuario</strong>
-        {% if es_propio %}
-          <span class="badge ms-2" style="background:#7c3aed; font-size:.65rem;">Tu cuenta</span>
-        {% endif %}
-      </div>
-      <div class="card-body">
-        <h4 class="fw-bold mb-1">{{ perfil.nombre }}</h4>
-        <p class="text-muted small mb-3">ID: <code>{{ perfil.id }}</code></p>
-
-        <ul class="list-unstyled mb-3">
-          <li class="mb-1">
-            <i class="fas fa-birthday-cake me-2 text-muted"></i>
-            {{ perfil.edad }} años
-          </li>
-          <li class="mb-1">
-            <i class="fas fa-map-marker-alt me-2 text-muted"></i>
-            {{ perfil.region }}
-          </li>
-          <li class="mb-1">
-            <i class="fas fa-desktop me-2 text-muted"></i>
-            {{ perfil.plataforma }}
-          </li>
-        </ul>
-
-        <div class="mb-2"><small class="text-muted">Géneros de interés:</small></div>
-        {% for g in perfil.generos %}
-          <span class="tag">{{ g }}</span>
-        {% else %}
-          <small class="text-muted">Sin géneros registrados aún.</small>
-        {% endfor %}
-
-        <hr style="border-color:#2d2d4e">
-        <small class="text-muted">
-          <i class="fas fa-info-circle me-1"></i>
-          Los géneros se actualizan automáticamente cuando el
-          <strong>Agente de Perfil</strong> detecta calificaciones ≥ 8.0.
-        </small>
+  {% if es_propio %}
+    <div class="sp-banner bn-own">
+      <i data-lucide="check-circle" style="width:16px;height:16px;"></i>
+      <div>
+        <strong>Tu perfil</strong> — Podés calificar juegos y generar recomendaciones personalizadas.
       </div>
     </div>
-
-    <!-- ══ CALIFICAR: solo visible para el dueño del perfil ══ -->
-    {% if es_propio %}
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fas fa-star me-2" style="color:#d97706"></i>
-        <strong>Registrar calificación</strong>
-      </div>
-      <div class="card-body">
-        <p class="text-muted small">
-          El <strong>Agente de Perfil</strong> actualizará el historial
-          e inferirá nuevos intereses automáticamente.
-        </p>
-        <form action="{{ url_for('calificar') }}" method="POST">
-          <input type="hidden" name="usuario_id" value="{{ perfil.id }}">
-
-          <div class="mb-3">
-            <label class="form-label small">Videojuego</label>
-            <select name="juego_id" class="form-select form-select-sm" required>
-              <option value="" disabled selected>— Selecciona un juego —</option>
-              {% for j in juegos_nuevos %}
-                <option value="{{ j.id }}">{{ j.titulo }} ({{ j.anio }})</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label small">
-              Calificación: <span id="cal-val">5.0</span>/10
-            </label>
-            <input type="range" class="form-range" name="calificacion"
-                   min="1" max="10" step="0.5" value="5"
-                   oninput="document.getElementById('cal-val').textContent = this.value">
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label small">Horas jugadas</label>
-            <input type="number" class="form-control form-control-sm"
-                   name="tiempo_jugado" min="1" max="999" value="5" required>
-          </div>
-
-          <button type="submit" class="btn btn-warning btn-sm w-100">
-            <i class="fas fa-save me-1"></i> Guardar calificación
-          </button>
-        </form>
+  {% else %}
+    <div class="sp-banner bn-other">
+      <i data-lucide="eye" style="width:16px;height:16px;"></i>
+      <div>
+        Explorando el perfil de <strong>{{ perfil.nombre }}</strong>. Las calificaciones solo están disponibles en <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}" style="color:#a78bfa; text-decoration:none;">tu propio perfil</a>.
       </div>
     </div>
-    {% else %}
-    <!-- Bloque informativo para perfiles ajenos -->
-    <div class="card mb-3" style="border-color:#2d2d4e; opacity:.8;">
-      <div class="card-body text-center py-4">
-        <i class="fas fa-lock fa-2x mb-2 text-muted"></i>
-        <p class="text-muted small mb-2">
-          Las calificaciones solo están disponibles desde tu propio perfil.
-        </p>
-        <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}"
-           class="btn btn-outline-light btn-sm">
-          <i class="fas fa-user me-1"></i>Ir a mi perfil
-        </a>
-      </div>
-    </div>
-    {% endif %}
+  {% endif %}
 
-    <!-- Generar recomendaciones (visible para todos, pero ejecuta el agente del perfil visto) -->
-    <div class="card">
-      <div class="card-header">
-        <i class="fas fa-robot me-2" style="color:#059669"></i>
-        <strong>Generar recomendaciones</strong>
-        {% if not es_propio %}
-          <small class="text-muted ms-1">(para {{ perfil.nombre }})</small>
-        {% endif %}
-      </div>
-      <div class="card-body">
-        <p class="text-muted small">
-          El <strong>Agente de Recomendación</strong> consultará el grafo
-          RDF via SPARQL y calculará los scores para cada juego candidato.
-        </p>
-        <form action="{{ url_for('recomendar', usuario_id=perfil.id) }}" method="POST">
-          <div class="mb-3">
-            <label class="form-label small">Estrategia</label>
-            <select name="estrategia" class="form-select form-select-sm">
-              <option value="">Automática (recomendada)</option>
-              <option value="contenido">Basada en Contenido</option>
-              <option value="colaborativa">Colaborativa</option>
-              <option value="hibrida">Híbrida</option>
-            </select>
-            <div class="form-text" style="font-size:.7rem">
-              <strong>Automática:</strong> híbrida si tiene historial, contenido si no.
+  <div class="sp-row">
+    <div class="sp-col-35">
+
+      <div class="sp-card sp-mb2">
+        <div class="sp-card-h">
+          <i data-lucide="user"></i> Perfil del usuario
+          {% if es_propio %}
+            <span class="sp-tag t-v" style="font-size:.65rem; margin-left:auto;">Tu cuenta</span>
+          {% endif %}
+        </div>
+        <div class="sp-card-b">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:1.2rem;">
+            <div class="sp-avatar" style="width:60px;height:60px;font-size:1.3rem;">
+              {{ perfil.nombre[0]|upper }}
+            </div>
+            <div>
+              <h3 style="font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem; color:#e2e8f0; margin-bottom:.2rem;">{{ perfil.nombre }}</h3>
+              <code style="font-size:.72rem; background:rgba(139,92,246,.15); color:#a78bfa; padding:2px 7px; border-radius:5px;">{{ perfil.id }}</code>
             </div>
           </div>
 
-          <div class="mb-3">
-            <label class="form-label small">Cantidad (n)</label>
-            <input type="number" class="form-control form-control-sm"
-                   name="n" min="1" max="10" value="5">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:.55rem; font-size:.83rem;">
+            <span style="color:#34d399;"><i data-lucide="map-pin" style="width:12px;height:12px;"></i></span>
+            <span style="color:#94a3b8;">{{ perfil.region }}</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:.55rem; font-size:.83rem;">
+            <span style="color:#22d3ee;"><i data-lucide="monitor" style="width:12px;height:12px;"></i></span>
+            <span style="color:#94a3b8;">{{ perfil.plataforma }}</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:.55rem; font-size:.83rem;">
+            <span style="color:#fbbf24;"><i data-lucide="award" style="width:12px;height:12px;"></i></span>
+            <span style="color:#94a3b8;">{% if perfil.edad %}{{ perfil.edad }} años{% else %}Edad no registrada{% endif %}</span>
           </div>
 
-          <button type="submit" class="btn btn-success btn-sm w-100">
-            <i class="fas fa-magic me-1"></i> Ejecutar agente
-          </button>
-        </form>
-
-        <hr style="border-color:#2d2d4e">
-        <small class="text-muted">También puedes consultar via API:</small>
-        <code style="font-size:.7rem;color:#a78bfa;display:block;margin-top:4px">
-          GET /api/recomendar/{{ perfil.id }}?estrategia=hibrida&n=5
-        </code>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ── Columna derecha: historial + recomendaciones ─────────── -->
-  <div class="col-lg-8">
-
-    <!-- Historial de juegos -->
-    <div class="card mb-4">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span>
-          <i class="fas fa-history me-2" style="color:#a78bfa"></i>
-          <strong>Historial de juegos</strong>
-          {% if not es_propio %}
-            <small class="text-muted ms-1">de {{ perfil.nombre }}</small>
-          {% endif %}
-        </span>
-        <span class="badge" style="background:#2d2d4e">{{ perfil.historial|length }} juegos</span>
-      </div>
-      <div class="card-body p-0">
-        {% if perfil.historial %}
-          <div class="table-responsive">
-            <table class="table table-sm mb-0">
-              <thead>
-                <tr>
-                  <th>Título</th>
-                  <th>Género</th>
-                  <th>Calificación</th>
-                  <th>Horas</th>
-                  <th>Fecha</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for h in perfil.historial %}
-                <tr>
-                  <td class="fw-semibold">{{ h.titulo }}</td>
-                  <td><span class="tag">{{ h.genero }}</span></td>
-                  <td>
-                    <span class="fw-bold"
-                      style="color:{% if h.calificacion >= 9 %}#6ee7b7{% elif h.calificacion >= 7 %}#fcd34d{% else %}#fca5a5{% endif %}">
-                      {{ h.calificacion }}/10
-                    </span>
-                  </td>
-                  <td>{{ h.tiempo_jugado }}h</td>
-                  <td><small class="text-muted">{{ h.fecha[:10] }}</small></td>
-                </tr>
+          <div style="margin-top:1rem;">
+            <p style="font-size:.72rem; font-weight:600; color:#475569; text-transform:uppercase; letter-spacing:.05em; margin-bottom:.4rem;">Géneros de interés</p>
+            <div class="sp-gap">
+              {% if perfil.generos %}
+                {% for g in perfil.generos %}
+                  <span class="sp-tag t-v">{{ g }}</span>
                 {% endfor %}
-              </tbody>
-            </table>
+              {% else %}
+                <span style="color:#334155; font-size:.78rem;">Sin géneros registrados aún.</span>
+              {% endif %}
+            </div>
           </div>
-        {% else %}
-          <div class="p-4 text-center text-muted">
-            <i class="fas fa-inbox fa-2x mb-2"></i><br>
-            {% if es_propio %}
-              Sin historial. ¡Califica tu primer juego!
-            {% else %}
-              {{ perfil.nombre }} aún no tiene historial de juegos.
-            {% endif %}
+
+          <div class="sp-info-box sp-mt" style="display:flex; align-items:flex-start; gap:8px;">
+            <i data-lucide="info" style="width:12px;height:12px;color:#a78bfa;flex-shrink:0;margin-top:1px;"></i>
+            <span>Los géneros se actualizan automáticamente cuando el <strong style="color:#94a3b8;">Agente de Perfil</strong> detecta calificaciones ≥ 8.0.</span>
           </div>
-        {% endif %}
+        </div>
       </div>
-    </div>
 
-    <!-- Recomendaciones generadas -->
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <span>
-          <i class="fas fa-star me-2" style="color:#d97706"></i>
-          <strong>Recomendaciones generadas por el agente</strong>
-        </span>
-        <span class="badge" style="background:#2d2d4e">{{ recomendaciones|length }}</span>
-      </div>
-      <div class="card-body">
-        {% if recomendaciones %}
-          <div class="row g-3">
-            {% for rec in recomendaciones %}
-            <div class="col-md-6">
-              <div class="card h-100" style="border-color:#3d2d6e">
-                <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h6 class="fw-bold mb-0" style="color:#e0e0e0">{{ rec.titulo }}</h6>
-                    <span class="badge"
-                          style="font-size:.65rem;{% if rec.estrategia == 'BasadaEnContenido' %}background:#1d4ed8{% elif rec.estrategia == 'Hibrida' %}background:#7c3aed{% else %}background:#059669{% endif %}">
-                      {{ rec.estrategia }}
-                    </span>
-                  </div>
+      {% if es_propio %}
+        <div class="sp-card sp-mb2">
+          <div class="sp-card-h">
+            <i data-lucide="star"></i> Registrar calificación
+          </div>
+          <div class="sp-card-b">
+            <p style="font-size:.78rem; color:#475569; margin-bottom:1rem; line-height:1.5;">El <strong style="color:#94a3b8;">Agente de Perfil</strong> actualizará el historial e inferirá intereses automáticamente.</p>
 
-                  <div class="d-flex gap-3 mb-2">
-                    <small class="text-muted"><i class="fas fa-tag me-1"></i>{{ rec.genero }}</small>
-                    <small class="text-muted"><i class="fas fa-dollar-sign me-1"></i>${{ rec.precio }}</small>
-                    <small class="text-muted"><i class="fas fa-calendar me-1"></i>{{ rec.anio }}</small>
-                  </div>
+            <form action="{{ url_for('calificar') }}" method="POST">
+              <input type="hidden" name="usuario_id" value="{{ perfil.id }}">
 
-                  <div class="mb-1 d-flex justify-content-between">
-                    <small class="text-muted">Relevancia</small>
-                    <small class="fw-bold" style="color:#a78bfa">
-                      {{ (rec.score * 100)|int }}%
-                    </small>
-                  </div>
-                  <div class="score-bar">
-                    <div class="score-fill" style="width:{{ (rec.score * 100)|int }}%"></div>
-                  </div>
+              <div class="sp-mb2">
+                <label class="sp-label">Videojuego</label>
+                <select name="juego_id" class="sp-select" required>
+                  <option value="" disabled selected>— Selecciona un juego —</option>
+                  {% for j in juegos_nuevos %}
+                    <option value="{{ j.id }}">{{ j.titulo }} ({{ j.anio }})</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="sp-mb2">
+                <label class="sp-label">
+                  Calificación: <span id="cal-val" style="color:#fbbf24; font-weight:700;">5.0</span>/10
+                </label>
+                <input type="range" class="sp-range" name="calificacion" min="1" max="10" step="0.5" value="5" oninput="document.getElementById('cal-val').textContent = this.value">
+                <div style="display:flex; justify-content:space-between; font-size:.68rem; color:#334155; margin-top:4px;">
+                  <span>1</span><span>5</span><span>10</span>
                 </div>
               </div>
+
+              <div class="sp-mb2">
+                <label class="sp-label">Horas jugadas</label>
+                <input type="number" class="sp-input" name="tiempo_jugado" min="1" max="999" value="5" required>
+              </div>
+
+              <button type="submit" class="sp-btn sp-btn-warning sp-btn-full">
+                <i data-lucide="save"></i> Guardar calificación
+              </button>
+            </form>
+          </div>
+        </div>
+      {% else %}
+        <div class="sp-card sp-mb2" style="opacity:.8;">
+          <div class="sp-card-b" style="text-align:center; padding:1.5rem;">
+            <i data-lucide="lock" style="width:28px;height:28px; color:#334155; margin-bottom:.6rem;"></i>
+            <p style="color:#475569; font-size:.8rem;">Las calificaciones solo están disponibles desde tu propio perfil.</p>
+            {% if session.get('usuario_id') %}
+              <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}" class="sp-btn sp-btn-outline sp-btn-sm" style="margin-top:.8rem; text-decoration:none;">
+                <i data-lucide="user"></i> Ir a mi perfil
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="sp-card">
+        <div class="sp-card-h">
+          <i data-lucide="bot"></i> Generar recomendaciones {% if not es_propio %}<span style="color:#334155; font-size:.75rem; margin-left:auto;">para {{ perfil.nombre }}</span>{% endif %}
+        </div>
+        <div class="sp-card-b">
+          <p style="font-size:.78rem; color:#475569; margin-bottom:1rem; line-height:1.5;">El <strong style="color:#94a3b8;">Agente de Recomendación</strong> consultará el grafo RDF via SPARQL y calculará scores para cada juego candidato.</p>
+
+          <form action="{{ url_for('recomendar', usuario_id=perfil.id) }}" method="POST">
+            <div class="sp-mb2">
+              <label class="sp-label">Estrategia</label>
+              <select name="estrategia" class="sp-select">
+                <option value="">Automática (recomendada)</option>
+                <option value="contenido">Basada en Contenido</option>
+                <option value="colaborativa">Colaborativa</option>
+                <option value="hibrida">Híbrida</option>
+              </select>
+              <div style="font-size:.7rem; color:#334155; margin-top:5px;"><strong>Automática:</strong> híbrida si hay historial, contenido si no.</div>
             </div>
-            {% endfor %}
-          </div>
 
-          <div class="mt-3 p-3 rounded" style="background:#0f0f1a;font-size:.8rem;color:#6b7280">
-            <i class="fas fa-info-circle me-1"></i>
-            Las recomendaciones son generadas consultando el grafo RDF vía SPARQL
-            y persistidas como nuevas tripletas RDF en el archivo Turtle.
-          </div>
+            <div class="sp-mb2">
+              <label class="sp-label">Cantidad (n)</label>
+              <input type="number" class="sp-input" name="n" min="1" max="10" value="5">
+            </div>
 
-        {% else %}
-          <div class="text-center text-muted py-4">
-            <i class="fas fa-robot fa-3x mb-3" style="color:#2d2d4e"></i>
-            <p class="mb-2">
-              {% if es_propio %}
-                El agente aún no ha generado recomendaciones para ti.
-              {% else %}
-                El agente aún no ha generado recomendaciones para {{ perfil.nombre }}.
-              {% endif %}
-            </p>
-            <p class="small">Usa el formulario de la izquierda para ejecutar el agente.</p>
+            <button type="submit" class="sp-btn sp-btn-success sp-btn-full">
+              <i data-lucide="sparkles"></i> Ejecutar agente
+            </button>
+          </form>
+
+          <div class="sp-info-box sp-mt">
+            <p style="margin-bottom:6px; color:#475569; font-size:.7rem; font-weight:600;">Endpoint API:</p>
+            <code class="sp-code-b">{{ "GET /api/recomendar/" ~ perfil.id ~ "?estrategia=hibrida&n=5" }}</code>
           </div>
-        {% endif %}
+        </div>
       </div>
     </div>
 
+    <div class="sp-col-65">
+
+      <div class="sp-card sp-mb2">
+        <div class="sp-card-h">
+          <i data-lucide="clock"></i> Historial de juegos
+          {% if not es_propio %}
+            <span style="color:#334155; font-size:.78rem;">de {{ perfil.nombre }}</span>
+          {% endif %}
+          <span class="sp-tag t-c" style="margin-left:auto; font-size:.68rem;">{{ perfil.historial|length }} juegos</span>
+        </div>
+        <div class="sp-card-b">
+          {% if perfil.historial %}
+            <div style="overflow-x:auto;">
+              <table class="sp-tbl">
+                <thead>
+                  <tr>
+                    <th>Título</th>
+                    <th>Género</th>
+                    <th>Calificación</th>
+                    <th>Horas</th>
+                    <th>Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for h in perfil.historial %}
+                    <tr>
+                      <td style="font-weight:600; color:#e2e8f0;">{{ h.titulo }}</td>
+                      <td><span class="sp-tag t-v">{{ h.genero }}</span></td>
+                      <td>
+                        <span style="font-weight:700; color:{% if h.calificacion >= 9 %}#6ee7b7{% elif h.calificacion >= 7.5 %}#22d3ee{% else %}#fca5a5{% endif %}; font-family:'Syne',sans-serif;">{{ h.calificacion }}</span>
+                        <span style="color:#334155; font-size:.75rem;">/10</span>
+                      </td>
+                      <td style="color:#64748b;"><i data-lucide="timer-reset" style="width:11px;height:11px; display:inline; margin-right:3px;"></i>{{ h.tiempo_jugado }}h</td>
+                      <td style="color:#334155; font-size:.78rem;">{{ h.fecha[:10] }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="sp-empty">
+              <i data-lucide="gamepad-2" style="width:36px;height:36px; color:#1e293b; margin-bottom:1rem;"></i>
+              <p style="margin-bottom:.4rem;">{% if es_propio %}Sin historial. ¡Califica tu primer juego!{% else %}{{ perfil.nombre }} aún no tiene historial de juegos.{% endif %}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="sp-card">
+        <div class="sp-card-h">
+          <i data-lucide="star"></i> Recomendaciones generadas por el agente
+          <span class="sp-tag t-a" style="margin-left:auto; font-size:.68rem;">{{ recomendaciones|length }} resultados</span>
+        </div>
+        <div class="sp-card-b">
+          {% if recomendaciones %}
+            <div class="sp-g2">
+              {% for rec in recomendaciones %}
+                <div class="sp-rec-item vis">
+                  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:.6rem;">
+                    <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:.9rem; color:#e2e8f0; line-height:1.3;">{{ rec.titulo }}</span>
+                    <span class="sp-tag {% if rec.estrategia == 'BasadaEnContenido' %}t-c{% elif rec.estrategia == 'Hibrida' %}t-v{% else %}t-g{% endif %}" style="font-size:.62rem; flex-shrink:0; margin-left:6px;">{{ rec.estrategia }}</span>
+                  </div>
+
+                  <div style="display:flex; gap:12px; font-size:.75rem; color:#475569; margin-bottom:.7rem; flex-wrap:wrap;">
+                    <span><i data-lucide="tag" style="width:11px;height:11px; display:inline; margin-right:3px;"></i>{{ rec.genero }}</span>
+                    <span><i data-lucide="dollar-sign" style="width:11px;height:11px; display:inline; margin-right:2px;"></i>${{ rec.precio }}</span>
+                    <span>{{ rec.anio }}</span>
+                  </div>
+
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                    <span style="font-size:.72rem; color:#334155;">Relevancia</span>
+                    <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:.85rem; color:{% if rec.score >= 0.9 %}#34d399{% elif rec.score >= 0.8 %}#22d3ee{% elif rec.score >= 0.7 %}#a78bfa{% else %}#fbbf24{% endif %};">{{ (rec.score * 100) | int }}%</span>
+                  </div>
+
+                  <div class="sp-bar-t">
+                    <div class="sp-bar-f" style="width:{{ (rec.score * 100) | int }}%; background:linear-gradient(90deg, {% if rec.score >= 0.9 %}#34d399{% elif rec.score >= 0.8 %}#22d3ee{% elif rec.score >= 0.7 %}#a78bfa{% else %}#fbbf24{% endif %}aa, {% if rec.score >= 0.9 %}#34d399{% elif rec.score >= 0.8 %}#22d3ee{% elif rec.score >= 0.7 %}#a78bfa{% else %}#fbbf24{% endif %});"></div>
+                  </div>
+
+                  {% if rec.explicaciones %}
+                    <div class="sp-rec-reasons">
+                      {% for razon in rec.explicaciones[:4] %}
+                        <div class="sp-rec-reason">
+                          <i data-lucide="check" style="width:12px;height:12px;"></i>
+                          <span>{{ razon }}</span>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="sp-info-box sp-mt" style="display:flex; align-items:flex-start; gap:8px;">
+              <i data-lucide="trending-up" style="width:12px;height:12px;color:#a78bfa;flex-shrink:0;margin-top:1px;"></i>
+              <span>Las recomendaciones son generadas consultando el grafo RDF vía SPARQL y persistidas como nuevas tripletas RDF en el archivo Turtle.</span>
+            </div>
+          {% else %}
+            <div class="sp-empty">
+              <i data-lucide="bot" style="width:40px;height:40px; color:#1e293b; margin-bottom:1rem;"></i>
+              <p style="margin-bottom:.5rem; font-size:.9rem;">
+                {% if es_propio %}
+                  El agente aún no ha generado recomendaciones para ti.
+                {% else %}
+                  Aún no hay recomendaciones para {{ perfil.nombre }}.
+                {% endif %}
+              </p>
+              <p style="font-size:.8rem; color:#334155;">Usa el formulario lateral para ejecutar el agente de recomendación.</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

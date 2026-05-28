@@ -4,122 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}SmartPlay{% endblock %}</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body { background: #0f0f1a; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; }
-    .navbar-brand { font-weight: 800; font-size: 1.5rem; color: #a78bfa !important; }
-    .navbar { background: #1a1a2e !important; border-bottom: 1px solid #2d2d4e; }
-    .card { background: #1a1a2e; border: 1px solid #2d2d4e; border-radius: 12px; }
-    .card-header { background: #16213e; border-bottom: 1px solid #2d2d4e; }
-    .btn-primary { background: #7c3aed; border-color: #7c3aed; }
-    .btn-primary:hover { background: #6d28d9; border-color: #6d28d9; }
-    .btn-success { background: #059669; border-color: #059669; }
-    .btn-outline-light { border-color: #4b5563; color: #9ca3af; }
-    .btn-outline-danger { border-color: #dc2626; color: #f87171; }
-    .btn-outline-danger:hover { background: #7f1d1d; color: #fca5a5; }
-    .badge-contenido    { background: #1d4ed8; }
-    .badge-hibrida      { background: #7c3aed; }
-    .badge-colaborativa { background: #059669; }
-    .score-bar  { height: 8px; border-radius: 4px; background: #2d2d4e; }
-    .score-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #7c3aed, #a78bfa); }
-    .tag { display: inline-block; padding: 2px 8px; border-radius: 99px;
-           font-size: .75rem; margin: 2px; background: #2d2d4e; color: #a78bfa; }
-    a { color: #a78bfa; text-decoration: none; }
-    a:hover { color: #c4b5fd; }
-    .form-control, .form-select {
-      background: #0f0f1a; border-color: #2d2d4e; color: #e0e0e0;
-    }
-    .form-control:focus, .form-select:focus {
-      background: #0f0f1a; border-color: #7c3aed; color: #e0e0e0;
-      box-shadow: 0 0 0 .2rem rgba(124,58,237,.25);
-    }
-    .form-control::placeholder { color: #4b5563; }
-    .alert-success { background: #064e3b; border-color: #059669; color: #6ee7b7; }
-    .alert-danger  { background: #7f1d1d; border-color: #dc2626; color: #fca5a5; }
-    .alert-warning { background: #78350f; border-color: #d97706; color: #fcd34d; }
-    .alert-info    { background: #1e3a5f; border-color: #3b82f6; color: #93c5fd; }
-    .table { color: #e0e0e0; }
-    .table td, .table th { border-color: #2d2d4e; }
-    .table thead th { background: #16213e; }
-    .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
-    /* Sesión badge */
-    .session-badge {
-      background: #2d2d4e; border-radius: 99px; padding: 4px 14px;
-      font-size: .82rem; color: #a78bfa; display: flex; align-items: center; gap: 8px;
-    }
-    .session-badge .dot {
-      width: 8px; height: 8px; border-radius: 50%; background: #10b981; flex-shrink: 0;
-    }
-    /* Auth card */
-    .auth-card { max-width: 440px; margin: 4rem auto; }
-    .auth-card .card-body { padding: 2.5rem; }
-    .auth-divider { position: relative; text-align: center; margin: 1.2rem 0; }
-    .auth-divider::before {
-      content: ''; position: absolute; top: 50%; left: 0; right: 0;
-      height: 1px; background: #2d2d4e;
-    }
-    .auth-divider span {
-      position: relative; background: #1a1a2e; padding: 0 .75rem;
-      color: #4b5563; font-size: .8rem;
-    }
-  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/smartplay.css') }}">
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark mb-4">
-  <div class="container">
-    <a class="navbar-brand" href="{{ url_for('index') }}">
-      <i class="fas fa-gamepad me-2"></i>SmartPlay
-    </a>
-
-    <div class="ms-auto d-flex align-items-center gap-3">
-      {% if session.get('usuario_id') %}
-        <div class="session-badge">
-          <span class="dot"></span>
-          <span>
-            <i class="fas fa-user me-1"></i>
-            <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}"
-               style="color:#a78bfa">{{ session['usuario_nombre'] }}</a>
-          </span>
-        </div>
-        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger btn-sm">
-          <i class="fas fa-sign-out-alt me-1"></i>Salir
-        </a>
-      {% else %}
-        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-sm">
-          <i class="fas fa-sign-in-alt me-1"></i>Iniciar sesión
-        </a>
-        <a href="{{ url_for('register') }}" class="btn btn-primary btn-sm">
-          <i class="fas fa-user-plus me-1"></i>Registrarse
-        </a>
-      {% endif %}
-    </div>
-  </div>
-</nav>
-
-<div class="container">
   {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       {% for category, message in messages %}
-        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-          {{ message }}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <div class="sp-flash {% if category == 'success' %}fl-s{% elif category == 'danger' or category == 'error' %}fl-d{% elif category == 'warning' %}fl-w{% else %}fl-i{% endif %}">
+          {% if category == 'success' %}
+            <i data-lucide="check-circle" style="width:20px;height:20px;"></i>
+          {% elif category == 'danger' or category == 'error' %}
+            <i data-lucide="x-circle" style="width:20px;height:20px;"></i>
+          {% elif category == 'warning' %}
+            <i data-lucide="triangle-alert" style="width:20px;height:20px;"></i>
+          {% else %}
+            <i data-lucide="info" style="width:20px;height:20px;"></i>
+          {% endif %}
+          <span>{{ message }}</span>
         </div>
       {% endfor %}
+      <script>
+        setTimeout(() => {
+          document.querySelectorAll('.sp-flash').forEach(flash => flash.style.display = 'none');
+        }, 5000);
+      </script>
     {% endif %}
   {% endwith %}
 
-  {% block content %}{% endblock %}
-</div>
+  <div class="sp-root">
+    <div class="sp-bg">
+      <div class="sp-orb sp-orb-1"></div>
+      <div class="sp-orb sp-orb-2"></div>
+      <div class="sp-orb sp-orb-3"></div>
+      <div class="sp-grid"></div>
+    </div>
 
-<footer class="text-center text-muted py-4 mt-5" style="font-size:.8rem; border-top:1px solid #2d2d4e;">
-  SmartPlay &mdash; Sistema de Recomendación con Agentes Inteligentes y Web Semántico &mdash;
-  Web Semántica y Agentes Inteligentes · Politécnico Colombiano Jaime Isaza Cadavid
-</footer>
+    <div class="sp-content">
+      <nav class="sp-nav">
+        <a href="{{ url_for('index') if session.get('usuario_id') else url_for('login') }}" class="sp-logo" style="text-decoration:none;">
+          <i data-lucide="gamepad-2"></i> SmartPlay
+        </a>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-{% block scripts %}{% endblock %}
+        <div class="sp-nav-right">
+          {% if session.get('usuario_nombre') %}
+            <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}" class="sp-session-pill" style="text-decoration:none;">
+              <div class="sp-dot"></div>
+              {{ session['usuario_nombre'] }}
+            </a>
+            <a href="{{ url_for('logout') }}" class="sp-btn sp-btn-outline sp-btn-sm" style="display:flex;text-decoration:none;">
+              <i data-lucide="log-out" style="width:16px;height:16px;"></i> Salir
+            </a>
+          {% else %}
+            <a href="{{ url_for('login') }}" class="sp-btn sp-btn-outline sp-btn-sm" style="text-decoration:none;">Ingresar</a>
+            <a href="{{ url_for('register') }}" class="sp-btn sp-btn-primary sp-btn-sm" style="text-decoration:none;">Registrarse</a>
+          {% endif %}
+        </div>
+      </nav>
+
+      {% block content %}{% endblock %}
+
+      <footer class="sp-footer">
+        <span style="color:#a78bfa; font-family:'Syne', sans-serif; font-weight:700; display:inline-flex; align-items:center; gap:5px;">
+          <i data-lucide="gamepad-2" style="width:13px;height:13px;"></i> SmartPlay
+        </span>
+        <br> — Sistema de Recomendación con Agentes Inteligentes y Web Semántico —
+        <br> Web Semántica y Agentes Inteligentes · Politécnico Colombiano Jaime Isaza Cadavid
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
 </body>
 </html>

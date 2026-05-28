@@ -21,14 +21,13 @@ Rutas:
 
 import os
 import re
-import uuid as _uuid
 from functools import wraps
 from flask import (Flask, render_template, request, redirect,
                    url_for, flash, jsonify, session)
 from werkzeug.security import generate_password_hash, check_password_hash
-from rdflib import Graph, Namespace, Literal, URIRef, XSD
+from rdflib import Namespace, Literal, XSD
 from rdflib.namespace import RDF
-from agentes.agente_perfil_usuario import AgentePerfilUsuario
+from agentes.agente_perfil_usuario import AgentePerfilUsuario, id_local_valido, recurso_sp
 from agentes.agente_recomendacion import AgenteRecomendacion
 
 app = Flask(__name__)
@@ -38,14 +37,21 @@ SP = Namespace("http://www.smartplay.com/ontology#")
 
 # ── Rutas de archivos de datos ─────────────────────────────────────────────
 BASE_DIR       = os.path.dirname(os.path.abspath(__file__))
-RUTA_DATOS     = os.path.join(BASE_DIR, "datos", "SmartPlay_datos.ttl")
+RUTA_CATALOGO  = os.path.join(BASE_DIR, "datos", "SmartPlay_catalogo.ttl")
+RUTA_USUARIOS  = os.path.join(BASE_DIR, "datos", "SmartPlay_usuarios.ttl")
+RUTA_INTERACCIONES = os.path.join(BASE_DIR, "datos", "SmartPlay_interacciones.ttl")
 RUTA_ONTOLOGIA = os.path.join(BASE_DIR, "datos", "SmartPlay_Ontologia.owl")
 
 # ── Inicialización de agentes ──────────────────────────────────────────────
 print("\n" + "="*60)
 print("   SmartPlay — Inicializando agentes inteligentes...")
 print("="*60)
-agente_perfil = AgentePerfilUsuario(RUTA_DATOS, RUTA_ONTOLOGIA)
+agente_perfil = AgentePerfilUsuario(
+    [RUTA_CATALOGO, RUTA_USUARIOS, RUTA_INTERACCIONES],
+    RUTA_ONTOLOGIA,
+    ruta_usuarios=RUTA_USUARIOS,
+    ruta_interacciones=RUTA_INTERACCIONES,
+)
 agente_rec    = AgenteRecomendacion(agente_perfil)
 print("="*60 + "\n")
 
@@ -67,16 +73,10 @@ def login_required(f):
 
 def _get_password_from_graph(usuario_id: str) -> str | None:
     """Lee el hash de contraseña del grafo RDF para un usuario dado."""
-    query = """
-    PREFIX sp: <http://www.smartplay.com/ontology#>
-    SELECT ?pwd WHERE {
-        sp:%(uid)s sp:password ?pwd .
-    }
-    """ % {"uid": usuario_id}
-    results = list(agente_perfil.graph.query(query))
-    if results:
-        return str(results[0][0])
-    return None
+    if not id_local_valido(usuario_id):
+        return None
+    password_hash = agente_perfil.graph.value(recurso_sp(usuario_id), SP.password)
+    return str(password_hash) if password_hash is not None else None
 
 
 def _add_user_to_graph(usuario_id: str, nombre: str, edad: int,
@@ -86,7 +86,7 @@ def _add_user_to_graph(usuario_id: str, nombre: str, edad: int,
     Reutiliza la lógica de serialización del agente.
     """
     g = agente_perfil.graph
-    uri = SP[usuario_id]
+    uri = recurso_sp(usuario_id)
 
     g.add((uri, RDF.type,           SP.Usuario))
     g.add((uri, SP.nombreUsuario,   Literal(nombre)))
@@ -95,10 +95,10 @@ def _add_user_to_graph(usuario_id: str, nombre: str, edad: int,
     g.add((uri, SP.region,          Literal(region)))
 
     plat_uri = SP[plataforma.replace(" ", "")]
-    g.add((uri, SP.prefierePlataforma, plat_uri))
+    g.add((uri, SP.plataformaPreferida, plat_uri))
 
     # Persistir
-    g.serialize(destination=RUTA_DATOS, format="turtle")
+    agente_perfil.guardar()
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -116,10 +116,14 @@ def login():
 
         pwd_hash = _get_password_from_graph(usuario_id)
         if pwd_hash and check_password_hash(pwd_hash, password):
-            session["usuario_id"]    = usuario_id
-            session["usuario_nombre"] = agente_perfil.obtener_perfil(usuario_id)["nombre"]
-            flash(f"¡Bienvenido de vuelta, {session['usuario_nombre']}!", "success")
-            return redirect(url_for("perfil", usuario_id=usuario_id))
+            perfil = agente_perfil.obtener_perfil(usuario_id)
+            if not perfil:
+                flash("Usuario o contraseña incorrectos.", "danger")
+            else:
+                session["usuario_id"]    = usuario_id
+                session["usuario_nombre"] = perfil.get("nombre", usuario_id)
+                flash(f"¡Bienvenido de vuelta, {session['usuario_nombre']}!", "success")
+                return redirect(url_for("perfil", usuario_id=usuario_id))
         else:
             flash("Usuario o contraseña incorrectos.", "danger")
 
@@ -164,6 +168,16 @@ def register():
             flash("La contraseña debe tener al menos 6 caracteres.", "warning")
             return render_template("register.html")
 
+        try:
+            edad_int = int(edad)
+        except ValueError:
+            flash("La edad debe ser un número válido.", "warning")
+            return render_template("register.html")
+
+        if edad_int < 10 or edad_int > 99:
+            flash("La edad debe estar entre 10 y 99 años.", "warning")
+            return render_template("register.html")
+
         # Verificar que el ID no exista ya
         if _get_password_from_graph(usuario_id) or agente_perfil.obtener_perfil(usuario_id):
             flash(f"El ID '{usuario_id}' ya está en uso. Elige otro.", "warning")
@@ -171,10 +185,7 @@ def register():
 
         # Crear usuario
         pwd_hash = generate_password_hash(password)
-        _add_user_to_graph(usuario_id, nombre, int(edad), region, plataforma, pwd_hash)
-
-        # Recargar el grafo del agente para reconocer al nuevo usuario
-        agente_perfil.graph.parse(RUTA_DATOS, format="turtle")
+        _add_user_to_graph(usuario_id, nombre, edad_int, region, plataforma, pwd_hash)
 
         session["usuario_id"]     = usuario_id
         session["usuario_nombre"] = nombre
@@ -194,7 +205,14 @@ def index():
     if "usuario_id" not in session:
         return redirect(url_for("login"))
     usuarios = agente_perfil.obtener_todos_usuarios()
-    return render_template("index.html", usuarios=usuarios)
+    total_videojuegos = len(agente_rec._obtener_catalogo())
+    total_historiales = len(set(agente_perfil.graph.subjects(RDF.type, SP.EntradaHistorial)))
+    return render_template(
+        "index.html",
+        usuarios=usuarios,
+        total_videojuegos=total_videojuegos,
+        total_historiales=total_historiales,
+    )
 
 
 @app.route("/perfil/<usuario_id>")
@@ -205,6 +223,10 @@ def perfil(usuario_id):
     - Cualquier usuario logueado puede VER el perfil de otro.
     - Solo el dueño del perfil puede CALIFICAR juegos.
     """
+    if not id_local_valido(usuario_id):
+        flash("El ID de usuario solicitado no es válido.", "warning")
+        return redirect(url_for("index"))
+
     datos_perfil = agente_perfil.obtener_perfil(usuario_id)
     if not datos_perfil:
         flash(f"Usuario '{usuario_id}' no encontrado en el grafo.", "danger")
@@ -238,8 +260,15 @@ def calificar():
     """
     usuario_id    = request.form.get("usuario_id", "").strip()
     juego_id      = request.form.get("juego_id", "").strip()
-    calificacion  = float(request.form.get("calificacion", 5.0))
-    tiempo_jugado = int(request.form.get("tiempo_jugado", 1))
+    juego_id = juego_id if id_local_valido(juego_id) else ""
+    try:
+        calificacion = float(request.form.get("calificacion", 5.0))
+        tiempo_jugado = int(request.form.get("tiempo_jugado", 1))
+    except ValueError:
+        flash("La calificación y las horas deben ser valores numéricos.", "warning")
+        return redirect(url_for("perfil", usuario_id=session.get("usuario_id")))
+    calificacion = max(1.0, min(calificacion, 10.0))
+    tiempo_jugado = max(1, min(tiempo_jugado, 999))
 
     # Seguridad: solo puede calificar en su propio perfil
     if usuario_id != session.get("usuario_id"):
@@ -265,8 +294,18 @@ def calificar():
 @app.route("/recomendar/<usuario_id>", methods=["POST"])
 @login_required
 def recomendar(usuario_id):
-    estrategia = request.form.get("estrategia") or None
-    n          = int(request.form.get("n", 5))
+    if not id_local_valido(usuario_id):
+        flash("El ID de usuario solicitado no es válido.", "warning")
+        return redirect(url_for("index"))
+
+    estrategia = request.form.get("estrategia", "")
+    if estrategia not in ("", "contenido", "colaborativa", "hibrida"):
+        estrategia = ""
+    try:
+        n = int(request.form.get("n", 5))
+    except ValueError:
+        n = 5
+    n = max(1, min(n, 10))
 
     recs = agente_rec.recomendar(usuario_id, n=n, estrategia=estrategia)
 
@@ -281,8 +320,16 @@ def recomendar(usuario_id):
 
 @app.route("/api/recomendar/<usuario_id>")
 def api_recomendar(usuario_id):
-    estrategia = request.args.get("estrategia") or None
-    n          = int(request.args.get("n", 5))
+    if not id_local_valido(usuario_id):
+        return jsonify({"error": "ID de usuario inválido"}), 400
+    estrategia = request.args.get("estrategia", "")
+    if estrategia not in ("", "contenido", "colaborativa", "hibrida"):
+        estrategia = ""
+    try:
+        n = int(request.args.get("n", 5))
+    except ValueError:
+        n = 5
+    n = max(1, min(n, 10))
     recs       = agente_rec.recomendar(usuario_id, n=n, estrategia=estrategia)
 
     for r in recs:
@@ -300,6 +347,8 @@ def api_recomendar(usuario_id):
 
 @app.route("/api/perfil/<usuario_id>")
 def api_perfil(usuario_id):
+    if not id_local_valido(usuario_id):
+        return jsonify({"error": "ID de usuario inválido"}), 400
     datos = agente_perfil.obtener_perfil(usuario_id)
     if not datos:
         return jsonify({"error": f"Usuario '{usuario_id}' no encontrado"}), 404

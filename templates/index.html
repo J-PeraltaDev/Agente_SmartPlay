@@ -2,111 +2,179 @@
 {% block title %}SmartPlay — Inicio{% endblock %}
 
 {% block content %}
-<div class="hero text-center">
-  <h1 class="fw-bold mb-1" style="color:#a78bfa;">
-    <i class="fas fa-gamepad me-2"></i> SmartPlay
-  </h1>
-  <p class="text-muted mb-2">
-    Sistema de recomendación de videojuegos con Agentes Inteligentes y Web Semántico
-  </p>
-  {% if session.get('usuario_nombre') %}
-    <p class="mb-0" style="color:#6ee7b7; font-size:.95rem;">
-      <i class="fas fa-circle me-1" style="font-size:.6rem;"></i>
-      Sesión activa como <strong>{{ session['usuario_nombre'] }}</strong>
-      &mdash;
-      <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}" style="color:#a78bfa;">
-        ver mi perfil
-      </a>
-    </p>
-  {% endif %}
-  <div class="mt-3 d-flex justify-content-center gap-3 flex-wrap">
-    <span class="badge bg-secondary"><i class="fas fa-database me-1"></i>RDF / Turtle</span>
-    <span class="badge bg-secondary"><i class="fas fa-project-diagram me-1"></i>OWL</span>
-    <span class="badge bg-secondary"><i class="fas fa-search me-1"></i>SPARQL</span>
-    <span class="badge bg-secondary"><i class="fas fa-robot me-1"></i>Agentes Inteligentes</span>
-  </div>
-</div>
+<div class="sp-page">
 
-<div class="row mb-4">
-  <div class="col">
-    <h4 class="fw-bold"><i class="fas fa-users me-2" style="color:#a78bfa;"></i>Explorá los perfiles</h4>
-    <p class="text-muted small">
-      Podés ver el perfil de cualquier usuario para ver sus gustos y recomendaciones.
-      Solo podrás <strong>calificar</strong> juegos desde <strong>tu propio perfil</strong>.
+  <div class="sp-hero">
+    <h1 class="sp-heading" style="font-size: 2.7rem; margin-bottom: .55rem; display:flex; align-items:center; justify-content:center; gap:10px;">
+      <i data-lucide="sparkles"></i> SmartPlay
+    </h1>
+    <p style="color:#94a3b8; font-size:1.02rem; margin-bottom:1rem; line-height:1.6;">
+      Sistema inteligente de recomendación de videojuegos con Web Semántico y Agentes IA
     </p>
-  </div>
-</div>
 
-<div class="row g-3">
-  {% for u in usuarios %}
-  <div class="col-md-6 col-lg-4">
-    <div class="card h-100" style="{% if u.id == session.get('usuario_id') %}border-color:#7c3aed;{% endif %}">
-      <div class="card-body d-flex flex-column">
-        <div class="d-flex align-items-center mb-3">
-          <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-               style="width:48px;height:48px;background:{% if u.id == session.get('usuario_id') %}#3b1a6e{% else %}#2d2d4e{% endif %};font-size:1.3rem;flex-shrink:0">
-            <i class="fas fa-user" style="color:#a78bfa;"></i>
+    {% if session.get('usuario_nombre') %}
+      <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(52,211,153,.08); border:1px solid rgba(52,211,153,.2); border-radius:30px; padding:6px 16px 6px 8px; font-size:.85rem; color:#34d399; margin-bottom:1rem;">
+        <span class="sp-dot"></span>
+        Sesión activa como <strong>{{ session['usuario_nombre'] }}</strong>
+        — <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}" style="color:#a78bfa; text-decoration:none; font-weight:600;">ver mi perfil</a>
+      </div>
+    {% endif %}
+
+    <div class="sp-gap" style="justify-content:center; margin-top:1.25rem;">
+      <span class="sp-tag t-v" style="font-size:.85rem;"><i data-lucide="database" style="width:14px; margin-right:4px;"></i> RDF / Turtle</span>
+      <span class="sp-tag t-c" style="font-size:.85rem;"><i data-lucide="globe" style="width:14px; margin-right:4px;"></i> OWL</span>
+      <span class="sp-tag t-g" style="font-size:.85rem;"><i data-lucide="search" style="width:14px; margin-right:4px;"></i> SPARQL</span>
+      <span class="sp-tag t-a" style="font-size:.85rem;"><i data-lucide="bot" style="width:14px; margin-right:4px;"></i> Agentes IA</span>
+    </div>
+  </div>
+
+  <div class="sp-stat-row">
+    <div class="sp-stat">
+      <div style="margin-bottom:.5rem;"><i data-lucide="users" style="width:22px;height:22px;color:#a78bfa;"></i></div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:#f1f5f9;">{{ usuarios|length }}</div>
+      <div style="font-size:.75rem;color:#475569;margin-top:.2rem;">Usuarios registrados</div>
+    </div>
+    <div class="sp-stat">
+      <div style="margin-bottom:.5rem;"><i data-lucide="gamepad-2" style="width:22px;height:22px;color:#22d3ee;"></i></div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:#f1f5f9;">{{ total_videojuegos }}</div>
+      <div style="font-size:.75rem;color:#475569;margin-top:.2rem;">Videojuegos en catálogo</div>
+    </div>
+    <div class="sp-stat">
+      <div style="margin-bottom:.5rem;"><i data-lucide="book-open" style="width:22px;height:22px;color:#34d399;"></i></div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:#f1f5f9;">{{ total_historiales }}</div>
+      <div style="font-size:.75rem;color:#475569;margin-top:.2rem;">Registros de historial</div>
+    </div>
+  </div>
+
+  <div class="sp-g2 sp-mb3">
+    <div class="sp-card">
+      <div class="sp-card-h">
+        <i data-lucide="bot"></i> ¿Cómo funciona?
+      </div>
+      <div class="sp-card-b" style="color:#cbd5e1; line-height:1.65;">
+        <p class="sp-mb2">
+          <strong>SmartPlay</strong> utiliza ontologías RDF/OWL para modelar usuarios, videojuegos, géneros y plataformas.
+        </p>
+        <p>
+          El <strong>Agente de Perfil</strong> registra tus calificaciones e infiere nuevos intereses cuando la nota supera 8.0.
+        </p>
+      </div>
+    </div>
+
+    <div class="sp-card">
+      <div class="sp-card-h">
+        <i data-lucide="zap"></i> Acceso rápido
+      </div>
+      <div class="sp-card-b" style="text-align:center;">
+        {% if session.get('usuario_nombre') %}
+          <p style="color:#cbd5e1; margin-bottom:1.4rem;">Hola, <strong>{{ session['usuario_nombre'] }}</strong>. Explora tu perfil y tus recomendaciones.</p>
+          <a href="{{ url_for('perfil', usuario_id=session['usuario_id']) }}" class="sp-btn sp-btn-primary" style="text-decoration:none;">
+            <i data-lucide="user"></i> Ir a mi perfil
+          </a>
+        {% else %}
+          <p style="color:#cbd5e1; margin-bottom:1.4rem;">Inicia sesión para calificar juegos y recibir recomendaciones personalizadas.</p>
+          <a href="{{ url_for('login') }}" class="sp-btn sp-btn-primary" style="margin-right:10px; text-decoration:none;">Ingresar</a>
+          <a href="{{ url_for('register') }}" class="sp-btn sp-btn-outline" style="text-decoration:none;">Crear cuenta</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:1.1rem;">
+    <h2 style="font-family:'Syne',sans-serif; font-weight:700; font-size:1.3rem; color:#e2e8f0; display:flex; align-items:center; gap:8px;">
+      <i data-lucide="users" style="width:18px;height:18px;color:#a78bfa;"></i> Explorá los perfiles
+    </h2>
+    <span style="font-size:.78rem; color:#334155;">Podés ver el perfil de cualquier usuario. Solo podrás calificar desde tu propio perfil.</span>
+  </div>
+
+  <div class="sp-user-grid sp-mb3">
+    {% for u in usuarios %}
+      {% set is_self = session.get('usuario_id') == u.id %}
+      <div class="sp-card sp-user-card" style="{% if is_self %}border-color:rgba(167,139,250,.5); background:rgba(124,58,237,.07);{% endif %}">
+        <div class="sp-card-b">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:1rem;">
+            <div class="sp-avatar">{{ u.id[:2]|upper }}</div>
+            <div style="min-width:0;">
+              <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                <span style="font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; color:#e2e8f0;">{{ u.nombre }}</span>
+                {% if is_self %}
+                  <span class="sp-tag t-v" style="font-size:.65rem;">Tú</span>
+                {% endif %}
+              </div>
+              <div class="sp-user-muted" style="display:flex; align-items:center; gap:4px; margin-top:2px;">
+                <i data-lucide="monitor" style="width:11px;height:11px;"></i> {{ u.plataforma }}
+              </div>
+              <span class="sp-user-id">{{ u.id }}</span>
+            </div>
           </div>
-          <div>
-            <h5 class="mb-0 fw-bold">
-              {{ u.nombre }}
-              {% if u.id == session.get('usuario_id') %}
-                <span class="badge ms-1" style="background:#7c3aed;font-size:.65rem;">Tú</span>
+
+          <div class="sp-user-meta">
+            <span><i data-lucide="map-pin"></i>{{ u.region }}</span>
+            {% if u.edad %}
+              <span><i data-lucide="award"></i>{{ u.edad }} años</span>
+            {% endif %}
+            <span><i data-lucide="clock"></i>{{ u.historial_count }} juegos</span>
+          </div>
+
+          <div class="sp-user-genres">
+            {% if u.generos %}
+              {% for g in u.generos[:3] %}
+                <span class="sp-tag t-v">{{ g }}</span>
+              {% endfor %}
+              {% if u.generos|length > 3 %}
+                <span class="sp-tag t-c">+{{ u.generos|length - 3 }}</span>
               {% endif %}
-            </h5>
-            <small class="text-muted">
-              <i class="fas fa-desktop me-1"></i>{{ u.plataforma }}
-            </small>
+            {% else %}
+              <span style="color:#334155; font-size:.76rem;">Sin géneros registrados</span>
+            {% endif %}
           </div>
-        </div>
-        <a href="{{ url_for('perfil', usuario_id=u.id) }}"
-           class="btn btn-sm mt-auto {% if u.id == session.get('usuario_id') %}btn-primary{% else %}btn-outline-light{% endif %}">
-          {% if u.id == session.get('usuario_id') %}
-            <i class="fas fa-user-cog me-1"></i> Mi perfil
-          {% else %}
-            <i class="fas fa-eye me-1"></i> Ver perfil
-          {% endif %}
-        </a>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-</div>
 
-<div class="row mt-5">
-  <div class="col-md-4">
-    <div class="card text-center">
-      <div class="card-body p-4">
-        <div class="mb-2" style="font-size:2rem;color:#7c3aed"><i class="fas fa-user-cog"></i></div>
-        <h6 class="fw-bold">Agente de Perfil</h6>
-        <p class="text-muted small mb-0">
-          Recolecta interacciones del usuario e infiere automáticamente nuevos géneros de interés
-          cuando una calificación supera el umbral de 8.0/10.
-        </p>
+          <button onclick="window.location.href='{{ url_for('perfil', usuario_id=u.id) }}'" class="sp-btn sp-btn-sm sp-btn-full {% if is_self %}sp-btn-primary{% else %}sp-btn-outline{% endif %}" type="button">
+            {% if is_self %}
+              <i data-lucide="sparkles"></i> Mi perfil
+            {% else %}
+              <i data-lucide="eye"></i> Ver perfil
+            {% endif %}
+          </button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div style="margin-top:.5rem; margin-bottom:.75rem;">
+    <h2 style="font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem; color:#e2e8f0; display:flex; align-items:center; gap:8px; margin-bottom:1.2rem;">
+      <i data-lucide="workflow" style="width:16px;height:16px;color:#fbbf24;"></i> Arquitectura del sistema
+    </h2>
+  </div>
+
+  <div class="sp-g3">
+    <div class="sp-card" style="text-align:center;">
+      <div class="sp-card-b">
+        <div style="display:inline-flex; align-items:center; justify-content:center; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,rgba(167,139,250,.18),rgba(167,139,250,.08)); border:1px solid rgba(167,139,250,.2); margin-bottom:1rem; color:#a78bfa;">
+          <i data-lucide="user" style="width:28px;height:28px;"></i>
+        </div>
+        <h3 style="font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; color:#e2e8f0; margin-bottom:.6rem;">Agente de Perfil</h3>
+        <p style="color:#475569; font-size:.8rem; line-height:1.6;">Recolecta interacciones del usuario e infiere nuevos géneros de interés cuando una calificación supera 8.0/10.</p>
       </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card text-center mt-3 mt-md-0">
-      <div class="card-body p-4">
-        <div class="mb-2" style="font-size:2rem;color:#059669"><i class="fas fa-robot"></i></div>
-        <h6 class="fw-bold">Agente de Recomendación</h6>
-        <p class="text-muted small mb-0">
-          Consulta el grafo RDF via SPARQL y puntúa juegos candidatos usando filtrado
-          por contenido, colaborativo o híbrido.
-        </p>
+
+    <div class="sp-card" style="text-align:center;">
+      <div class="sp-card-b">
+        <div style="display:inline-flex; align-items:center; justify-content:center; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,rgba(34,211,238,.15),rgba(34,211,238,.06)); border:1px solid rgba(34,211,238,.16); margin-bottom:1rem; color:#22d3ee;">
+          <i data-lucide="bot" style="width:28px;height:28px;"></i>
+        </div>
+        <h3 style="font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; color:#e2e8f0; margin-bottom:.6rem;">Agente de Recomendación</h3>
+        <p style="color:#475569; font-size:.8rem; line-height:1.6;">Consulta el grafo RDF vía SPARQL y puntúa juegos candidatos usando filtrado por contenido, colaborativo o híbrido.</p>
       </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card text-center mt-3 mt-md-0">
-      <div class="card-body p-4">
-        <div class="mb-2" style="font-size:2rem;color:#d97706"><i class="fas fa-project-diagram"></i></div>
-        <h6 class="fw-bold">Grafo de Conocimiento</h6>
-        <p class="text-muted small mb-0">
-          Ontología OWL con 9 clases, datos RDF/Turtle con 10 usuarios,
-          20 videojuegos y 30 entradas de historial.
-        </p>
+
+    <div class="sp-card" style="text-align:center;">
+      <div class="sp-card-b">
+        <div style="display:inline-flex; align-items:center; justify-content:center; width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,rgba(52,211,153,.14),rgba(52,211,153,.06)); border:1px solid rgba(52,211,153,.16); margin-bottom:1rem; color:#34d399;">
+          <i data-lucide="database" style="width:28px;height:28px;"></i>
+        </div>
+        <h3 style="font-family:'Syne',sans-serif; font-weight:700; font-size:.95rem; color:#e2e8f0; margin-bottom:.6rem;">Grafo de Conocimiento</h3>
+        <p style="color:#475569; font-size:.8rem; line-height:1.6;">Ontología OWL con 9 clases, datos RDF/Turtle con 10 usuarios, 20 videojuegos y 30 entradas de historial.</p>
       </div>
     </div>
   </div>
